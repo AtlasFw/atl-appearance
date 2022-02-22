@@ -8,13 +8,15 @@ import LowerView from './components/Lower/LowerView.vue'
 import AccessoriesView from './components/Accessories/AccessoriesView.vue'
 import TattoosView from './components/Tattoos/TattoosView.vue'
 import { h, reactive, watch } from 'vue'
-import { NConfigProvider, NDialogProvider, NMessageProvider, NLayout, NLayoutSider, NMenu, NIcon, NScrollbar, darkTheme, useDialog, useMessage } from 'naive-ui'
+import { NLayout, NLayoutSider, NMenu, NIcon, NScrollbar, useDialog, useMessage } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
+const dialog = useDialog()
+const message = useMessage()
 const menuOptions = [
   {
     label: 'Ped Model',
@@ -73,7 +75,6 @@ const state = reactive({
   collapsed: true
 })
 
-// const dialog = useDialog()
 const handleSave = () => {
   // dialog.error({
   //   title: 'Leave',
@@ -87,15 +88,15 @@ const handleSave = () => {
 }
 const handleExit = () => {
   console.log('test')
-  // dialog.warning({
-  //   title: 'Save Appearance',
-  //   content: 'Are you sure you want to look this way? You look like a...',
-  //   positiveText: 'Sure',
-  //   negativeText: 'Cancel',
-  //   onPositiveClick: () => {
-  //     message.success('Sure')
-  //   }
-  // })
+  dialog.warning({
+    title: 'Save Appearance',
+    content: 'Are you sure you want to look this way? Your looks describe your personality.',
+    positiveText: 'Sure',
+    negativeText: 'Cancel',
+    onPositiveClick: () => {
+      message.success('Appearance saved!')
+    }
+  })
 }
 
 watch(state, ({activeKey}) => {
@@ -113,35 +114,29 @@ watch(state, ({activeKey}) => {
 
 <template>
   <div class="absolute w-full h-full">
-    <NConfigProvider class="w-full h-full" :theme="darkTheme">
-      <NMessageProvider>
-        <NDialogProvider>
-          <div class="absolute flex justify-start items-center bg-black w-full h-full overflow-hidden">
-            <div class="rounded-md ml-5">
-              <NLayout class="rounded-md h-116" has-sider>
-                <NLayoutSider class="mask overflow-hidden" bordered collapse-mode="width" :collapsed-width="64" :collapsed="true">
-                  <NScrollbar>
-                    <NMenu mode="vertical" accordion :collapsed="true" :collapsed-width="64" :collapsed-icon-size="20" :options="menuOptions" v-model:value="state.activeKey"></NMenu>
-                  </NScrollbar>
-                </NLayoutSider>
-              </NLayout>
-            </div>
-            <transition name="slide-fade">
-              <div v-if="!state.collapsed" class="ml-5 w-80 h-116 bg-primary-dark rounded-md border border-t-0 border-l-0 border-b-0 border-gray-800">
-                <PedView v-if="state.activeKey === 'ped-id'"/>
-                <InheritanceView v-if="state.activeKey === 'inheritance-id'"/>
-                <HeadView v-if="state.activeKey === 'head-id'"/>
-                <FaceView v-if="state.activeKey === 'face-id'"/>
-                <UpperView v-if="state.activeKey === 'upper-id'"/>
-                <LowerView v-if="state.activeKey === 'lower-id'"/>
-                <AccessoriesView v-if="state.activeKey === 'accessories-id'"/>
-                <TattoosView v-if="state.activeKey === 'tattoos-id'"/>
-              </div>
-            </transition>
-          </div>
-        </NDialogProvider>
-      </NMessageProvider>
-    </NConfigProvider>
+    <div class="absolute flex justify-start items-center bg-black w-full h-full overflow-hidden">
+      <div class="rounded-md ml-5">
+        <NLayout class="rounded-md h-116" has-sider>
+          <NLayoutSider class="mask overflow-hidden" bordered collapse-mode="width" :collapsed-width="64" :collapsed="true">
+            <NScrollbar>
+              <NMenu mode="vertical" accordion :collapsed="true" :collapsed-width="64" :collapsed-icon-size="20" :options="menuOptions" v-model:value="state.activeKey"></NMenu>
+            </NScrollbar>
+          </NLayoutSider>
+        </NLayout>
+      </div>
+      <transition name="slide-fade">
+        <div v-if="!state.collapsed" class="ml-5 w-80 h-116 bg-primary-dark rounded-md border border-t-0 border-l-0 border-b-0 border-gray-800">
+          <PedView v-if="state.activeKey === 'ped-id'"/>
+          <InheritanceView v-if="state.activeKey === 'inheritance-id'"/>
+          <HeadView v-if="state.activeKey === 'head-id'"/>
+          <FaceView v-if="state.activeKey === 'face-id'"/>
+          <UpperView v-if="state.activeKey === 'upper-id'"/>
+          <LowerView v-if="state.activeKey === 'lower-id'"/>
+          <AccessoriesView v-if="state.activeKey === 'accessories-id'"/>
+          <TattoosView v-if="state.activeKey === 'tattoos-id'"/>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
