@@ -75,15 +75,15 @@ const state = reactive({
 
 // const dialog = useDialog()
 const handleSave = () => {
-  dialog.error({
-    title: 'Leave',
-    content: 'Are you sure want to leave the server? You will have to go through queue again if you try to join back.',
-    positiveText: 'Leave',
-    negativeText: 'Cancel',
-    onPositiveClick: () => {
-      console.log('leave')
-    }
-  })
+  // dialog.error({
+  //   title: 'Leave',
+  //   content: 'Are you sure want to leave the server? You will have to go through queue again if you try to join back.',
+  //   positiveText: 'Leave',
+  //   negativeText: 'Cancel',
+  //   onPositiveClick: () => {
+  //     console.log('leave')
+  //   }
+  // })
 }
 const handleExit = () => {
   console.log('test')
@@ -99,11 +99,12 @@ const handleExit = () => {
 }
 
 watch(state, ({activeKey}) => {
-  console.log(activeKey, state.activeKey)
   if (activeKey === 'exit-id') {
     handleExit()
+    state.collapsed = true
   } else if (activeKey === 'save-id') {
     handleSave()
+    state.collapsed = true
   } else {
     state.collapsed = false
   }
