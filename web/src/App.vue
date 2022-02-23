@@ -76,18 +76,6 @@ const state = reactive({
 })
 
 const handleSave = () => {
-  // dialog.error({
-  //   title: 'Leave',
-  //   content: 'Are you sure want to leave the server? You will have to go through queue again if you try to join back.',
-  //   positiveText: 'Leave',
-  //   negativeText: 'Cancel',
-  //   onPositiveClick: () => {
-  //     console.log('leave')
-  //   }
-  // })
-}
-const handleExit = () => {
-  console.log('test')
   dialog.warning({
     title: 'Save Appearance',
     content: 'Are you sure you want to look this way? Your looks describe your personality.',
@@ -95,6 +83,23 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Appearance saved!')
+    },
+    onNegativeClick: () => {
+      message.info('Canceled.')
+    }
+  })
+}
+const handleExit = () => {
+  dialog.error({
+    title: 'Cancel Appearance',
+    content: 'Are you sure you want to cancel your appearance? This will not be saved.',
+    positiveText: 'Exit',
+    negativeText: 'Cancel',
+    onPositiveClick: () => {
+      message.success('Cancelled appearance.')
+    },
+    onNegativeClick: () => {
+      message.info('Canceled.')
     }
   })
 }
@@ -102,11 +107,9 @@ const handleExit = () => {
 watch(state, ({activeKey}) => {
   if (activeKey === 'exit-id') {
     handleExit()
-    state.collapsed = true
   } else if (activeKey === 'save-id') {
     handleSave()
-    state.collapsed = true
-  } else {
+  } else if (state.collapsed) {
     state.collapsed = false
   }
 })
