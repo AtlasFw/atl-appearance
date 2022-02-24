@@ -22,8 +22,8 @@ Request.SetModel = function(model)
 	end
 end
 
-Load.SetInheritance = function()
-end
+-- Request.SetInheritance = function()
+-- end
 
 Request.StartAppearance = function(config)
   SetNuiFocus(true, true)
