@@ -1,22 +1,22 @@
 <template>
-  <div class="w-full flex flex-col justify-between items-start">
-    <div class="w-full flex justify-between mb-2">
+  <div class="w-full flex flex-col justify-evenly items-center mb-3 mt-1 ">
+    <div class="w-[95%] flex justify-between">
       <span class="text-blue-400 font-semibold">{{ title }}</span>
       <span class="text-sky-200 font-semibold">{{ modelValue }}</span>
     </div>
-    <NInputNumber class="w-full mb-1" :max="max" :min="min" clearable v-model:value="modelValue"/>
+    <NInputNumber class="mt-1 w-full" :min="min" :max="max" ></NInputNumber>
   </div>
 </template>
 
 <script>
 import { NInputNumber } from 'naive-ui'
 export default {
-  name: 'NumberInput',
+  name: 'SmallInput',
   components: { NInputNumber },
   props: {
     title: {
       type: String,
-      default: 'Number Input',
+      default: 'Small Input',
     },
     min: {
       type: Number,

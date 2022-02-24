@@ -1,42 +1,26 @@
 <script setup>
-import { NInputNumber } from 'naive-ui'
 import Slider from '../Slider.vue'
+import NumberInput from '../NumberInput.vue';
 </script>
 
 <template>
   <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
     <span class="ml-4">Family Inheritance View</span>
   </div>
-  <div class="w-full h-64 bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
-      <span class="text-sky-200 font-bold text-custom-2">Face</span>
-      <div class="w-full flex justify-between mb-2">
-        <span class="text-blue-400 font-semibold">Father</span>
-        <span class="text-sky-200 font-semibold">0</span>
-      </div>
-      <NInputNumber class="w-full mb-4" clearable />
-      <div class="w-full flex justify-between mb-2">
-        <span class="text-blue-400 font-semibold">Mother</span>
-        <span class="text-sky-200 font-semibold">0</span>
-      </div>
-      <NInputNumber class="w-full" clearable />
-      <Slider title="Mix" :min="0" :max="1" :step="0.1"/>
+      <span class="text-sky-200 mt-3 font-bold text-custom-2">Face</span>
+      <NumberInput title="Father"/>
+      <NumberInput title="Mother"/>
+      <Slider class="mb-3" title="Mix" :min="0" :max="1" :step="0.1"/>
     </div>
   </div>
-  <div class="w-full h-64 bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
-      <span class="text-sky-200 font-bold text-custom-2">Skin</span>
-      <div class="w-full flex justify-between mb-2">
-        <span class="text-blue-400 font-semibold">Father</span>
-        <span class="text-sky-200 font-semibold">0</span>
-      </div>
-      <NInputNumber class="w-full mb-4" clearable />
-      <div class="w-full flex justify-between mb-2">
-        <span class="text-blue-400 font-semibold">Mother</span>
-        <span class="text-sky-200 font-semibold">0</span>
-      </div>
-      <NInputNumber class="w-full" clearable />
-      <Slider title="Mix" :min="0" :max="1" :step="0.1"/>
+      <span class="text-sky-200 mt-3 font-bold text-custom-2">Skin</span>
+      <NumberInput title="Father"/>
+      <NumberInput title="Mother"/>
+      <Slider class="mb-3" title="Mix" :min="0" :max="1" :step="0.1"/>
     </div>
   </div>
 

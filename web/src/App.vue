@@ -77,7 +77,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'head-id',
+  activeKey: 'accessories-id',
   collapsed: false,
   activeSidebar: true
 })
