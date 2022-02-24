@@ -1,5 +1,5 @@
 <script setup>
-import { NScrollbar, NInputNumber, NSlider } from 'naive-ui'
+import { NInputNumber, NSlider } from 'naive-ui'
 </script>
 
 <template>

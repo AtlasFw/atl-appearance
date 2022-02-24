@@ -1,15 +1,10 @@
-<template>
-  <div class="w-full h-full jus">
-    Lower
-  </div>
-</template>
-
-<script>
-export default {
-  name: "LowerView"
-}
+<script setup>
+import { NScrollbar, NInputNumber, NSlider } from 'naive-ui'
 </script>
 
-<style scoped>
+<template>
+  <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
+    <span class="ml-4">Lower Body View</span>
+  </div>
 
-</style>
+</template>
