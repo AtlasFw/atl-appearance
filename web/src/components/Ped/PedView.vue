@@ -1,14 +1,19 @@
+<script setup>
+import { NSelect } from 'naive-ui'
+</script>
+
 <template>
-  <div class="w-full h-full jus">
-    Ped
+  <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
+    <span class="ml-4">Ped Model View</span>
+  </div>
+  <div class="w-full h-24 bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+    <div class="w-90% flex justify-between items-center">
+      <span class="w-90% text-blue-400 font-semibold">Model</span>
+      <span class="text-sky-200 font-medium">{{ $store.state.appearance.model }}</span>
+    </div>
+    <NSelect class="ml-2 place-self-center mr-2.5 w-90%" v-model:value="$store.state.appearance.model" :consistent-menu-width="false" :options="$store.state.models"></NSelect>
   </div>
 </template>
-
-<script>
-export default {
-  name: "Ped"
-}
-</script>
 
 <style scoped>
 

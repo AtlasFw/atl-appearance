@@ -3,9 +3,12 @@ import { createStore } from 'vuex'
 export default createStore({
      state: {
        appearance: {
-
+          model: 'mp_m_freemode_01'
        },
-       count: 0
+       models: [
+          {label: 'mp_m_freemode_01', value: 'mp_m_freemode_01'},
+          {label: 'mp_f_freemode_01', value: 'mp_f_freemode_01'},
+       ],
      },
      mutations: {
        increment (state) {

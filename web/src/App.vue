@@ -77,8 +77,8 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: null,
-  collapsed: true
+  activeKey: 'ped-id',
+  collapsed: false
 })
 
 const handleSave = () => {
@@ -151,7 +151,7 @@ const updateSelector = (key) => {
         </NButton>
       </div>
       <transition name="slide-fade">
-        <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 bg-slate-800 rounded-md">
+        <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
           <NScrollbar>
             <PedView v-if="state.activeKey === 'ped-id'"/>
             <InheritanceView v-else-if="state.activeKey === 'inheritance-id'"/>

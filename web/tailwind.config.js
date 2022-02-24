@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
         minHeight: {
-          '116': '30.0rem',
+          '116': '29.5rem',
         },
         maxHeight: {
           '116': '30.0rem',
@@ -22,7 +22,10 @@ module.exports = {
         },
         fontSize: {
           "custom": "1.5rem",
-        }
+        },
+        width: {
+          "90%": "90%",
+        },
     },
   },
   plugins: [],
