@@ -11,5 +11,5 @@ RegisterCommand('atl', function()
     accessories = true,
     tattoos = true,
   }
-  Load.StartAppearance(config)
+  Request.StartAppearance(config)
 end)
