@@ -1,5 +1,6 @@
 <script setup>
-import { NInputNumber, NSlider } from 'naive-ui'
+import { NInputNumber } from 'naive-ui'
+import Slider from '../Slider.vue'
 </script>
 
 <template>
@@ -19,11 +20,7 @@ import { NInputNumber, NSlider } from 'naive-ui'
         <span class="text-sky-200 font-semibold">0</span>
       </div>
       <NInputNumber class="w-full" clearable />
-      <div class="w-full flex justify-between mb-2 mt-2">
-        <span class="text-blue-400 font-semibold">Mix</span>
-        <span class="text-sky-200 font-semibold">0</span>
-      </div>
-      <NSlider :step="0.1" :min="0" :max="1"/>
+      <Slider title="Mix" :min="0" :max="1" :step="0.1"/>
     </div>
   </div>
   <div class="w-full h-64 bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
@@ -39,11 +36,7 @@ import { NInputNumber, NSlider } from 'naive-ui'
         <span class="text-sky-200 font-semibold">0</span>
       </div>
       <NInputNumber class="w-full" clearable />
-      <div class="w-full flex justify-between mb-2 mt-2">
-        <span class="text-blue-400 font-semibold">Mix</span>
-        <span class="text-sky-200 font-semibold">0</span>
-      </div>
-      <NSlider :step="0.1" :min="0" :max="1"/>
+      <Slider title="Mix" :min="0" :max="1" :step="0.1"/>
     </div>
   </div>
 

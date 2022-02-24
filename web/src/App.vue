@@ -33,7 +33,7 @@ const menuOptions = [
     type: 'info',
   },
   {
-    label: 'Head Accessories',
+    label: 'Head Structure',
     key: 'head-id',
     icon: TagFacesOutlined,
     type: 'info',
@@ -77,7 +77,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'ped-id',
+  activeKey: 'head-id',
   collapsed: false,
   activeSidebar: true
 })
@@ -151,33 +151,31 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
 </script>
 
 <template>
-  <div class="absolute w-full h-full">
-    <div class="absolute flex justify-start items-center w-full h-full overflow-hidden">
-      <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
-        <NButton class="flex items-center justify-center text-custom w-full h-10 text-center bg-slate-800 rounded mt-2 mb-2" v-for="(btn, index) in menuOptions" :key="index" :type="btn.type" secondary  :focusable="false" @click="updateSelector(btn.key)">
-          <NTooltip trigger="hover" placement="right" :delay="1" :duration="25">
-            <template #trigger>
-              <NIcon :component="btn.icon"/>
-            </template>
-            {{ btn.label }}
-          </NTooltip>
-        </NButton>
-      </div>
-      <transition name="slide-fade">
-        <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
-          <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
-            <PedView v-if="state.activeKey === 'ped-id'"/>
-            <InheritanceView v-else-if="state.activeKey === 'inheritance-id'"/>
-            <HeadView v-else-if="state.activeKey === 'head-id'"/>
-            <FaceView v-else-if="state.activeKey === 'face-id'"/>
-            <UpperView v-else-if="state.activeKey === 'upper-id'"/>
-            <LowerView v-else-if="state.activeKey === 'lower-id'"/>
-            <AccessoriesView v-else-if="state.activeKey === 'accessories-id'"/>
-            <TattoosView v-else-if="state.activeKey === 'tattoos-id'"/>
-          </NScrollbar>
-        </div>
-      </transition>
+  <div class="bg-black absolute flex justify-start items-center w-full h-full overflow-hidden">
+    <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
+      <NButton class="flex items-center justify-center text-custom w-full h-10 text-center bg-slate-800 rounded mt-2 mb-2" v-for="(btn, index) in menuOptions" :key="index" :type="btn.type" secondary  :focusable="false" @click="updateSelector(btn.key)">
+        <NTooltip trigger="hover" placement="right" :delay="1" :duration="25">
+          <template #trigger>
+            <NIcon :component="btn.icon"/>
+          </template>
+          {{ btn.label }}
+        </NTooltip>
+      </NButton>
     </div>
+    <transition name="slide-fade">
+      <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
+        <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
+          <PedView v-if="state.activeKey === 'ped-id'"/>
+          <InheritanceView v-else-if="state.activeKey === 'inheritance-id'"/>
+          <HeadView v-else-if="state.activeKey === 'head-id'"/>
+          <FaceView v-else-if="state.activeKey === 'face-id'"/>
+          <UpperView v-else-if="state.activeKey === 'upper-id'"/>
+          <LowerView v-else-if="state.activeKey === 'lower-id'"/>
+          <AccessoriesView v-else-if="state.activeKey === 'accessories-id'"/>
+          <TattoosView v-else-if="state.activeKey === 'tattoos-id'"/>
+        </NScrollbar>
+      </div>
+    </transition>
   </div>
 </template>
 
