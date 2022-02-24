@@ -1,6 +1,6 @@
 RegisterNUICallback('appearance_model', function(data, cb)
   if data then
-    Load.SetModel(data.model)
+    Request.SetModel(data.model)
     cb({true})
     return
   end
