@@ -14,7 +14,3 @@ import { NSelect } from 'naive-ui'
     <NSelect class="ml-2 place-self-center mr-2.5 w-90%" v-model:value="$store.state.appearance.model" :consistent-menu-width="false" :options="$store.state.models"></NSelect>
   </div>
 </template>
-
-<style scoped>
-
-</style>

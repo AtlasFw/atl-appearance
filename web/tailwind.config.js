@@ -9,7 +9,7 @@ module.exports = {
           '116': '29.5rem',
         },
         maxHeight: {
-          '116': '30.0rem',
+          '116': '29.5rem',
         },
         height: {
             "116": "30.0rem",
@@ -22,8 +22,10 @@ module.exports = {
         },
         fontSize: {
           "custom": "1.5rem",
+          "custom-2": "1.15rem",
         },
         width: {
+          "custom": "19.5rem",
           "90%": "90%",
         },
     },
