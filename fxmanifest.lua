@@ -12,6 +12,8 @@ client_scripts {
   'client/*.lua'
 }
 
+server_script 'test.lua'
+
 ui_page 'dist/index.html'
 
 files {

@@ -4,7 +4,7 @@
       <span class="text-blue-400 font-semibold">{{ title }}</span>
       <span class="text-sky-200 font-semibold">{{ modelValue }}</span>
     </div>
-    <NInputNumber class="w-full mb-1" :max="max" :min="min" clearable v-model:value="modelValue"/>
+    <NInputNumber class="w-full mb-1" :max="max" :min="min" :on-update:value="$emit('updateVal', modelValue)" v-model:value="modelValue"/>
   </div>
 </template>
 

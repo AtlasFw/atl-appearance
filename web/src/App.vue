@@ -7,10 +7,12 @@ import UpperView from './components/Upper/UpperView.vue'
 import LowerView from './components/Lower/LowerView.vue'
 import AccessoriesView from './components/Accessories/AccessoriesView.vue'
 import TattoosView from './components/Tattoos/TattoosView.vue'
-import { reactive, onMounted, onUnmounted } from 'vue'
+import { reactive, computed, onMounted, onUnmounted } from 'vue'
 import { NButton, NIcon, NScrollbar, useDialog, useMessage, NTooltip } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
+import { useStore } from 'vuex';
 
+const store = useStore()
 const dialog = useDialog()
 const message = useMessage()
 const menuOptions = [
@@ -77,7 +79,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'accessories-id',
+  activeKey: 'inheritance-id',
   collapsed: false,
   activeSidebar: true
 })
@@ -139,8 +141,14 @@ const updateSelector = (key) => {
 
 const handleMessage = e => {
   switch (e.data.action) {
+    case 'set_config':
+
+      break
+    case 'set_models':
+      store.commit('setModels', e.data.models)
+      break
     case 'appearance_start':
-      console.log(e.data.config)
+      store.commit('setAppearance', e.data.appearance)
       state.activeSidebar = true
       break
   }
@@ -151,7 +159,7 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
 </script>
 
 <template>
-  <div class="bg-black absolute flex justify-start items-center w-full h-full overflow-hidden">
+  <div class="absolute flex justify-start items-center w-full h-full overflow-hidden">
     <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
       <NButton class="flex items-center justify-center text-custom w-full h-10 text-center bg-slate-800 rounded mt-2 mb-2" v-for="(btn, index) in menuOptions" :key="index" :type="btn.type" secondary  :focusable="false" @click="updateSelector(btn.key)">
         <NTooltip trigger="hover" placement="right" :delay="1" :duration="25">
