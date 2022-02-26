@@ -2,9 +2,10 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    test: 5,
     appearance: {
       heritage: {
-        shapeFather: 0,
+        shapeFather: 6,
         shapeMother: 0,
         shapeMix:  0,
         skinFather: 0,
@@ -15,8 +16,9 @@ export default createStore({
     models: [],
     config: {
       ped: false,
-      model: true,
-      inheritance: true,
+      inheritance: {
+        state: true
+      },
       face: true,
       head: true,
       upper: true,
@@ -31,6 +33,14 @@ export default createStore({
     },
     setAppearance (state, appearance) {
       state.appearance = appearance
+    },
+    setHeritage (state, { key, value }) {
+      console.log(key, value)
+      state.appearance.heritage[key] = value
+    },
+    setFace(state, { key, value }) {
+      console.log(key, value)
+      //state.appearance = value
     }
   },
   getters: {

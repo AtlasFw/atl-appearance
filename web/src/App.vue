@@ -65,6 +65,7 @@ const menuOptions = [
     type: 'info',
   },
   {
+    status: true,
     label: 'Exit Appearance',
     key: 'exit-id',
     icon: ExitToAppRound,
@@ -79,7 +80,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'inheritance-id',
+  activeKey: 'face-id',
   collapsed: false,
   activeSidebar: true
 })
@@ -92,6 +93,13 @@ const handleSave = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Appearance saved!')
+      fetchNui('appearance_concluded', store.state.appearance).then((resp) => {
+        if (resp) {
+          store.commit('setAppearance', resp)
+        } else {
+          message.error('Something went wrong!')
+        }
+      })
     },
     onNegativeClick: () => {
       message.info('Canceled.')
@@ -161,7 +169,7 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
 <template>
   <div class="absolute flex justify-start items-center w-full h-full overflow-hidden">
     <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
-      <NButton class="flex items-center justify-center text-custom w-full h-10 text-center bg-slate-800 rounded mt-2 mb-2" v-for="(btn, index) in menuOptions" :key="index" :type="btn.type" secondary  :focusable="false" @click="updateSelector(btn.key)">
+      <NButton class="flex items-center justify-center text-custom w-full h-10 text-center bg-slate-800 rounded mt-2 mb-2" v-for="(btn, index) in menuOptions" :key="index" :type="btn.type" secondary :focusable="false" @click="updateSelector(btn.key)">
         <NTooltip trigger="hover" placement="right" :delay="1" :duration="25">
           <template #trigger>
             <NIcon :component="btn.icon"/>
