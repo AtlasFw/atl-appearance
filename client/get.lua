@@ -84,14 +84,17 @@ Get.Face = function(ped)
 end
 
 Get.Inheritance = function(ped)
-  local shapeFather, shapeMother, _, skinFather, skinMother, _, shapeMix, skinMix, _ = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
+  local shapeFather, shapeMother, shapeThird, skinFather, skinMother, skinThird, shapeMix, skinMix, thirdMix = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
   return {
-    shapeFather,
-    shapeMother,
-    shapeMix,
-    skinFather,
-    skinMother,
-    skinMix,
+    shapeFather = shapeFather,
+    shapeMother = shapeMother,
+    shapeThird = shapeThird,
+    shapeMix = shapeMix,
+    skinFather = skinFather,
+    skinMother = skinMother,
+    skinThird = skinThird,
+    skinMix = skinMix,
+    thirdMix = thirdMix
   }
 end
 

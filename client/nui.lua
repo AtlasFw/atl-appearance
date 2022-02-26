@@ -16,7 +16,7 @@ RegisterNUICallback('appearance_accessory', function(data, cb)
   cb({true})
 end)
 
-RegisterNUICallback('appearance_head_blend', function(data, cb)
+RegisterNUICallback('appearance_heritage', function(data, cb)
   if not data then return cb({false}) end
   Set.Heritage(PlayerPedId(), data)
   cb({true})

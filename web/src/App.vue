@@ -80,7 +80,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'face-id',
+  activeKey: 'inheritance-id',
   collapsed: false,
   activeSidebar: true
 })
@@ -156,6 +156,8 @@ const handleMessage = e => {
       store.commit('setModels', e.data.models)
       break
     case 'appearance_start':
+      console.log(JSON.stringify(e.data.appearance))
+      console.log(JSON.stringify(e.data.appearance.heritage))
       store.commit('setAppearance', e.data.appearance)
       state.activeSidebar = true
       break
