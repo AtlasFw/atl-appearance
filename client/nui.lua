@@ -30,7 +30,7 @@ end)
 
 RegisterNUICallback('appearance_hair', function(data, cb)
   if not data then return cb({false}) end
-  Set.Overlays(PlayerPedId(), data.style, data)
+  Set.Overlays(PlayerPedId(), data.hair, data.overlays)
   cb({true})
 end)
 

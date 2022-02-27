@@ -3,6 +3,11 @@ import NumberInput from '../NumberInput.vue'
 import ColorInput from '../ColorInput.vue'
 import Slider from '../Slider.vue'
 import { ref, watch } from 'vue'
+import { useStore } from 'vuex';
+
+const store = useStore()
+const setHead = (key, value) => store.commit('setFace', { key: key, value: value })
+const setEye = (key, value) => store.commit('setEyeColor', { key: key, value: value })
 
 const val = ref(0)
 const color = ref(0)
@@ -39,7 +44,7 @@ const updateColor = (index) => {
   <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Eye color</span>
-      <Slider class="mb-3" title="Style" :min="1" :max="10" :step="1" v-model:value="val"/>
+      <Slider class="mb-3" title="Style" :min="1" :max="10" :step="1" @updateS="setEye" :state="store.state.appearance.eyeColor" />
     </div>
   </div>
 

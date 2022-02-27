@@ -243,9 +243,9 @@ export default createStore({
       state.appearance.faceFeatures[key] = value
       fetchNui('appearance_face_feature', state.appearance.faceFeatures)
     },
-    setEyeColor(state, { key, value }) {
-      console.log(key, value)
-      state.appearance.eyeColor[key] = value
+    setEyeColor(state, { value }) {
+      console.log(value)
+      state.appearance.eyeColor = value
       fetchNui('appearance_eye_color', state.appearance.eyeColor)
     },
     setAccessory(state, { data, value }) {
@@ -255,6 +255,7 @@ export default createStore({
     setHeadOverlays(state, { key, type, value }) {
       console.log(key, type, value)
       state.appearance.headOverlays[key][type] = value
+      fetchNui('appearance_accessory', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
     },
     setHair(state, { key, value }) {
       console.log(key, value)
