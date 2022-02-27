@@ -246,6 +246,7 @@ export default createStore({
     setEyeColor(state, { key, value }) {
       console.log(key, value)
       state.appearance.eyeColor[key] = value
+      fetchNui('appearance_eye_color', state.appearance.eyeColor)
     },
     setAccessories(state, { data, value }) {
       state.appearance.accessories[data.key][data.type] = value
