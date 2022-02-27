@@ -241,6 +241,7 @@ export default createStore({
     setFace(state, { key, value }) {
       console.log(key, value)
       state.appearance.faceFeatures[key] = value
+      fetchNui('appearance_face_feature', state.appearance.faceFeatures)
     },
     setEyeColor(state, { key, value }) {
       console.log(key, value)
