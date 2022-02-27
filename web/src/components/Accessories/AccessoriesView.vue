@@ -1,5 +1,9 @@
 <script setup>
 import SmallInput from "../SmallInput.vue"
+import { useStore } from 'vuex';
+
+const store = useStore()
+const setAccessory = (data, value) => store.commit('setAccessories', { data: data, value: value })
 </script>
 
 <template>
@@ -10,8 +14,8 @@ import SmallInput from "../SmallInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Mask</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1"/>
-        <SmallInput class="ml-1"/>
+        <SmallInput class="mr-1" @updateS="setAccessory" :type="{type: 'state', index: 3}" :state="state.appearance.accessories[3]"/>
+        <SmallInput class="ml-1" @updateS="setAccessory" :type="{type: 'texture', index: 3}" :state="state.appearance.accessories[3]"/>
       </div>
     </div>
   </div>

@@ -30,7 +30,6 @@ end)
 
 RegisterNUICallback('appearance_hair', function(data, cb)
   if not data then return cb({false}) end
-  local ped = PlayerPedId()
   Set.Overlays(PlayerPedId(), data.style, data)
   cb({true})
 end)
@@ -41,9 +40,9 @@ RegisterNUICallback('appearance_eye_color', function(data, cb)
   cb({true})
 end)
 
-
 RegisterNUICallback('appearance_concluded', function(data, cb)
-  if not data then return cb({false}) end
-  print("finish")
-  cb({true})
+  if not data  then return cb({false}) end
+  local ped = PlayerPedId()
+  Set.Appearance(ped, data)
+  cb({appearance = Get.Appearance(ped)})
 end)

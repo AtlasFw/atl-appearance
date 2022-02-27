@@ -1,14 +1,10 @@
 <script setup>
 import Slider from '../Slider.vue'
 import NumberInput from '../NumberInput.vue';
-import { fetchNui } from '../fetchNui.js';
 import { useStore } from 'vuex';
 
 const store = useStore()
-const setHeritage = (key, value) => {
-  fetchNui('appearance_heritage', store.state.appearance.heritage)
-  store.commit('setHeritage', { key: key, value: value })
-}
+const setHeritage = (key, value) => store.commit('setHeritage', { key: key, value: value })
 </script>
 
 <template>

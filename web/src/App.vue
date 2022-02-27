@@ -7,7 +7,7 @@ import UpperView from './components/Upper/UpperView.vue'
 import LowerView from './components/Lower/LowerView.vue'
 import AccessoriesView from './components/Accessories/AccessoriesView.vue'
 import TattoosView from './components/Tattoos/TattoosView.vue'
-import { reactive, computed, onMounted, onUnmounted } from 'vue'
+import { reactive, onMounted, onUnmounted } from 'vue'
 import { NButton, NIcon, NScrollbar, useDialog, useMessage, NTooltip } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
 import { useStore } from 'vuex';
@@ -96,6 +96,8 @@ const handleSave = () => {
       fetchNui('appearance_concluded', store.state.appearance).then((resp) => {
         if (resp) {
           store.commit('setAppearance', resp)
+          state.collapsed = true
+          state.activeSidebar = false
         } else {
           message.error('Something went wrong!')
         }
@@ -114,6 +116,15 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
+      fetchNui('appearance_concluded', store.state.copyAppearance).then((resp) => {
+        if (resp) {
+          store.commit('setAppearance', resp.appearance)
+          state.collapsed = true
+          state.activeSidebar = false
+        } else {
+          message.error('Something went wrong!')
+        }
+      })
     },
     onNegativeClick: () => {
       message.info('Canceled.')
@@ -156,6 +167,7 @@ const handleMessage = e => {
       store.commit('setModels', e.data.models)
       break
     case 'appearance_start':
+      store.commit('setCopyAppearance', e.data.appearance)
       console.log(JSON.stringify(e.data.appearance))
       console.log(JSON.stringify(e.data.appearance.heritage))
       store.commit('setAppearance', e.data.appearance)

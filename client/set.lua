@@ -104,6 +104,7 @@ Set.Appearance = function(ped, appearance)
 		Set.Overlays(ped, appearance.hair, appearance.headOverlays)
     p:resolve(appearance)
   end
+  SetNuiFocus(false, false)
   return Citizen.Await(p)
 end
 

@@ -17,10 +17,9 @@ local function startAppearance()
   })
 end
 
-AddEventHandler('onResourceStart', loadConfig)
-
 RegisterCommand('atl', function()
   startAppearance()
 end)
 
 exports('startAppearance', startAppearance)
+AddEventHandler('onResourceStart', loadConfig)
