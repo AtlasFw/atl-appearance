@@ -248,7 +248,7 @@ export default createStore({
       state.appearance.eyeColor[key] = value
       fetchNui('appearance_eye_color', state.appearance.eyeColor)
     },
-    setAccessories(state, { data, value }) {
+    setAccessory(state, { data, value }) {
       state.appearance.accessories[data.key][data.type] = value
       fetchNui('appearance_accessory', state.appearance.accessories[data.key])
     },
@@ -260,9 +260,10 @@ export default createStore({
       console.log(key, value)
       state.appearance.hair[key] = value
     },
-    setComponents(state, { key, value }) {
-      console.log(key, value)
-      state.appearance.components.find(component => component.component_id === key).drawable = value
+    setComponent(state, { data, value }) {
+      console.log(data.key, data.type, value)
+      state.appearance.accessories[data.key][data.type] = value
+      fetchNui('appearance_component', state.appearance.components[data.key])
     },
   },
   getters: {

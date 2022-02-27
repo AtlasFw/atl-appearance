@@ -3,7 +3,8 @@ import SmallInput from "../SmallInput.vue"
 import { useStore } from 'vuex';
 
 const store = useStore()
-const setAccessory = (data, value) => store.commit('setAccessories', { data: data, value: value })
+const setAccessory = (data, value) => store.commit('setAccessory', { data: data, value: value })
+const setComponent = (data, value) => store.commit('setComponent', { data: data, value: value })
 </script>
 
 <template>
@@ -14,8 +15,8 @@ const setAccessory = (data, value) => store.commit('setAccessories', { data: dat
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Mask</span>
       <div class="w-full flex space-between">
-        <SmallInput title="Drawable" class="mr-1"/>
-        <SmallInput title="Texture" class="ml-1"/>
+        <SmallInput title="Drawable" class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 1}" :state="store.state.appearance.components[1].drawable"/>
+        <SmallInput title="Texture" class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 1}" :state="store.state.appearance.components[1].drawable"/>
       </div>
     </div>
   </div>
@@ -24,8 +25,8 @@ const setAccessory = (data, value) => store.commit('setAccessories', { data: dat
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Bags & Parachute</span>
       <div class="w-full flex space-between">
-        <SmallInput title="Drawable" class="mr-1"/>
-        <SmallInput title="Texture" class="ml-1"/>/>
+        <SmallInput title="Drawable" class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 5}" :state="store.state.appearance.components[5].drawable"/>
+        <SmallInput title="Texture" class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 5}" :state="store.state.appearance.components[5].drawable" />
       </div>
     </div>
   </div>
@@ -45,7 +46,7 @@ const setAccessory = (data, value) => store.commit('setAccessories', { data: dat
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Watches</span>
       <div class="w-full flex space-between">
         <SmallInput title="Drawable" class="mr-1" @updateS="setAccessory" :type="{type: 'drawable', key: 3}" :state="store.state.appearance.accessories[3].drawable"/>
-        <SmallInput title="Texture" class="ml-1" @updateS="setAccessory" :type="{type: 'texture', key: 3}" :state="store.state.appearance.accessories[3].texture"/>
+        <SmallInput title="Texture" class="ml-1"  @updateS="setAccessory" :type="{type: 'texture', key: 3}" :state="store.state.appearance.accessories[3].texture"  />
       </div>
     </div>
   </div>
