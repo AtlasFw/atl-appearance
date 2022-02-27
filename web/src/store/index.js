@@ -248,8 +248,8 @@ export default createStore({
       state.appearance.eyeColor[key] = value
     },
     setAccessories(state, { data, value }) {
-      console.log(data, value)
       state.appearance.accessories[data.key][data.type] = value
+      fetchNui('appearance_accessory', state.appearance.accessories[data.key])
     },
     setHeadOverlays(state, { key, type, value }) {
       console.log(key, type, value)
