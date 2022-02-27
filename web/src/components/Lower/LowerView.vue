@@ -15,7 +15,7 @@ const setComponent = (key, value) => store.commit('setComponent', { key: key, va
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Legs</span>
       <div class="w-full flex space-between">
         <SmallInput class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 4}" :state="store.state.appearance.components[4].drawable"/>
-        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 4}" :state="store.state.appearance.components[4].drawable"/>
+        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 4}" :state="store.state.appearance.components[4].texture"/>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@ const setComponent = (key, value) => store.commit('setComponent', { key: key, va
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Shoes</span>
       <div class="w-full flex space-between">
         <SmallInput class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 6}" :state="store.state.appearance.components[6].drawable"/>
-        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 6}" :state="store.state.appearance.components[6].drawable"/>
+        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 6}" :state="store.state.appearance.components[6].texture"/>
       </div>
     </div>
   </div>

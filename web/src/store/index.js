@@ -257,13 +257,9 @@ export default createStore({
       state.appearance.headOverlays[key][type] = value
       fetchNui('appearance_accessory', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
     },
-    setHair(state, { key, value }) {
-      console.log(key, value)
-      state.appearance.hair[key] = value
-    },
     setComponent(state, { data, value }) {
       console.log(data.key, data.type, value)
-      state.appearance.accessories[data.key][data.type] = value
+      state.appearance.components[data.key][data.type] = value
       fetchNui('appearance_component', state.appearance.components[data.key])
     },
   },
