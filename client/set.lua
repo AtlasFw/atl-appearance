@@ -44,6 +44,7 @@ end
 
 Set.Accessory = function(ped, accessory)
 	if ped and accessory then
+		print(accessory.prop_id, accessory.texture, accessory.drawable)
 		if accessory.drawable == -1 then
 			ClearPedProp(ped, accessory.prop_id)
 		else

@@ -12,6 +12,7 @@ end)
 
 RegisterNUICallback('appearance_accessory', function(data, cb)
   if not data then return cb({false}) end
+  print"passed"
   Set.Accessory(PlayerPedId(), data)
   cb({true})
 end)

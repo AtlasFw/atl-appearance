@@ -264,7 +264,7 @@ export default createStore({
     },
     setComponent(state, { data, value }) {
       console.log(data.key, data.type, value)
-      state.appearance.accessories[data.key][data.type] = value
+      state.appearance.components[data.key][data.type] = value
       fetchNui('appearance_component', state.appearance.components[data.key])
     },
   },
