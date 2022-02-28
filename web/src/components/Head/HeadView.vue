@@ -6,16 +6,11 @@ import { ref, watch } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore()
-const setHead = (key, value) => store.commit('setFace', { key: key, value: value })
+const setHead = (data, value) => store.commit('setHeadOverlays', { data: data, value: value })
 const setEye = (key, value) => store.commit('setEyeColor', { key: key, value: value })
 
 const val = ref(0)
-const color = ref(0)
-const updateColor = (index) => {
-  console.log(index)
-  // color = index
-  // Update color on store
-}
+const setHair = (index, type) => store.commit('setHair', { key: type, value: index })
 </script>
 
 <template>
@@ -26,9 +21,9 @@ const updateColor = (index) => {
   <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Hair</span>
-      <NumberInput title="Style" v-model:value="val"/>
-      <ColorInput class="mb-3" title="Color" @updatecolor="updateColor"/>
-      <ColorInput class="mb-3" title="Highlight" @updatecolor="updateColor"/>
+      <NumberInput title="Style" @updateS="setHead" type="style" :state="store.state.appearance.hair.style"/>
+      <ColorInput class="mb-3" title="Color" @updatecolor="setHair" type="color"/>
+      <ColorInput class="mb-3" title="Highlight" @updatecolor="setHair" />
     </div>
   </div>
 

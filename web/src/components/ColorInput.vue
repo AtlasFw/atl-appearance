@@ -5,7 +5,7 @@
       <span class="text-sky-200 font-semibold">{{ currentColor }}</span>
     </div>
     <div class="w-full flex flex-wrap justify-start gap-0.5 mb-1">
-        <button v-for="(color, index) in colors" class="w-6 h-6 shadow-xl" @click.self="updateIndex" :data-index="index" :style="{ backgroundColor: color, borderRadius: '1px' }" :key="index"></button>
+        <button v-for="(color, index) in colors" class="w-6 h-6 shadow-xl" @click.self="updateIndex" :data-index="index" :data-type="type" :style="{ backgroundColor: color, borderRadius: '1px' }" :key="index"></button>
     </div>
   </div>
 </template>
@@ -26,6 +26,11 @@ export default {
     currentColor: {
       type: Number,
       default: 0,
+    },
+    type: {
+      type: String,
+      required: false,
+      default: '',
     },
     colors: {
       type: Array,
@@ -49,6 +54,7 @@ export default {
   methods: {
     updateIndex(val) {
       let index = val.target.getAttribute('data-index')
+      let type = val.target.getAttribute('data-type')
       if (this.selected) {
         this.selected.classList.remove('border-2', 'border-sky-200')
       }
@@ -59,7 +65,7 @@ export default {
         this.selected = null
         index = 0
       }
-      this.$emit('updatecolor', index)
+      this.$emit('updatecolor', index, type.toString())
     }
   },
 }

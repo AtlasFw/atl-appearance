@@ -224,16 +224,16 @@ export default createStore({
     }
   },
   mutations: {
-    setModels (state, models) {
+    setModels(state, models) {
       state.models = models
     },
-    setAppearance (state, appearance) {
+    setAppearance(state, appearance) {
       state.copyAppearance = appearance
       state.appearance = appearance
       console.log(JSON.stringify(state.appearance))
       console.log(JSON.stringify(state.appearance.heritage))
     },
-    setHeritage (state, { key, value }) {
+    setHeritage(state, { key, value }) {
       console.log(key, value)
       state.appearance.heritage[key] = value
       fetchNui('appearance_heritage', state.appearance.heritage)
@@ -255,11 +255,12 @@ export default createStore({
     setHeadOverlays(state, { key, type, value }) {
       console.log(key, type, value)
       state.appearance.headOverlays[key][type] = value
-      fetchNui('appearance_accessory', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
+      fetchNui('appearance_hair', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
     },
     setHair(state, { key, value }) {
       console.log(key, value)
       state.appearance.hair[key] = value
+      fetchNui('appearance_hair', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
     },
     setComponent(state, { data, value }) {
       console.log(data.key, data.type, value)

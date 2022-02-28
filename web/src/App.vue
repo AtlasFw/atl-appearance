@@ -11,7 +11,7 @@ import { reactive, onMounted, onUnmounted } from 'vue'
 import { NButton, NIcon, NScrollbar, useDialog, useMessage, NTooltip } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
 import { useStore } from 'vuex';
-import { fetchNui } from './components/fetchNui.js'; 
+import { fetchNui } from './components/fetchNui.js';
 
 const store = useStore()
 const dialog = useDialog()
@@ -81,7 +81,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'inheritance-id',
+  activeKey: 'head-id',
   collapsed: false,
   activeSidebar: true
 })

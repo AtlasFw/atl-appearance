@@ -3,10 +3,12 @@ import SmallInput from "../SmallInput.vue"
 import NumberInput from '../NumberInput.vue'
 import ColorInput from '../ColorInput.vue'
 import Slider from '../Slider.vue'
+import { useStore } from 'vuex';
 
 const store = useStore()
 const setComponent = (data, value) => store.commit('setComponent', { data: data, value: value })
 const setAccessory = (data, value) => store.commit('setAccessory', { data: data, value: value })
+const setHead = (key, value) => store.commit('setFace', { key: key, value: value })
 </script>
 
 <template>
@@ -18,7 +20,7 @@ const setAccessory = (data, value) => store.commit('setAccessory', { data: data,
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Chest hair</span>
       <NumberInput title="Style" v-model:value="val"/>
       <ColorInput title="Color" @updatecolor="updateColor"/>
-      <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" v-model:value="val"/>
+      <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" @updateS="setFace" type="eyeBrownHigh" :state="store.state.appearance.faceFeatures.eyeBrownHigh"/>
     </div>
   </div>
 
