@@ -58,6 +58,12 @@ function GetSkin(ped)
     ['chinBoneSize'] = 0,
     ['chinHole'] = 0,
     ['neckThickness'] = 0,
+
+    -- Accessories
+
+    -- Components
+
+    -- Head overlays
   }
 
   return skin
