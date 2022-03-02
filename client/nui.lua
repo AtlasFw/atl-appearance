@@ -1,49 +1,12 @@
-RegisterNUICallback('appearance_model', function(data, cb)
+RegisterNUICallback('appearance_change', function(data, cb)
   if not data then return cb({false}) end
-  Set.Model(data.model)
+  Set.Skin(data.skin)
   cb({ isFreeModel = Get.IsFreemode(GetHashKey(data.model)) })
-end)
-
-RegisterNUICallback('appearance_component', function(data, cb)
-  if not data then return cb({false}) end
-  Set.Component(PlayerPedId(), data)
-  cb({true})
-end)
-
-RegisterNUICallback('appearance_accessory', function(data, cb)
-  if not data then return cb({false}) end
-  print"passed"
-  Set.Accessory(PlayerPedId(), data)
-  cb({true})
-end)
-
-RegisterNUICallback('appearance_heritage', function(data, cb)
-  if not data then return cb({false}) end
-  Set.Heritage(PlayerPedId(), data)
-  cb({true})
-end)
-
-RegisterNUICallback('appearance_face_feature', function(data, cb)
-  if not data then return cb({false}) end
-  Set.Face(PlayerPedId(), data)
-  cb({true})
-end)
-
-RegisterNUICallback('appearance_hair', function(data, cb)
-  if not data then return cb({false}) end
-  Set.Overlays(PlayerPedId(), data.hair, data.overlays)
-  cb({true})
-end)
-
-RegisterNUICallback('appearance_eye_color', function(data, cb)
-  if not data then return cb({false}) end
-  Set.EyeColor(PlayerPedId(), data)
-  cb({true})
 end)
 
 RegisterNUICallback('appearance_concluded', function(data, cb)
   if not data  then return cb({false}) end
   local ped = PlayerPedId()
-  Set.Appearance(ped, data)
+  Set.Skin(ped, data)
   cb({appearance = Get.Appearance(ped)})
 end)

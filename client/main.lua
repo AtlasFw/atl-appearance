@@ -1,4 +1,4 @@
-local function loadConfig(resource)
+local function loadData(resource)
   if resource == GetCurrentResourceName() then
     Wait(1500)
     local models <const> = exports['atl-core']:Models()
@@ -13,7 +13,8 @@ local function startAppearance()
   SetNuiFocus(true, true)
   SendNUIMessage({
     action = 'appearance_start',
-    appearance = Get.Appearance(PlayerPedId())
+    appearance = GetSkin(PlayerPedId()),
+    data = GetData()
   })
 end
 
@@ -22,4 +23,4 @@ RegisterCommand('atl', function()
 end)
 
 exports('startAppearance', startAppearance)
-AddEventHandler('onResourceStart', loadConfig)
+AddEventHandler('onResourceStart', loadData)
