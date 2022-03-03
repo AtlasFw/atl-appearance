@@ -75,7 +75,7 @@ export default createStore({
       tattoos: {
         state: true,
         head: true,
-        torse: true,
+        torso: true,
         arm: true,
         legs: true
       },
