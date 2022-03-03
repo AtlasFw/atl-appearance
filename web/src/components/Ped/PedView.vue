@@ -3,7 +3,7 @@ import { NSelect } from 'naive-ui'
 import { useStore } from 'vuex';
 
 const store = useStore()
-const change = (key, value, index) => store.commit('skinChange', { key: key, value: value, index: index })
+const change = (key, value) => store.commit('skinChange', { key: key, value: value })
 </script>
 
 <template>
