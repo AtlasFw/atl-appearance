@@ -4,7 +4,7 @@
       <span class="text-blue-400 font-semibold">{{ title }}</span>
       <span class="text-sky-200 font-semibold">{{ state }}</span>
     </div>
-    <NSlider :step="step" :min="min" :max="max" v-model:value="state" @update:value="$emit('updateS', type, state)"/>
+    <NSlider :step="step" :min="min" :max="max" v-model:value="state" @update:value="change(type, state, index)"/>
   </div>
 </template>
 
@@ -20,12 +20,18 @@ export default {
     },
     state: {
       type: Number,
+      required: true,
       default: 0,
     },
     type: {
       type: String,
-      required: false,
+      required: true,
       default: '',
+    },
+    index: {
+      type: Number,
+      required: true,
+      default: 0
     },
     min: {
       type: Number,
@@ -38,6 +44,11 @@ export default {
     step: {
       type: Number,
       default: 1
+    }
+  },
+  methods: {
+    change(key, value, index) {
+      this.$store.commit('skinChange', { key: key, value: value, index: index })
     }
   }
 }

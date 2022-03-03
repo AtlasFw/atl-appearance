@@ -81,7 +81,7 @@ const menuOptions = [
 ]
 
 const state = reactive({
-  activeKey: 'head-id',
+  activeKey: 'ped-id',
   collapsed: false,
   activeSidebar: true
 })

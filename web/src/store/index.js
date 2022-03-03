@@ -4,11 +4,16 @@ import { fetchNui } from '../components/fetchNui.js'
 export default createStore({
   state: {
     data: {
-      colors: []
+      colors: [],
+      models: [
+        {label: 'test', value: 'test'},
+        {label: 'test2', value: 'test2'}
+      ],
     },
     oldSkin: {},
-    skin: {},
-    models: [],
+    skin: {
+      model: 'model'
+    },
     config: {
       ped: false,
       inheritance: {
@@ -32,12 +37,12 @@ export default createStore({
     },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
-      if (index !== null || index !== undefined) {
+      if (index !== undefined) {
         state.skin['components'][key][index] = value
       } else {
         state.skin[key] = value
       }
-      fetchNui('skin_change', state.appearance.heritage)
+      // fetchNui('skin_change', { skin: state.skin })
     },
   }
 })
