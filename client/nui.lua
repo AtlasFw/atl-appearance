@@ -1,4 +1,4 @@
-RegisterNUICallback('appearance_change', function(data, cb)
+RegisterNUICallback('skin_change', function(data, cb)
   if not data then return cb({ freeMode = false }) end
   local ped = PlayerPedId()
   local freeMode = IsFreemode(ped)
@@ -6,7 +6,7 @@ RegisterNUICallback('appearance_change', function(data, cb)
   cb({ freeMode = freeMode })
 end)
 
-RegisterNUICallback('appearance_concluded', function(data, cb)
+RegisterNUICallback('skin_concluded', function(data, cb)
   if not data.skin then return cb({ skin = false }) end
   local ped = PlayerPedId()
   Set.Skin(ped, data.skin)

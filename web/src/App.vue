@@ -94,9 +94,9 @@ const handleSave = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Appearance saved!')
-      fetchNui('appearance_concluded', store.state.appearance).then((resp) => {
-        if (resp) {
-          store.commit('setAppearance', resp)
+      fetchNui('appearance_concluded', store.state.skin).then((resp) => {
+        if (resp.skin) {
+          store.commit('setSkin', resp.skin)
           state.collapsed = true
           state.activeSidebar = false
         } else {
@@ -117,9 +117,9 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
-      fetchNui('appearance_concluded', store.state.copyAppearance).then((resp) => {
-        if (resp) {
-          store.commit('setAppearance', resp.appearance)
+      fetchNui('appearance_concluded', store.state.oldSkin).then((resp) => {
+        if (resp.skin) {
+          store.commit('setSkin', resp.skin)
           state.collapsed = true
           state.activeSidebar = false
         } else {
@@ -168,10 +168,7 @@ const handleMessage = e => {
       store.commit('setModels', e.data.models)
       break
     case 'appearance_start':
-      store.commit('setCopyAppearance', e.data.appearance)
-      console.log(JSON.stringify(e.data.appearance))
-      console.log(JSON.stringify(e.data.appearance.heritage))
-      store.commit('setAppearance', e.data.appearance)
+      store.commit('setSkin', e.data.skin)
       state.activeSidebar = true
       break
   }
