@@ -2,15 +2,6 @@
 import NumberInput from '../NumberInput.vue'
 import ColorInput from '../ColorInput.vue'
 import Slider from '../Slider.vue'
-import { ref, watch } from 'vue'
-import { useStore } from 'vuex';
-
-const store = useStore()
-const setHead = (data, value) => store.commit('setHeadOverlays', { data: data, value: value })
-const setEye = (key, value) => store.commit('setEyeColor', { key: key, value: value })
-
-const val = ref(0)
-const setHair = (index, type) => store.commit('setHair', { key: type, value: index })
 </script>
 
 <template>
@@ -21,7 +12,7 @@ const setHair = (index, type) => store.commit('setHair', { key: type, value: ind
   <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Hair</span>
-      <NumberInput title="Style" @updateS="setHead" type="style" :state="store.state.appearance.hair.style"/>
+      <NumberInput title="Style" @updateS="setHead" type="style" :state="$store.state.skin"/>
       <ColorInput class="mb-3" title="Color" @updatecolor="setHair" type="color"/>
       <ColorInput class="mb-3" title="Highlight" @updatecolor="setHair" />
     </div>
@@ -39,7 +30,7 @@ const setHair = (index, type) => store.commit('setHair', { key: type, value: ind
   <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Eye color</span>
-      <Slider class="mb-3" title="Style" :min="1" :max="10" :step="1" @updateS="setEye" :state="store.state.appearance.eyeColor" />
+      <Slider class="mb-3" title="Style" :min="1" :max="10" :step="1" @updateS="setEye" :state="$store.state.skin"/>
     </div>
   </div>
 
