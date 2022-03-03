@@ -1,21 +1,25 @@
 local function requestModel(modelName)
 	if type(modelName) ~= 'string' then return false end
 
-	local count = 0
-
 	if IsModelValid(modelName) and IsModelInCdimage(modelName) then
 		RequestModel(modelName)
     local time = GetGameTimer() + 1000
-    while time > GetGameTimer() do
+    repeat
       Wait(10)
-    end
+    until time > GetGameTimer()
 
     if HasModelLoaded(modelName) then
       return true
     end
     SetModelAsNoLongerNeeded(model)
 	end
+  return false
+end
 
+function IsFreemode(ped)
+  if jooat(ped) == `mp_m_freemode_01` or joaat(ped) == `mp_f_freemode_01` then
+    return true
+  end
   return false
 end
 
@@ -26,7 +30,7 @@ function GetSkin(ped)
     -- Eye color
     ['eyeColor'] = 0,
 
-    -- Heritage
+    -- Heritage/Head Blend
     ['shapeMother'] =  0,
     ['shapeFather'] =  0,
     ['shapeThird'] =  0,
@@ -60,10 +64,74 @@ function GetSkin(ped)
     ['neckThickness'] = 0,
 
     -- Accessories
+    ['p_hat_drawable'] = 0,
+    ['p_hat_texture'] = 0,
+    ['p_glass_drawable'] = 0,
+    ['p_glass_texture'] = 0,
+    ['p_ear_drawable'] = 0,
+    ['p_ear_texture'] = 0,
+    ['p_watch_drawable'] = 0,
+    ['p_watch_texture'] = 0,
+    ['p_bracelet_drawable'] = 0,
+    ['p_bracelet_texture'] = 0,
 
     -- Components
+    ['components'] = {
+      ['face'] = {0, 0}, -- Drawable, Texture
+      ['mask'] = {0, 0},
+      ['hair'] = {0, 0},
+      ['torso'] = {0, 0},
+      ['torso2'] = {0, 0},
+      ['leg'] = {0, 0},
+      ['bag'] = {0, 0}, -- Also parachute
+      ['shoes'] = {0, 0},
+      ['accessory'] = {0, 0},
+      ['kevlar'] = {0, 0},
+      ['badge'] = {0, 0},
+    },
+
+    -- Hair
+    ['hairUpStyle'] = 0,
+    ['hairUpColor'] = 0,
+    ['hairUpHighlight'] = 0,
 
     -- Head overlays
+    ['makeUpStyle'] = 0,
+    ['makeUpColor'] = 0,
+    ['makeUpOpacity'] = 0,
+    ['eyebrowsUpStyle'] = 0,
+    ['eyebrowsUpColor'] = 0,
+    ['eyebrowsUpOpacity'] = 0,
+    ['moleAndFrecklesUpStyle'] = 0,
+    ['moleAndFrecklesUpColor'] = 0,
+    ['moleAndFrecklesUpOpacity'] = 0,
+    ['blushUpStyle'] = 0,
+    ['blushUpColor'] = 0,
+    ['blushUpOpacity'] = 0,
+    ['chestHairUpStyle'] = 0,
+    ['chestHairUpColor'] = 0,
+    ['chestHairUpOpacity'] = 0,
+    ['lipstickUpStyle'] = 0,
+    ['lipstickUpColor'] = 0,
+    ['lipstickUpOpacity'] = 0,
+    ['sunDamageUpStyle'] = 0,
+    ['sunDamageUpColor'] = 0,
+    ['sunDamageUpOpacity'] = 0,
+    ['bodyBlemishesUpStyle'] = 0,
+    ['bodyBlemishesUpColor'] = 0,
+    ['bodyBlemishesUpOpacity'] = 0,
+    ['complexionUpStyle'] = 0,
+    ['complexionUpColor'] = 0,
+    ['complexionUpOpacity'] = 0,
+    ['ageingUpStyle'] = 0,
+    ['ageingUpColor'] = 0,
+    ['ageingUpOpacity'] = 0,
+    ['blemishesUpStyle'] = 0,
+    ['blemishesUpColor'] = 0,
+    ['blemishesUpOpacity'] = 0,
+    ['beardUpStyle'] = 0,
+    ['beardUpColor'] = 0,
+    ['beardUpOpacity'] = 0,
   }
 
   return skin
