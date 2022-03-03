@@ -9,12 +9,12 @@ local function loadData(resource)
   end
 end
 
-local function startAppearance()
+local function startAppearance(config)
   SetNuiFocus(true, true)
   SendNUIMessage({
     action = 'appearance_start',
-    appearance = GetSkin(PlayerPedId()),
-    data = GetData()
+    skin = GetSkin(PlayerPedId()),
+    data = GetData(config)
   })
 end
 

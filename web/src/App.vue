@@ -162,7 +162,7 @@ const updateSelector = (key) => {
 const handleMessage = e => {
   switch (e.data.action) {
     case 'set_config':
-
+      store.commit('setConfig', e.data.config)
       break
     case 'set_models':
       store.commit('setModels', e.data.models)

@@ -15,7 +15,7 @@ export default createStore({
       model: 'model'
     },
     config: {
-      ped: false,
+      ped: true,
       inheritance: {
         state: true,
         face: true,
