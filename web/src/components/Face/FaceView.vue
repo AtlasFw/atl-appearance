@@ -3,7 +3,7 @@ import Slider from '../Slider.vue'
 </script>
 
 <template>
-  <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
+  <div v-if="$store.state.config.accessories.mask" class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
     <span class="ml-4">Face View</span>
   </div>
   <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">

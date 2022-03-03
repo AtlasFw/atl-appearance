@@ -1,13 +1,12 @@
 <script setup>
 import SmallInput from "../SmallInput.vue"
-import { useStore } from 'vuex';
 </script>
 
 <template>
-  <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
+  <div v-if="$store.state.config.accessories.state" class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
     <span class="ml-4">Lower Body View</span>
   </div>
-  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div v-if="$store.state.config.accessories.mask" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Mask</span>
       <div class="w-full flex space-between">
@@ -17,7 +16,7 @@ import { useStore } from 'vuex';
     </div>
   </div>
 
-  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div v-if="$store.state.config.accessories.bags" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Bags & Parachute</span>
       <div class="w-full flex space-between">
@@ -27,7 +26,7 @@ import { useStore } from 'vuex';
     </div>
   </div>
 
-  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div v-if="$store.state.config.accessories.chains" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Scarf & Chains</span>
       <div class="w-full flex space-between">
@@ -37,7 +36,7 @@ import { useStore } from 'vuex';
     </div>
   </div>
 
-  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div v-if="$store.state.config.accessories.watches" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Watches</span>
       <div class="w-full flex space-between">
@@ -47,7 +46,7 @@ import { useStore } from 'vuex';
     </div>
   </div>
 
-  <div class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
+  <div v-if="$store.state.config.accessories.bracelets" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Bracelets</span>
       <div class="w-full flex space-between">
