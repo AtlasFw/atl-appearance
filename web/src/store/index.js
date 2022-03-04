@@ -4,18 +4,17 @@ import { fetchNui } from '../components/fetchNui.js'
 export default createStore({
   state: {
     data: {
-      colors: [],
-      models: [
-        {label: 'test', value: 'test'},
-        {label: 'test2', value: 'test2'}
-      ],
+      colors: {},
+      models: [],
     },
     oldSkin: {},
     skin: {
       model: 'model'
     },
     config: {
-      ped: true,
+      ped: {
+        state: true
+      },
       inheritance: {
         state: true,
         face: true,
@@ -79,14 +78,17 @@ export default createStore({
         arm: true,
         legs: true
       },
+      exit: {
+        state: true
+      },
+      save: {
+        state: true
+      }
     }
   },
   mutations: {
     setModels(state, models) {
       state.data.models = models
-    },
-    setConfig(state, config) {
-      state.config = config
     },
     setSkin(state, skin) {
       state.oldSkin = skin
@@ -94,14 +96,11 @@ export default createStore({
     },
     setData(state, data) {
       data.colors ? state.data.colors = data.colors : null
+      data.config ? state.config = data.config : null
     },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
-      if (index !== undefined) {
-        state.skin['components'][key][index] = value
-      } else {
-        state.skin[key] = value
-      }
+      (index !== undefined) ? state.skin['components'][key][index] = value : state.skin[key] = value
       // fetchNui('skin_change', { skin: state.skin })
     },
   }

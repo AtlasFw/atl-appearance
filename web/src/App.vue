@@ -7,81 +7,83 @@ import UpperView from './components/Upper/UpperView.vue'
 import LowerView from './components/Lower/LowerView.vue'
 import AccessoriesView from './components/Accessories/AccessoriesView.vue'
 import TattoosView from './components/Tattoos/TattoosView.vue'
+import SideButton from './components/SideButton.vue'
+import { fetchNui } from './components/fetchNui.js';
 import { reactive, onMounted, onUnmounted } from 'vue'
-import { NButton, NIcon, NScrollbar, useDialog, useMessage, NTooltip } from 'naive-ui'
+import { NScrollbar, useDialog, useMessage } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
 import { useStore } from 'vuex';
-import { fetchNui } from './components/fetchNui.js';
+
 
 const store = useStore()
 const dialog = useDialog()
 const message = useMessage()
-const menuOptions = [
+const menu = [
   {
     label: 'Ped Model',
-    key: 'ped-id',
+    key: 'ped',
     icon: CheckroomRound,
     type: 'info',
   },
   {
     label: 'Family Inheritance',
-    key: 'inheritance-id',
+    key: 'inheritance',
     icon: FamilyRestroomRound,
     type: 'info',
   },
   {
     label: 'Face Structure',
-    key: 'face-id',
+    key: 'face',
     icon: FaceRetouchingNaturalRound,
     type: 'info',
   },
   {
     label: 'Head Structure',
-    key: 'head-id',
+    key: 'head',
     icon: TagFacesOutlined,
     type: 'info',
   },
   {
     label: 'Upper Body',
-    key: 'upper-id',
+    key: 'upper',
     icon: AccessibilityNewRound,
     type: 'info',
   },
   {
     label: 'Lower Body',
-    key: 'lower-id',
+    key: 'lower',
     icon: AirlineSeatLegroomExtraRound,
     type: 'info',
   },
   {
     label: 'Accessories',
-    key: 'accessories-id',
+    key: 'accessories',
     icon: GroupWorkRound,
     type: 'info',
   },
   {
     label: 'Tattoos',
-    key: 'tattoos-id',
+    key: 'tattoos',
     icon: FilterVintageRound,
     type: 'info',
   },
   {
     status: true,
     label: 'Exit Appearance',
-    key: 'exit-id',
+    key: 'exit',
     icon: ExitToAppRound,
     type: 'error',
   },
   {
     label: 'Save Appearance',
-    key: 'save-id',
+    key: 'save',
     icon: SaveRound,
     type: 'success',
   },
 ]
 
 const state = reactive({
-  activeKey: 'ped-id',
+  activeKey: null,
   collapsed: false,
   activeSidebar: true
 })
@@ -179,26 +181,21 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
 <template>
   <div class="absolute flex justify-start items-center w-full h-full overflow-hidden">
     <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
-      <NButton class="flex items-center justify-center text-custom w-full h-10 text-center bg-slate-800 rounded mt-2 mb-2" v-for="(btn, index) in menuOptions" :key="index" :type="btn.type" secondary :focusable="false" @click="updateSelector(btn.key)">
-        <NTooltip trigger="hover" placement="right" :delay="1" :duration="25">
-          <template #trigger>
-            <NIcon :component="btn.icon"/>
-          </template>
-          {{ btn.label }}
-        </NTooltip>
-      </NButton>
+      <div v-for="(item, index) in menu" :index="index">
+        <SideButton v-if="$store.state.config[item.key].state" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+      </div>
     </div>
     <transition name="slide-fade">
       <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
         <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
-          <PedView v-if="state.activeKey === 'ped-id'"/>
-          <InheritanceView v-else-if="state.activeKey === 'inheritance-id'"/>
-          <HeadView v-else-if="state.activeKey === 'head-id'"/>
-          <FaceView v-else-if="state.activeKey === 'face-id'"/>
-          <UpperView v-else-if="state.activeKey === 'upper-id'"/>
-          <LowerView v-else-if="state.activeKey === 'lower-id'"/>
-          <AccessoriesView v-else-if="state.activeKey === 'accessories-id'"/>
-          <TattoosView v-else-if="state.activeKey === 'tattoos-id'"/>
+          <PedView v-if="state.activeKey === 'ped'"/>
+          <InheritanceView v-else-if="state.activeKey === 'inheritance'"/>
+          <HeadView v-else-if="state.activeKey === 'head'"/>
+          <FaceView v-else-if="state.activeKey === 'face'"/>
+          <UpperView v-else-if="state.activeKey === 'upper'"/>
+          <LowerView v-else-if="state.activeKey === 'lower'"/>
+          <AccessoriesView v-else-if="state.activeKey === 'accessories'"/>
+          <TattoosView v-else-if="state.activeKey === 'tattoos'"/>
         </NScrollbar>
       </div>
     </transition>

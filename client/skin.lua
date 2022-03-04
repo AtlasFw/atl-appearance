@@ -16,6 +16,23 @@ local function requestModel(modelName)
   return false
 end
 
+local function loadColors()
+	local colors = {
+		['hair'] = {},
+		['makeUp'] = {}
+	}
+
+	for i=0, GetNumHairColors() do
+		colors.hair[i + 1] = GetPedHairRgbColor(i)
+	end
+
+	for i=0, GetNumMakeupColors() do
+		colors.makeUp[i + 1] = GetPedMakeupRgbColor(i)
+	end
+
+	return colors
+end
+
 local function loadConfig(data)
   local config = {
     ['ped'] = data.ped or true,
@@ -81,9 +98,22 @@ local function loadConfig(data)
       torso = data.tattoos.torso or true,
       arm = data.tattoos.arm or true,
       legs = data.tattoos.legs or true
+    },
+    ['exit'] = {
+      state = data.exit or true
+    },
+    ['save'] = {
+      state = data.save or true
     }
   }
   return config
+end
+
+function GetData(config)
+  return {
+    config = loadConfig(config),
+    colors = loadColors(),
+  }
 end
 
 function IsFreemode(ped)
@@ -214,13 +244,6 @@ function SetSkin(ped, skin, isFreeMode)
     end
   end
   return skin
-end
-
-function GetData(config)
-  return {
-    config = loadConfig(config),
-    colors = nil,
-  }
 end
 
 exports('setSkin', setSkin)
