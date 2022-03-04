@@ -6,6 +6,7 @@ export default createStore({
     data: {
       colors: {},
       models: [],
+      locales: {}
     },
     oldSkin: {},
     skin: {
@@ -89,6 +90,9 @@ export default createStore({
   mutations: {
     setModels(state, models) {
       state.data.models = models
+    },
+    setLocales(state, locales) {
+      state.data.locales = locales
     },
     setSkin(state, skin) {
       state.oldSkin = skin

@@ -2,9 +2,11 @@ local function loadData(resource)
   if resource == GetCurrentResourceName() then
     Wait(1500)
     local models <const> = exports['atl-core']:Models()
+    local locale = exports['atl-core']:GetLocale()
     SendNUIMessage({
-      action = 'set_models',
-      models = models
+      action = 'start_up',
+      models = models,
+      locales = locale('appearance')
     })
   end
 end
@@ -25,4 +27,4 @@ RegisterCommand('atl', function()
 end)
 
 exports('startAppearance', startAppearance)
-AddEventHandler('onResourceStart', loadData)
+AddEventHandler('onClientResourceStart', loadData)

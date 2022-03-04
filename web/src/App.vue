@@ -163,8 +163,9 @@ const updateSelector = (key) => {
 
 const handleMessage = e => {
   switch (e.data.action) {
-    case 'set_models':
-      store.commit('setModels', e.data.models)
+    case 'start_up':
+      (e.data.models !== undefined) ? store.commit('setModels', e.data.models) : null
+      (e.data.locales !== undefined) ? store.commit('setLocales', e.data.locales) : null
       break
     case 'appearance_start':
       (e.data.config) ? store.commit('setConfig', e.data.config) : null
