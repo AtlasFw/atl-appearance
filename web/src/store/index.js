@@ -83,7 +83,7 @@ export default createStore({
   },
   mutations: {
     setModels(state, models) {
-      state.models = models
+      state.data.models = models
     },
     setConfig(state, config) {
       state.config = config
@@ -93,7 +93,7 @@ export default createStore({
       state.skin = skin
     },
     setData(state, data) {
-
+      data.colors ? state.data.colors = data.colors : null
     },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
