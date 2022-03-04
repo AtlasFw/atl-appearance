@@ -161,14 +161,12 @@ const updateSelector = (key) => {
 
 const handleMessage = e => {
   switch (e.data.action) {
-    case 'set_config':
-      store.commit('setConfig', e.data.config)
-      break
     case 'set_models':
       store.commit('setModels', e.data.models)
       break
     case 'appearance_start':
-      store.commit('setSkin', e.data.skin)
+      (e.data.config) ? store.commit('setConfig', e.data.config) : null
+      (e.data.skin) ? store.commit('setSkin', e.data.skin) : null
       state.activeSidebar = true
       break
   }

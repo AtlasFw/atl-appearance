@@ -11,10 +11,12 @@ end
 
 local function startAppearance(config)
   SetNuiFocus(true, true)
+  local data = GetData(config)
   SendNUIMessage({
     action = 'appearance_start',
     skin = GetSkin(PlayerPedId()),
-    data = GetData(config)
+    config = data.config,
+    colors = data.colors
   })
 end
 

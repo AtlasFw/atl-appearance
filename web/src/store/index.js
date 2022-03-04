@@ -92,6 +92,9 @@ export default createStore({
       state.oldSkin = skin
       state.skin = skin
     },
+    setData(state, data) {
+
+    },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
       if (index !== undefined) {
