@@ -137,12 +137,12 @@ const handleExit = () => {
 
 const updateSelector = (key) => {
   switch (key) {
-    case 'save-id':
+    case 'save':
       state.activeKey = null
       state.collapsed = true
       handleSave()
       return
-    case 'exit-id':
+    case 'exit':
       state.activeKey = null
       state.collapsed = true
       handleExit()
