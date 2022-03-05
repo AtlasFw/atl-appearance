@@ -42,7 +42,7 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-3">Chin</span>
       <Slider title="Lowering" :min="-1" :max="1" :step="0.1" type="chinBoneLowering" :state="$store.state.skin.chinBoneLowering"/>
-      <Slider title="Length" :min="-1" :max="1" :step="0.1" type="chinBoneLenght" :state="$store.state.skin.chinBoneLenght"/>
+      <Slider title="Length" :min="-1" :max="1" :step="0.1" type="chinBoneLength" :state="$store.state.skin.chinBoneLength"/>
       <Slider title="Size" :min="-1" :max="1" :step="0.1" type="chinBoneSize" :state="$store.state.skin.chinBoneSize"/>
       <Slider class="mb-3" title="Dimple Size" :min="-1" :max="1" :step="0.1" type="chinHole" :state="$store.state.skin.chinHole"/>
     </div>

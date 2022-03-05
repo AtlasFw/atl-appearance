@@ -10,6 +10,7 @@ export default createStore({
     },
     oldSkin: {},
     skin: {},
+    isFreeMode : false,
     config: {
       ped: {
         state: true
@@ -105,7 +106,11 @@ export default createStore({
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
       index !== undefined ? state.skin['components'][key][index] = value : state.skin[key] = value
-      fetchNui('skin_change', { skin: state.skin })
+      fetchNui('skin_change', { skin: state.skin, reload: key === 'model' }).then((resp) => {
+        if (resp?.freeMode !== undefined) {
+          state.isFreeMode = resp.freeMode
+        }
+      })
     },
   }
 })
