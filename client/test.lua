@@ -199,9 +199,3 @@ constants.HAIR_DECORATIONS = {
 		[80] = { `mpsecurity_overlays`, `MP_Security_Hair_000_F` },
 	},
 }
-
-constants.PED_MODELS = {
-  { label = 'a_f_m_beach_01', value = 'a_f_m_beach_01' },
-  { label = 'mp_m_freemode_01', value = 'mp_m_freemode_01' },
-  { label = 'mp_f_freemode_01', value = 'mp_f_freemode_01' },
-}

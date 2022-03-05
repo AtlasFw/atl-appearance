@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { fetchNui } from '../components/fetchNui.js'
+import { fetchNui } from '../utils/fetchNui.js'
 
 export default createStore({
   state: {
@@ -9,9 +9,7 @@ export default createStore({
       locales: {}
     },
     oldSkin: {},
-    skin: {
-      model: 'model'
-    },
+    skin: {},
     config: {
       ped: {
         state: true
@@ -97,6 +95,8 @@ export default createStore({
     setSkin(state, skin) {
       state.oldSkin = skin
       state.skin = skin
+      console.log(JSON.stringify(state.skin))
+      console.log(JSON.stringify(skin))
     },
     setData(state, data) {
       data.colors ? state.data.colors = data.colors : null
@@ -104,8 +104,8 @@ export default createStore({
     },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
-      (index !== undefined) ? state.skin['components'][key][index] = value : state.skin[key] = value
-      // fetchNui('skin_change', { skin: state.skin })
+      index !== undefined ? state.skin['components'][key][index] = value : state.skin[key] = value
+      fetchNui('skin_change', { skin: state.skin })
     },
   }
 })

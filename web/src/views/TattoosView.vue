@@ -1,6 +1,6 @@
 <script setup>
-import SmallInput from "../SmallInput.vue"
-import NumberInput from "../NumberInput.vue"
+import SmallInput from "../components/SmallInput.vue"
+import NumberInput from "../components/NumberInput.vue"
 </script>
 
 <template>

@@ -18,21 +18,6 @@ export default {
       type: String,
       default: 'Slider'
     },
-    state: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    type: {
-      type: String,
-      required: true,
-      default: '',
-    },
-    index: {
-      type: Number,
-      required: true,
-      default: 0
-    },
     min: {
       type: Number,
       default: 0
@@ -44,6 +29,19 @@ export default {
     step: {
       type: Number,
       default: 1
+    },
+    state: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    type: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    index: {
+      type: Number
     }
   },
   methods: {

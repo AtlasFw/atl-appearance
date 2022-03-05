@@ -1,8 +1,8 @@
 <script setup>
-import SmallInput from "../SmallInput.vue"
-import NumberInput from '../NumberInput.vue'
-import ColorInput from '../ColorInput.vue'
-import Slider from '../Slider.vue'
+import SmallInput from "../components/SmallInput.vue"
+import NumberInput from '../components/NumberInput.vue'
+import ColorInput from '../components/ColorInput.vue'
+import Slider from '../components/Slider.vue'
 </script>
 
 <template>
@@ -12,17 +12,17 @@ import Slider from '../Slider.vue'
   <div v-if="$store.state.config.upper.chesthair" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Chest hair</span>
-      <NumberInput title="Style" v-model:value="val"/>
-      <ColorInput title="Color" @updatecolor="updateColor"/>
-      <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" @updateS="setFace" type="eyeBrownHigh" :state="$store.state.skin"/>
+      <NumberInput title="Style" type="chestHairUpStyle" :state="$store.state.skin.chestHairUpStyle"/>
+      <ColorInput title="Color" type="chestHairUpColor" :state="$store.state.skin.chestHairUpColor"/>
+      <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="chestHairUpOpacity" :state="$store.state.skin.chestHairUpOpacity"/>
     </div>
   </div>
 
   <div v-if="$store.state.config.upper.bodyblemishes" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Body Blemishes</span>
-      <NumberInput title="Style" v-model:value="val"/>
-      <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" v-model:value="val"/>
+      <NumberInput title="Style" type="bodyBlemishesUpStyle" :state="$store.state.skin.bodyBlemishesUpStyle"/>
+      <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="bodyBlemishesUpOpacity" :state="$store.state.skin.bodyBlemishesUpOpacity"/>
     </div>
   </div>
 
@@ -30,8 +30,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Ears</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" @updateS="setAccessory" :type="{type: 'drawable', key: 2}" :state="$store.state.skin"/>
-        <SmallInput class="ml-1" @updateS="setAccessory" :type="{type: 'texture', key: 2}" :state="$store.state.skin"/>
+        <SmallInput class="mr-1" type="p_ear_drawable" :state="$store.state.skin.p_ear_drawable"/>
+        <SmallInput class="ml-1" type="p_ear_texture" :state="$store.state.skin.p_ear_texture"/>
       </div>
     </div>
   </div>
@@ -40,8 +40,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Arms</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1"/>
-        <SmallInput class="ml-1"/>
+        <SmallInput class="mr-1" type="undershirt" :state="$store.state.skin.undershirt"/>
+        <SmallInput class="ml-1" type="undershirt" :state="$store.state.skin.undershirt"/>
       </div>
     </div>
   </div>
@@ -50,8 +50,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Hats & Helmets</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" @updateS="setAccessory" :type="{type: 'drawable', key: 0}" :state="$store.state.skin"/>
-        <SmallInput class="ml-1" @updateS="setAccessory" :type="{type: 'texturetexture', key: 0}" :state="$store.state.skin"/>
+        <SmallInput class="mr-1" type="p_hat_drawable" :state="$store.state.skin.p_hat_drawable"/>
+        <SmallInput class="ml-1" type="p_hat_texture" :state="$store.state.skin.p_hat_texture"/>
       </div>
     </div>
   </div>
@@ -60,8 +60,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Glasses</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" @updateS="setAccessory" :type="{type: 'drawable', key: 1}" :state="$store.state.skin"/>
-        <SmallInput class="ml-1" @updateS="setAccessory" :type="{type: 'texture', key: 1}" :state="$store.state.skin"/>
+        <SmallInput class="mr-1" type="p_glass_drawable" :state="$store.state.skin.p_glass_drawable"/>
+        <SmallInput class="ml-1" type="p_glass_texture" :state="$store.state.skin.p_glass_texture"/>
       </div>
     </div>
   </div>
@@ -70,8 +70,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">T-Shirt</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 3}" :state="$store.state.skin"/>
-        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 3}" :state="$store.state.skin" />
+        <SmallInput class="mr-1" type="torso" :state="$store.state.skin.components?.torso[0]" :index="0"/>
+        <SmallInput class="ml-1" type="torso" :state="$store.state.skin.components?.torso[1]" :index="1"/>
       </div>
     </div>
   </div>
@@ -80,8 +80,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Jackets</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 11}" :state="$store.state.skin"/>
-        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 11}" :state="$store.state.skin"/>
+        <SmallInput class="mr-1" type="torso2" :state="$store.state.skin.components?.torso2[0]" :index="0"/>
+        <SmallInput class="ml-1" type="torso2" :state="$store.state.skin.components?.torso2[1]" :index="1"/>
       </div>
     </div>
   </div>
@@ -90,8 +90,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Body Armor</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" @updateS="setComponent" :type="{type: 'drawable', key: 9}" :state="$store.state.skin"/>
-        <SmallInput class="ml-1" @updateS="setComponent" :type="{type: 'texture', key: 9}" :state="$store.state.skin"/>
+        <SmallInput class="mr-1" type="kevlar" :state="$store.state.skin.components?.kevlar[0]" :index="0"/>
+        <SmallInput class="ml-1" type="kevlar" :state="$store.state.skin.components?.kevlar[1]" :index="1"/>
       </div>
     </div>
   </div>
@@ -100,8 +100,8 @@ import Slider from '../Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Decals</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" />
-        <SmallInput class="ml-1" />
+        <SmallInput class="mr-1" type="badge" :state="$store.state.skin.components?.badge[0]" :index="0"/>
+        <SmallInput class="ml-1" type="badge" :state="$store.state.skin.components?.badge[1]" :index="1"/>
       </div>
     </div>
   </div>

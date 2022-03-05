@@ -1,14 +1,14 @@
 <script setup>
-import PedView from './components/Ped/PedView.vue'
-import InheritanceView from './components/Inheritance/InheritanceView.vue'
-import FaceView from './components/Face/FaceView.vue'
-import HeadView from './components/Head/HeadView.vue'
-import UpperView from './components/Upper/UpperView.vue'
-import LowerView from './components/Lower/LowerView.vue'
-import AccessoriesView from './components/Accessories/AccessoriesView.vue'
-import TattoosView from './components/Tattoos/TattoosView.vue'
+import PedView from './views/PedView.vue'
+import InheritanceView from './views/InheritanceView.vue'
+import FaceView from './views/FaceView.vue'
+import HeadView from './views/HeadView.vue'
+import UpperView from './views/UpperView.vue'
+import LowerView from './views/LowerView.vue'
+import AccessoriesView from './views/AccessoriesView.vue'
+import TattoosView from './views/TattoosView.vue'
 import SideButton from './components/SideButton.vue'
-import { fetchNui } from './components/fetchNui.js';
+import { fetchNui } from './utils/fetchNui.js';
 import { reactive, onMounted, onUnmounted } from 'vue'
 import { NScrollbar, useDialog, useMessage } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
@@ -83,7 +83,7 @@ const menu = [
 ]
 
 const state = reactive({
-  activeKey: null,
+  activeKey: 'head',
   collapsed: false,
   activeSidebar: true
 })
@@ -164,12 +164,12 @@ const updateSelector = (key) => {
 const handleMessage = e => {
   switch (e.data.action) {
     case 'start_up':
-      (e.data.models !== undefined) ? store.commit('setModels', e.data.models) : null
-      (e.data.locales !== undefined) ? store.commit('setLocales', e.data.locales) : null
+      e.data.models !== undefined ? store.commit('setModels', e.data.models) : null
+      e.data.locales !== undefined ? store.commit('setLocales', e.data.locales) : null
       break
-    case 'appearance_start':
-      (e.data.config) ? store.commit('setConfig', e.data.config) : null
-      (e.data.skin) ? store.commit('setSkin', e.data.skin) : null
+    case 'skin_start':
+      e.data.config !== undefined ? store.commit('setConfig', e.data.config) : null
+      e.data.skin !== undefined ? store.commit('setSkin', e.data.skin) : null
       state.activeSidebar = true
       break
   }

@@ -15,7 +15,7 @@ local function startAppearance(config)
   SetNuiFocus(true, true)
   local data = GetData(config)
   SendNUIMessage({
-    action = 'appearance_start',
+    action = 'skin_start',
     skin = GetSkin(PlayerPedId()),
     config = data.config,
     colors = data.colors
@@ -23,7 +23,7 @@ local function startAppearance(config)
 end
 
 RegisterCommand('atl', function()
-  startAppearance()
+  startAppearance({})
 end)
 
 exports('startAppearance', startAppearance)

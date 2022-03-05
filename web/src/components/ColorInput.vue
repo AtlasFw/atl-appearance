@@ -53,8 +53,7 @@ export default {
   },
   methods: {
     updateIndex(val) {
-      let index = val.target.getAttribute('data-index')
-      let type = val.target.getAttribute('data-type')
+      let index = parseInt(val.target.getAttribute('data-index'))
       if (this.selected) {
         this.selected.classList.remove('border-2', 'border-sky-200')
       }
@@ -65,7 +64,7 @@ export default {
         this.selected = null
         index = 0
       }
-      this.$emit('updatecolor', index, type.toString())
+      this.$store.commit('skinChange', { key: this.type, value: index })
     }
   },
 }
