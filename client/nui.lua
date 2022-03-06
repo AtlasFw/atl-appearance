@@ -32,7 +32,7 @@ RegisterNUICallback('skin_change', function(data, cb)
   if data.component  then
     cb({ freeMode = freeMode, component = GetComponentSettings(ped, components[data.key]) })
   elseif data.prop then
-    cb({ freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.prop]) })
+    cb({ freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]) })
   else
     cb({ freeMode = freeMode })
   end
