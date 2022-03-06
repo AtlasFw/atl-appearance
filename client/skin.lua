@@ -201,8 +201,8 @@ end
 ---@return table
 function GetAccessorySettings(ped, id)
   local settings = {
-    drawable = { min = -1, max = GetNumberOfPedPropDrawableVariations(ped, id) },
-    texture = { min = -1, max = GetNumberOfPedPropTextureVariations(ped, id, GetPedPropIndex(ped, id)) }
+    drawable = { min = -1, max = GetNumberOfPedPropDrawableVariations(ped, id) - 1 },
+    texture = { min = -1, max = GetNumberOfPedPropTextureVariations(ped, id, GetPedPropIndex(ped, id)) - 1 }
   }
   return settings
 end
@@ -213,8 +213,8 @@ end
 ---@return table
 function GetComponentSettings(ped, id)
   local settings = {
-    drawable = { min = 0, max = GetNumberOfPedDrawableVariations(ped, id) },
-    texture = { min = 0, max = GetNumberOfPedTextureVariations(ped, id, GetPedDrawableVariation(ped, id)) }
+    drawable = { min = 0, max = GetNumberOfPedDrawableVariations(ped, id) - 1 },
+    texture = { min = 0, max = GetNumberOfPedTextureVariations(ped, id, GetPedDrawableVariation(ped, id)) - 1 }
   }
   return settings
 end
@@ -437,11 +437,10 @@ function SetSkin(ped, skin, reload)
       SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
 
       SetModelAsNoLongerNeeded(skin['model'])
-      print('New Skin')
       return true
     end
   end
-  print('Did not load')
+  error('Did not load appearance in time. Restart the resource')
   return skin
 end
 
