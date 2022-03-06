@@ -1,4 +1,4 @@
-local function requestModel(modelName)
+function requestModel(modelName)
   if type(modelName) ~= 'string' then return false end
 	if IsModelValid(modelName) and IsModelInCdimage(modelName) then
 		RequestModel(modelName)
@@ -14,56 +14,6 @@ local function requestModel(modelName)
   return false
 end
 
-local function loadSettings()
-  local ped = PlayerPedId()
-
-  -- Default: Step - 0.1 | Max - 1.0 | Min - 0.0 === SLIDER
-  local settings = {
-    -- Head overlays
-    ['blemishes'] =  { min = 0, max = GetPedHeadOverlayNum(0) },
-    ['beard'] = { min = 0, max = GetPedHeadOverlayNum(1) },
-    ['eyebrows'] = { min = 0, max = GetPedHeadOverlayNum(2) },
-    ['ageing'] = { min = 0, max = GetPedHeadOverlayNum(3) },
-    ['makeUp'] = { min = 0, max = GetPedHeadOverlayNum(4) },
-    ['blush'] = { min = 0, max = GetPedHeadOverlayNum(5) },
-    ['complexion'] = { min = 0, max = GetPedHeadOverlayNum(6) },
-    ['sunDamage'] = { min = 0, max = GetPedHeadOverlayNum(7) },
-    ['lipstick'] = { min = 0, max = GetPedHeadOverlayNum(8) },
-    ['moleAndFreckles'] = { min = 0, max = GetPedHeadOverlayNum(9) },
-    ['chestHair'] = { min = 0, max = GetPedHeadOverlayNum(10) },
-    ['bodyBlemishes'] = { min = 0, max = GetPedHeadOverlayNum(11) },
-
-    -- Hair
-    ['hairUpStyle'] = { min = 0, max = GetNumberOfPedDrawableVariations(ped, 2) - 1 }, -- -1?
-
-    -- Accessories/Props
-    ['p_hat'] = GetAccessorySettings(ped, 0),
-    ['p_glass'] = GetAccessorySettings(ped, 1),
-    ['p_ear'] = GetAccessorySettings(ped, 2),
-    ['p_watch'] = GetAccessorySettings(ped, 6),
-    ['p_bracelet'] = GetAccessorySettings(ped, 7),
-
-    -- Components
-    ['components'] = {
-      ['face'] = GetComponentSettings(ped, 0),
-      ['mask'] = GetComponentSettings(ped, 1),
-      ['hair'] = GetComponentSettings(ped, 2),
-      ['torso'] = GetComponentSettings(ped, 3),
-      ['leg'] = GetComponentSettings(ped, 4),
-      ['bag'] = GetComponentSettings(ped, 5),
-      ['shoes'] = GetComponentSettings(ped, 6),
-      ['accessory'] = GetComponentSettings(ped, 7),
-      ['undershirt'] = GetComponentSettings(ped, 8),
-      ['kevlar'] = GetComponentSettings(ped, 9),
-      ['badge'] = GetComponentSettings(ped, 10),
-      ['torso2'] = GetComponentSettings(ped, 11)
-    }
-  }
-  return settings
-end
-
----Loads all the colors in rgba format.
----@return table
 local function loadColors()
 	local colors = {
 		['hair'] = {},
@@ -72,20 +22,17 @@ local function loadColors()
 
 	for i=1, GetNumHairColors() do
 		local color = {GetPedHairRgbColor(i - 1)}
-    colors.typeOne[i] = ('rgba(%s, %s, %s, 1.0)'):format(color[1], color[2], color[3])
+    colors.hair[i] = ('rgba(%s, %s, %s, 1.0)'):format(color[1], color[2], color[3])
 	end
 
 	for i=1, GetNumMakeupColors() do
     local color = {GetPedMakeupRgbColor(i - 1)}
-    colors.typeTwo[i] = ('rgba(%s, %s, %s, 1.0)'):format(color[1], color[2], color[3])
+    colors.makeUp[i] = ('rgba(%s, %s, %s, 1.0)'):format(color[1], color[2], color[3])
 	end
 
 	return colors
 end
 
----Loads all the overlays data.
----@param ped number
----@return table
 local function loadOverlays(ped)
   return {
     ['blemishes'] = {GetPedHeadOverlayData(ped, 0)},
@@ -103,9 +50,6 @@ local function loadOverlays(ped)
   }
 end
 
----Config to be send to the UI
----@param data table - Your config specifications
----@return table
 local function loadConfig(data)
   local config = {
     ['ped'] = {
@@ -191,32 +135,7 @@ function GetData(config)
   return {
     config = loadConfig(config),
     colors = loadColors(),
-    settings = loadSettings()
   }
-end
-
----Returns the min/max values for props/accessory
----@param ped number
----@param id number
----@return table
-function GetAccessorySettings(ped, id)
-  local settings = {
-    drawable = { min = -1, max = GetNumberOfPedPropDrawableVariations(ped, id) },
-    texture = { min = -1, max = GetNumberOfPedPropTextureVariations(ped, id, GetPedPropIndex(ped, id)) }
-  }
-  return settings
-end
-
----Returns the min/max values for component
----@param ped number
----@param id number
----@return table
-function GetComponentSettings(ped, id)
-  local settings = {
-    drawable = { min = 0, max = GetNumberOfPedDrawableVariations(ped, id) },
-    texture = { min = 0, max = GetNumberOfPedTextureVariations(ped, id, GetPedDrawableVariation(ped, id)) }
-  }
-  return settings
 end
 
 ---Returns if the player has a freemode model

@@ -5,7 +5,7 @@ Atlas Framework Appearance.
 - [ ] Fix old appearance being in synced with the new one.
 - [ ] Add tattoos.
 - [ ] Add min/max for items.
-- [X] Add colors.
+- [ ] Add colors.
 
 ## Acknowledgements
 - [snakewiz/fivem-appearance](https://github.com/pedr0fontoura/fivem-appearance) for client side natives and data.
