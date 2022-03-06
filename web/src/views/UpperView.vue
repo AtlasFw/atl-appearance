@@ -40,8 +40,8 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Arms</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" :min="$store.state.data.settings.components.undershirt.drawable.min" :max="$store.state.data.settings.components.undershirt.drawable.max" type="undershirt" :state="$store.state.skin.components.undershirt[0]" :index="0"/>
-        <SmallInput class="ml-1" :min="$store.state.data.settings.components.undershirt.texture.min" :max="$store.state.data.settings.components.undershirt.texture.max" type="undershirt" :state="$store.state.skin.components.undershirt[1]" :index="1"/>
+        <SmallInput class="mr-1" :min="$store.state.data.settings.components.torso2.drawable.min" :max="$store.state.data.settings.components.torso2.drawable.max" type="torso2" :state="$store.state.skin.components.torso2[0]" :index="0"/>
+        <SmallInput class="ml-1" :min="$store.state.data.settings.components.torso2.texture.min" :max="$store.state.data.settings.components.torso2.texture.max" type="torso2" :state="$store.state.skin.components.torso2[1]" :index="1"/>
       </div>
     </div>
   </div>
@@ -80,8 +80,8 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Jackets</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" :min="$store.state.data.settings.components.torso2.drawable.min" :max="$store.state.data.settings.components.torso2.drawable.max" type="torso2" :state="$store.state.skin.components?.torso2[0]" :index="0"/>
-        <SmallInput class="ml-1" :min="$store.state.data.settings.components.torso2.texture.min" :max="$store.state.data.settings.components.torso2.texture.max" type="torso2" :state="$store.state.skin.components?.torso2[1]" :index="1"/>
+        <SmallInput class="mr-1" :min="$store.state.data.settings.components.undershirt.drawable.min" :max="$store.state.data.settings.components.undershirt.drawable.max" type="undershirt" :state="$store.state.skin.components?.undershirt[0]" :index="0"/>
+        <SmallInput class="ml-1" :min="$store.state.data.settings.components.undershirt.texture.min" :max="$store.state.data.settings.components.undershirt.texture.max" type="undershirt" :state="$store.state.skin.components?.undershirt[1]" :index="1"/>
       </div>
     </div>
   </div>
