@@ -10,7 +10,7 @@ export default createStore({
     },
     oldSkin: {},
     skin: {},
-    isFreeMode : false,
+    isFreeMode : true,
     config: {
       ped: {
         state: true

@@ -183,20 +183,21 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
   <div class="absolute flex justify-start items-center w-full h-full overflow-hidden">
     <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
       <div v-for="(item, index) in menu" :index="index">
-        <SideButton v-if="$store.state.config[item.key].state" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-if="$store.state.config[item.key].state && item.key === 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-if="$store.state.config[item.key].state && $store.state.isFreeMode && item.key !== 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
       </div>
     </div>
     <transition name="slide-fade">
       <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
         <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
           <PedView v-if="state.activeKey === 'ped'"/>
-          <InheritanceView v-else-if="state.activeKey === 'inheritance'"/>
-          <HeadView v-else-if="state.activeKey === 'head'"/>
-          <FaceView v-else-if="state.activeKey === 'face'"/>
-          <UpperView v-else-if="state.activeKey === 'upper'"/>
-          <LowerView v-else-if="state.activeKey === 'lower'"/>
-          <AccessoriesView v-else-if="state.activeKey === 'accessories'"/>
-          <TattoosView v-else-if="state.activeKey === 'tattoos'"/>
+          <InheritanceView v-else-if="state.activeKey === 'inheritance' && $store.state.isFreeMode"/>
+          <HeadView v-else-if="state.activeKey === 'head' && $store.state.isFreeMode"/>
+          <FaceView v-else-if="state.activeKey === 'face' && $store.state.isFreeMode"/>
+          <UpperView v-else-if="state.activeKey === 'upper' && $store.state.isFreeMode"/>
+          <LowerView v-else-if="state.activeKey === 'lower' && $store.state.isFreeMode"/>
+          <AccessoriesView v-else-if="state.activeKey === 'accessories' && $store.state.isFreeMode"/>
+          <TattoosView v-else-if="state.activeKey === 'tattoos' && $store.state.isFreeMode"/>
         </NScrollbar>
       </div>
     </transition>

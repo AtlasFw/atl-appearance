@@ -21,12 +21,12 @@ local function loadColors()
 		['makeUp'] = {}
 	}
 
-	for i=0, GetNumHairColors() do
-		colors.hair[i + 1] = GetPedHairRgbColor(i)
+	for i=1, GetNumHairColors() do
+		colors.hair[i] = GetPedHairRgbColor(i - 1)
 	end
 
 	for i=0, GetNumMakeupColors() do
-		colors.makeUp[i + 1] = GetPedMakeupRgbColor(i)
+		colors.makeUp[i] = GetPedMakeupRgbColor(i - 1)
 	end
 
 	return colors
@@ -125,6 +125,9 @@ local function loadConfig(data)
   return config
 end
 
+---Just a getter function to get the config and colors
+---@param config table
+---@return table
 function GetData(config)
   return {
     config = loadConfig(config),
@@ -132,11 +135,17 @@ function GetData(config)
   }
 end
 
+---Returns if the player has a freemode model
+---@param ped number
+---@return boolean
 function IsFreemode(ped)
   local modelHash = GetEntityModel(ped)
   return modelHash == `mp_m_freemode_01` or modelHash == `mp_f_freemode_01`
 end
 
+---Returns the ped's appearance/skin
+---@param ped number
+---@return table
 function GetSkin(ped)
   local shapeFather, shapeMother, _, skinFather, skinMother, _, shapeMix, skinMix, _ = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
   local ov = loadOverlays(ped)
@@ -148,11 +157,11 @@ function GetSkin(ped)
     ['eyeColor'] = GetPedEyeColor(ped),
 
     -- Heritage/Head Blend
-    ['shapeMother'] =  shapeMother,
-    ['shapeFather'] =  shapeFather,
-    ['shapeMix'] =  shapeMix,
-    ['skinMother'] =  skinMother,
-    ['skinFather'] =  skinFather,
+    ['shapeMother'] = shapeMother,
+    ['shapeFather'] = shapeFather,
+    ['shapeMix'] = shapeMix,
+    ['skinMother'] = skinMother,
+    ['skinFather'] = skinFather,
     ['skinMix'] = skinMix,
 
     -- Face Features (-1.0 - 1.0)
