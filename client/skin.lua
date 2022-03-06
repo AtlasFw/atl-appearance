@@ -21,11 +21,13 @@ local function loadColors()
 	}
 
 	for i=1, GetNumHairColors() do
-		colors.hair[i] = GetPedHairRgbColor(i - 1)
+		local color = {GetPedHairRgbColor(i - 1)}
+    colors.hair[i] = ('rgba(%s, %s, %s, 1.0)'):format(color[1], color[2], color[3])
 	end
 
 	for i=1, GetNumMakeupColors() do
-		colors.makeUp[i] = GetPedMakeupRgbColor(i - 1)
+    local color = {GetPedMakeupRgbColor(i - 1)}
+    colors.makeUp[i] = ('rgba(%s, %s, %s, 1.0)'):format(color[1], color[2], color[3])
 	end
 
 	return colors
@@ -50,7 +52,9 @@ end
 
 local function loadConfig(data)
   local config = {
-    ['ped'] = data?.ped or true,
+    ['ped'] = {
+      state = data?.ped or true,
+    },
     ['inheritance'] = {
       state = data?.inheritance?.state or true,
       face = data?.inheritance?.face or true,
@@ -273,6 +277,29 @@ function SetSkin(ped, skin, reload)
 
       local newPed = PlayerPedId()
 
+      -- Components
+      local c = skin['components']
+      SetPedComponentVariation(newPed, 0, c['face'][1], c['face'][2], 0)
+      SetPedComponentVariation(newPed, 1, c['mask'][1], c['mask'][2], 0)
+      SetPedComponentVariation(newPed, 2, c['hair'][1], c['hair'][2], 0)
+      SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
+      SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
+      SetPedComponentVariation(newPed, 5, c['bag'][1], c['bag'][2], 0)
+      SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
+      SetPedComponentVariation(newPed, 7, c['accessory'][1], c['accessory'][2], 0)
+      SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
+      SetPedComponentVariation(newPed, 9, c['kevlar'][1], c['kevlar'][2], 0)
+      SetPedComponentVariation(newPed, 10, c['badge'][1], c['badge'][2], 0)
+      SetPedComponentVariation(newPed, 11, c['torso2'][1], c['torso2'][2], 0)
+
+      -- Accessories/Props
+      SetPedPropIndex(newPed, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
+      SetPedPropIndex(newPed, 1, skin['p_glass_drawable'], skin['p_glass_texture'], true)
+      SetPedPropIndex(newPed, 2, skin['p_ear_drawable'], skin['p_ear_texture'], true)
+      SetPedPropIndex(newPed, 6, skin['p_watch_drawable'], skin['p_watch_texture'], true)
+      SetPedPropIndex(newPed, 7, skin['p_bracelet_drawable'], skin['p_bracelet_texture'], true)
+      Wait(5)
+
       -- Eye Color
       SetPedEyeColor(newPed, skin['eyeColor'])
 
@@ -302,10 +329,6 @@ function SetSkin(ped, skin, reload)
       SetPedFaceFeature(newPed, 19, skin['neckThickness'])
       Wait(5)
 
-      -- Hair
-      SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
-      SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
-
       -- Head overlays
       SetPedHeadOverlay(newPed, 0, skin['blemishesUpStyle'], skin['blemishesUpOpacity'])
       SetPedHeadOverlay(newPed, 1, skin['beardUpStyle'], skin['beardUpOpacity'])
@@ -328,27 +351,9 @@ function SetSkin(ped, skin, reload)
       SetPedHeadOverlayColor(newPed, 10, 1, skin['chestHairUpColor'], 0)
       Wait(5)
 
-      -- Components
-      local c = skin['components']
-      SetPedComponentVariation(newPed, 0, c['face'][1], c['face'][2], 0)
-      SetPedComponentVariation(newPed, 1, c['mask'][1], c['mask'][2], 0)
-      SetPedComponentVariation(newPed, 2, c['hair'][1], c['hair'][2], 0)
-      SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
-      SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
-      SetPedComponentVariation(newPed, 5, c['bag'][1], c['bag'][2], 0)
-      SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
-      SetPedComponentVariation(newPed, 7, c['accessory'][1], c['accessory'][2], 0)
-      SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
-      SetPedComponentVariation(newPed, 9, c['kevlar'][1], c['kevlar'][2], 0)
-      SetPedComponentVariation(newPed, 10, c['badge'][1], c['badge'][2], 0)
-      SetPedComponentVariation(newPed, 11, c['torso2'][1], c['torso2'][2], 0)
-
-      -- Accessories/Props
-      SetPedPropIndex(newPed, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
-      SetPedPropIndex(newPed, 1, skin['p_glass_drawable'], skin['p_glass_texture'], true)
-      SetPedPropIndex(newPed, 2, skin['p_ear_drawable'], skin['p_ear_texture'], true)
-      SetPedPropIndex(newPed, 6, skin['p_watch_drawable'], skin['p_watch_texture'], true)
-      SetPedPropIndex(newPed, 7, skin['p_bracelet_drawable'], skin['p_bracelet_texture'], true)
+      -- Hair
+      SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
+      SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
 
       SetModelAsNoLongerNeeded(skin['model'])
       print('New Skin')

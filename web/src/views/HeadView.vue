@@ -13,8 +13,8 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Hair</span>
       <NumberInput title="Style" type="hairUpStyle" :state="$store.state.skin.hairUpStyle"/>
-      <ColorInput class="mb-3" title="Color" type="hairUpColor" :state="$store.state.skin.hairUpColor"/>
-      <ColorInput class="mb-3" title="Highlight" type="hairUpHighlight" :state="$store.state.skin.hairUpHighlight"/>
+      <ColorInput class="mb-3" title="Color" :colors="$store.state.data.colors.hair" type="hairUpColor" :state="$store.state.skin.hairUpColor"/>
+      <ColorInput class="mb-3" title="Highlight" :colors="$store.state.data.colors.hair" type="hairUpHighlight" :state="$store.state.skin.hairUpHighlight"/>
     </div>
   </div>
 

@@ -99,9 +99,9 @@ export default createStore({
       state.old = skin
       state.isFreeMode = freeMode
     },
-    setData(state, data) {
-      data.colors ? state.data.colors = data.colors : null
-      data.config ? state.config = data.config : null
+    setData(state, {config, colors}) {
+      colors ? state.data.colors = colors : null
+      config ? state.config = config : null
     },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
