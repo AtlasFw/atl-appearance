@@ -6,7 +6,8 @@ export default createStore({
     data: {
       colors: {},
       models: [],
-      locales: {}
+      locales: {},
+      settings: {}
     },
     old: null,
     skin: {},
@@ -99,16 +100,22 @@ export default createStore({
       state.old = skin
       state.isFreeMode = freeMode
     },
-    setData(state, {config, colors}) {
+    setData(state, {config, colors, settings}) {
       colors ? state.data.colors = colors : null
+      settings ? state.data.settings = settings : null
       config ? state.config = config : null
     },
     skinChange(state, { key, value, index }) {
       console.log(key, value, index)
       index !== undefined ? state.skin['components'][key][index] = value : state.skin[key] = value
-      fetchNui('skin_change', { skin: state.skin, reload: key === 'model' }).then((resp) => {
+      fetchNui('skin_change', { skin: state.skin, reload: key === 'model', component: index !== undefined && index, prop: key.startsWith('p_') && key, key: key }).then((resp) => {
         if (resp?.freeMode !== undefined) {
           state.isFreeMode = resp.freeMode
+        }
+        if (resp?.prop) {
+          state.data.settings[key] = resp.prop
+        } else if (resp?.component) {
+          state.data.settings['components'][key] = resp.component
         }
       })
     },

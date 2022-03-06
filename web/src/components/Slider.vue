@@ -20,15 +20,15 @@ export default {
     },
     min: {
       type: Number,
-      default: 0
+      default: -1
     },
     max: {
       type: Number,
-      default: 100
+      default: 1
     },
     step: {
       type: Number,
-      default: 1
+      default: 0.1
     },
     state: {
       type: Number,

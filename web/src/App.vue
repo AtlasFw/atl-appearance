@@ -169,7 +169,7 @@ const handleMessage = e => {
       e.data.locales !== undefined ? store.commit('setLocales', e.data.locales) : null
       break
     case 'skin_start':
-      e.data.config !== undefined && e.data.colors !== undefined ? store.commit('setData', { config: e.data.config, colors: e.data.colors }) : null
+      e.data.config !== undefined ? store.commit('setData', { config: e.data.config, colors: e.data.colors, settings: e.data.settings }) : null
       e.data.skin !== undefined ? store.commit('setSkin', { freeMode: e.data.freeMode, skin: e.data.skin }) : null
       state.activeSidebar = true
       break
