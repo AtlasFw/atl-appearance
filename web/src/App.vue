@@ -170,7 +170,7 @@ const handleMessage = e => {
       break
     case 'skin_start':
       e.data.config !== undefined ? store.commit('setConfig', e.data.config) : null
-      e.data.skin !== undefined ? store.commit('setSkin', e.data.skin) : null
+      e.data.skin !== undefined ? store.commit('setSkin', { freeMode: e.data.freeMode, skin: e.data.skin }) : null
       state.activeSidebar = true
       break
   }

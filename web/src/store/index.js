@@ -93,10 +93,11 @@ export default createStore({
     setLocales(state, locales) {
       state.data.locales = locales
     },
-    setSkin(state, skin) {
+    setSkin(state, { skin, freeMode }) {
       state.skin = skin
       // Old seems to be synchronized with skin. This needs to be fixed.
       state.old = skin
+      state.isFreeMode = freeMode
     },
     setData(state, data) {
       data.colors ? state.data.colors = data.colors : null
