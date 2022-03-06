@@ -1,14 +1,13 @@
-local function requestModel(modelName)
-  print(modelName)
-	if type(modelName) ~= 'string' then return false end
+function requestModel(modelName)
+  if type(modelName) ~= 'string' then return false end
 	if IsModelValid(modelName) and IsModelInCdimage(modelName) then
 		RequestModel(modelName)
     local time = GetGameTimer() + 1000
     while time > GetGameTimer() do
+      if HasModelLoaded(modelName) then
+        return true
+      end
       Wait(5)
-    end
-    if HasModelLoaded(modelName) then
-      return true
     end
     SetModelAsNoLongerNeeded(model)
 	end
@@ -25,7 +24,7 @@ local function loadColors()
 		colors.hair[i] = GetPedHairRgbColor(i - 1)
 	end
 
-	for i=0, GetNumMakeupColors() do
+	for i=1, GetNumMakeupColors() do
 		colors.makeUp[i] = GetPedMakeupRgbColor(i - 1)
 	end
 
@@ -136,10 +135,9 @@ function GetData(config)
 end
 
 ---Returns if the player has a freemode model
----@param ped number
+---@param modelHash number
 ---@return boolean
-function IsFreemode(ped)
-  local modelHash = GetEntityModel(ped)
+function IsFreemode(modelHash)
   return modelHash == `mp_m_freemode_01` or modelHash == `mp_f_freemode_01`
 end
 
@@ -151,7 +149,7 @@ function GetSkin(ped)
   local ov = loadOverlays(ped)
 
   local skin = {
-    ['model'] = 'lorem_ipsum',
+    ['model'] = ModelNames[GetEntityModel(ped)],
 
     -- Eye color
     ['eyeColor'] = GetPedEyeColor(ped),
@@ -257,89 +255,92 @@ end
 ---Set the skin of a player.
 ---@param ped number
 ---@param skin table
----@param isFreeMode boolean
 ---@param reload boolean
 ---@return boolean
-function SetSkin(ped, skin, isFreeMode, reload)
+function SetSkin(ped, skin, reload)
   if type(ped) == 'number' and type(skin) == 'table' and skin['model'] then
     if requestModel(skin['model']) then
-      if not isFreeMode then
-        SetPlayerModel(PlayerId(), GetEntityModel(skin['model']))
-        SetPedDefaultComponentVariation(ped)
+      if not IsFreemode(joaat(skin['model'])) then
+        SetPlayerModel(PlayerId(), joaat(skin['model']))
         return
       end
 
       if reload then
-        SetPlayerModel(PlayerId(), GetEntityModel(skin['model']))
-        Wait(150)
+        SetPlayerModel(PlayerId(), joaat(skin['model']))
+        SetPedDefaultComponentVariation(PlayerPedId())
+        Wait(250)
       end
 
+      local newPed = PlayerPedId()
+
       -- Eye Color
-      SetPedEyeColor(ped, skin['eyeColor'])
+      SetPedEyeColor(newPed, skin['eyeColor'])
 
       -- Heritage/Head Blend
-      SetPedHeadBlendData(ped, skin['shapeMother'], skin['shapeFather'], 0, skin['skinMother'], skin['skinFather'], 0, skin['shapeMix'], skin['skinMix'], 0, true)
+      SetPedHeadBlendData(newPed, skin['shapeMother'], skin['shapeFather'], 0, skin['skinMother'], skin['skinFather'], 0, skin['shapeMix'], skin['skinMix'], 0, true)
 
       -- Face features
-      SetPedFaceFeature(ped, 0,  skin['noseWidth'])
-      SetPedFaceFeature(ped, 1,  skin['nosePeakHigh'])
-      SetPedFaceFeature(ped, 2,  skin['nosePeakSize'])
-      SetPedFaceFeature(ped, 3,  skin['noseBoneHigh'])
-      SetPedFaceFeature(ped, 4,  skin['nosePeakLowering'])
-      SetPedFaceFeature(ped, 5,  skin['noseBoneTwist'])
-      SetPedFaceFeature(ped, 6,  skin['eyeBrownHigh'])
-      SetPedFaceFeature(ped, 7,  skin['eyeBrownForward'])
-      SetPedFaceFeature(ped, 8,  skin['cheeksBoneHigh'])
-      SetPedFaceFeature(ped, 9,  skin['cheeksBoneWidth'])
-      SetPedFaceFeature(ped, 10, skin['cheeksWidth'])
-      SetPedFaceFeature(ped, 11, skin['eyesOpening'])
-      SetPedFaceFeature(ped, 12, skin['lipsThickness'])
-      SetPedFaceFeature(ped, 13, skin['jawBoneWidth'])
-      SetPedFaceFeature(ped, 14, skin['jawBoneBackSize'])
-      SetPedFaceFeature(ped, 15, skin['chinBoneLowering'])
-      SetPedFaceFeature(ped, 16, skin['chinBoneLength'])
-      SetPedFaceFeature(ped, 17, skin['chinBoneSize'])
-      SetPedFaceFeature(ped, 18, skin['chinHole'])
-      SetPedFaceFeature(ped, 19, skin['neckThickness'])
+      SetPedFaceFeature(newPed, 0,  skin['noseWidth'])
+      SetPedFaceFeature(newPed, 1,  skin['nosePeakHigh'])
+      SetPedFaceFeature(newPed, 2,  skin['nosePeakSize'])
+      SetPedFaceFeature(newPed, 3,  skin['noseBoneHigh'])
+      SetPedFaceFeature(newPed, 4,  skin['nosePeakLowering'])
+      SetPedFaceFeature(newPed, 5,  skin['noseBoneTwist'])
+      SetPedFaceFeature(newPed, 6,  skin['eyeBrownHigh'])
+      SetPedFaceFeature(newPed, 7,  skin['eyeBrownForward'])
+      SetPedFaceFeature(newPed, 8,  skin['cheeksBoneHigh'])
+      SetPedFaceFeature(newPed, 9,  skin['cheeksBoneWidth'])
+      SetPedFaceFeature(newPed, 10, skin['cheeksWidth'])
+      SetPedFaceFeature(newPed, 11, skin['eyesOpening'])
+      SetPedFaceFeature(newPed, 12, skin['lipsThickness'])
+      SetPedFaceFeature(newPed, 13, skin['jawBoneWidth'])
+      SetPedFaceFeature(newPed, 14, skin['jawBoneBackSize'])
+      SetPedFaceFeature(newPed, 15, skin['chinBoneLowering'])
+      SetPedFaceFeature(newPed, 16, skin['chinBoneLength'])
+      SetPedFaceFeature(newPed, 17, skin['chinBoneSize'])
+      SetPedFaceFeature(newPed, 18, skin['chinHole'])
+      SetPedFaceFeature(newPed, 19, skin['neckThickness'])
       Wait(5)
 
       -- Hair
-      SetPedComponentVariation(ped, 2, skin['hairUpStyle'], 0, 0)
-      SetPedHairColor(ped, skin['hairUpColor'], skin['hairUpHighlight'])
+      SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
+      SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
 
       -- Head overlays
-      SetPedHeadOverlay(ped, 0, skin['blemishesUpStyle'], skin['blemishesUpOpacity'])
-      SetPedHeadOverlay(ped, 1, skin['beardUpStyle'], skin['beardUpOpacity'])
-      SetPedHeadOverlay(ped, 2, skin['eyebrowsUpStyle'], skin['eyebrowsUpOpacity'])
-      SetPedHeadOverlay(ped, 3, skin['ageingUpStyle'], skin['ageingUpOpacity'])
-      SetPedHeadOverlay(ped, 4, skin['makeUpStyle'], skin['makeUpOpacity'])
-      SetPedHeadOverlay(ped, 5, skin['blushUpStyle'], skin['blushUpOpacity'])
-      SetPedHeadOverlay(ped, 6, skin['complexionUpStyle'], skin['complexionUpOpacity'])
-      SetPedHeadOverlay(ped, 7, skin['sunDamageUpStyle'], skin['sunDamageUpOpacity'])
-      SetPedHeadOverlay(ped, 8, skin['lipstickUpStyle'], skin['lipstickUpColor'])
-      SetPedHeadOverlay(ped, 9, skin['moleAndFrecklesUpStyle'], skin['moleAndFrecklesUpOpacity'])
-      SetPedHeadOverlay(ped, 10, skin['chestHairUpStyle'], skin['chestHairUpOpacity'])
-      SetPedHeadOverlay(ped, 11, skin['bodyBlemishesUpStyle'], skin['bodyBlemishesUpOpacity'])
+      SetPedHeadOverlay(newPed, 0, skin['blemishesUpStyle'], skin['blemishesUpOpacity'])
+      SetPedHeadOverlay(newPed, 1, skin['beardUpStyle'], skin['beardUpOpacity'])
+      SetPedHeadOverlay(newPed, 2, skin['eyebrowsUpStyle'], skin['eyebrowsUpOpacity'])
+      SetPedHeadOverlay(newPed, 3, skin['ageingUpStyle'], skin['ageingUpOpacity'])
+      SetPedHeadOverlay(newPed, 4, skin['makeUpStyle'], skin['makeUpOpacity'])
+      SetPedHeadOverlay(newPed, 5, skin['blushUpStyle'], skin['blushUpOpacity'])
+      SetPedHeadOverlay(newPed, 6, skin['complexionUpStyle'], skin['complexionUpOpacity'])
+      SetPedHeadOverlay(newPed, 7, skin['sunDamageUpStyle'], skin['sunDamageUpOpacity'])
+      SetPedHeadOverlay(newPed, 8, skin['lipstickUpStyle'], skin['lipstickUpColor'])
+      SetPedHeadOverlay(newPed, 9, skin['moleAndFrecklesUpStyle'], skin['moleAndFrecklesUpOpacity'])
+      SetPedHeadOverlay(newPed, 10, skin['chestHairUpStyle'], skin['chestHairUpOpacity'])
+      SetPedHeadOverlay(newPed, 11, skin['bodyBlemishesUpStyle'], skin['bodyBlemishesUpOpacity'])
 
-      SetPedHeadOverlayColor(ped, 1, 1, skin['beardUpColor'], 0)
-      SetPedHeadOverlayColor(ped, 2, 1, skin['eyebrowsUpColor'], 0)
-      SetPedHeadOverlayColor(ped, 4, 2, skin['makeupColor'], 0)
-      SetPedHeadOverlayColor(ped, 5, 2, skin['blushUpColor'], 0)
-      SetPedHeadOverlayColor(ped, 8, 2, skin['lipstickUpColor'], 0)
-      SetPedHeadOverlayColor(ped, 10, 1, skin['chestHairUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 1, 1, skin['beardUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 2, 1, skin['eyebrowsUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 4, 2, skin['makeupColor'], 0)
+      SetPedHeadOverlayColor(newPed, 5, 2, skin['blushUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 8, 2, skin['lipstickUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 10, 1, skin['chestHairUpColor'], 0)
       Wait(5)
 
       -- Components
       for i=1, #skin['components'] do
-        SetPedComponentVariation(ped, (i - 1), skin['components'][i][1], skin['components'][i][2], 0)
+        SetPedComponentVariation(newPed, (i - 1), skin['components'][i][1], skin['components'][i][2], 0)
       end
 
       -- Accessories/Props
-      SetPedPropIndex(ped, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
-      SetPedPropIndex(ped, 1, skin['p_glass_drawable'], skin['p_glass_texture'], true)
-      SetPedPropIndex(ped, 2, skin['p_ear_drawable'], skin['p_ear_texture'], true)
-      SetPedPropIndex(ped, 6, skin['p_watch_drawable'], skin['p_watch_texture'], true)
-      SetPedPropIndex(ped, 7, skin['p_bracelet_drawable'], skin['p_bracelet_texture'], true)
+      SetPedPropIndex(newPed, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
+      SetPedPropIndex(newPed, 1, skin['p_glass_drawable'], skin['p_glass_texture'], true)
+      SetPedPropIndex(newPed, 2, skin['p_ear_drawable'], skin['p_ear_texture'], true)
+      SetPedPropIndex(newPed, 6, skin['p_watch_drawable'], skin['p_watch_texture'], true)
+      SetPedPropIndex(newPed, 7, skin['p_bracelet_drawable'], skin['p_bracelet_texture'], true)
+
+      SetModelAsNoLongerNeeded(skin['model'])
       print('New Skin')
       return true
     end

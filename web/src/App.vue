@@ -96,7 +96,7 @@ const handleSave = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Appearance saved!')
-      fetchNui('appearance_concluded', store.state.skin).then((resp) => {
+      fetchNui('skin_concluded', { skin: store.state.skin }).then((resp) => {
         if (resp.skin) {
           store.commit('setSkin', resp.skin)
           state.collapsed = true
@@ -119,7 +119,7 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
-      fetchNui('appearance_concluded', store.state.oldSkin).then((resp) => {
+      fetchNui('skin_concluded', { skin: store.state.oldSkin }).then((resp) => {
         if (resp.skin) {
           store.commit('setSkin', resp.skin)
           state.collapsed = true

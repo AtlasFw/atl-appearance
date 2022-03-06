@@ -1,6 +1,9 @@
+ModelNames = {}
+
+-- This will most likely be changed so that loads on load
 local function loadData(resource)
   if resource == GetCurrentResourceName() then
-    Wait(1500)
+    Wait(1000)
     local models <const> = exports['atl-core']:Models()
     local locale = exports['atl-core']:GetLocale()
     SendNUIMessage({
@@ -8,6 +11,11 @@ local function loadData(resource)
       models = models,
       locales = locale('appearance')
     })
+
+    for i = 1, #models do
+      ModelNames[joaat(models[i].value)] = models[i].label
+    end
+    print('Loaded data')
   end
 end
 
