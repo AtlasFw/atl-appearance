@@ -1,5 +1,15 @@
 Cam = {
   Active = nil,
+  Sets = {
+    -- [1] = offset, [2] = point
+    ['default'] = {},
+    ['inheritance'] = {},
+    ['face'] = {},
+    ['head'] = {},
+    ['lower'] = {},
+    ['accessories'] = {},
+    ['tattoos'] = {},
+  }
 }
 
 -- Most likely will be changed to interpolating camera for smooth transitions.
@@ -18,6 +28,10 @@ end
 
 Cam.MoveTo = function(key)
   if not key then return false end
+  if key == 'ped' then
+    key = 'default'
+  end
+  local coords, point = Cam.Sets[key][1], Cam.Sets[key][2]
 end
 
 Cam.Destroy = function()
