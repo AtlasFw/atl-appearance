@@ -26,6 +26,7 @@ local function startAppearance(config)
     action = 'skin_start',
     skin = GetSkin(PlayerPedId()),
     config = data.config,
+    settings = data.settings,
     colors = data.colors,
     freeMode = IsFreemode(GetEntityModel(PlayerPedId())),
   })

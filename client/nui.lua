@@ -1,10 +1,26 @@
+local accessories <const> = {
+  ['p_hat'] = 0,
+  ['p_glass'] = 1,
+  ['p_ear'] = 2,
+  ['p_watch'] = 6,
+  ['p_bracelet'] = 7
+}
+
 RegisterNUICallback('skin_change', function(data, cb)
   if not data or not data.skin then return cb({ freeMode = false }) end
-  print(json.encode(data.skin.components.mask))
+  print(data.component, data.prop, data.reload, data.key)
   SetSkin(PlayerPedId(), data.skin, data.reload)
 
-  -- Use new ped because the model was changed, therefore needing a new ped.
-  cb({ freeMode = IsFreemode(GetEntityModel(PlayerPedId())) })
+  -- New Ped because the old one is removed by SetSkin
+  local ped = PlayerPedId()
+  local freeMode = IsFreemode(GetEntityModel(ped))
+  if data.component  then
+    cb({ freeMode = freeMode, component = GetComponentSettings(ped, data.component) })
+  elseif data.prop then
+    cb({ freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.prop]) })
+  else
+    cb({ freeMode = freeMode })
+  end
 end)
 
 RegisterNUICallback('skin_concluded', function(data, cb)
