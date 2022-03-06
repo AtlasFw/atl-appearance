@@ -9,7 +9,7 @@ end)
 
 RegisterNUICallback('skin_concluded', function(data, cb)
   if not data.skin then return cb({ skin = false }) end
-  SetSkin(PlayerPedId(), data.skin, not IsFreemode(joaat(data.skin.model)))
+  SetSkin(PlayerPedId(), data.skin, not IsFreemode(data.skin.model))
 
   -- Use new ped because the model was changed, therefore needing a new ped.
   cb({ skin = GetSkin(PlayerPedId()) })
