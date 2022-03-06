@@ -13,8 +13,8 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Hair</span>
       <NumberInput title="Style" type="hairUpStyle" :state="$store.state.skin.hairUpStyle"/>
-      <ColorInput class="mb-3" title="Color" :colors="$store.state.data.colors.hair" type="hairUpColor" :state="$store.state.skin.hairUpColor"/>
-      <ColorInput class="mb-3" title="Highlight" :colors="$store.state.data.colors.hair" type="hairUpHighlight" :state="$store.state.skin.hairUpHighlight"/>
+      <ColorInput class="mb-3" title="Color" :colors="$store.state.data.colors.typeOne" type="hairUpColor" :state="$store.state.skin.hairUpColor"/>
+      <ColorInput class="mb-3" title="Highlight" :colors="$store.state.data.colors.typeOne" type="hairUpHighlight" :state="$store.state.skin.hairUpHighlight"/>
     </div>
   </div>
 
@@ -22,7 +22,7 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Eyebrows</span>
       <NumberInput title="Style" type="eyebrowsUpStyle" :state="$store.state.skin.eyebrowsUpStyle"/>
-      <ColorInput title="Color" type="eyebrowsUpColor" :state="$store.state.skin.eyebrowsUpColor"/>
+      <ColorInput title="Color" type="eyebrowsUpColor" :colors="$store.state.data.colors.typeOne" :state="$store.state.skin.eyebrowsUpColor"/>
       <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="eyebrowsUpOpacity" :state="$store.state.skin.eyebrowsUpOpacity"/>
     </div>
   </div>
@@ -38,7 +38,7 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Make Up</span>
       <NumberInput title="Style" type="makeUpStyle" :state="$store.state.skin.makeUpStyle"/>
-      <ColorInput title="Color" type="makeUpColor" :state="$store.state.skin.makeUpColor"/>
+      <ColorInput title="Color" type="makeUpColor" :colors="$store.state.data.colors.typeTwo" :state="$store.state.skin.makeUpColor"/>
       <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="makeUpOpacity" :state="$store.state.skin.makeUpOpacity"/>
     </div>
   </div>
@@ -47,7 +47,7 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Blush</span>
       <NumberInput title="Style" type="blushUpStyle" :state="$store.state.skin.blushUpStyle"/>
-      <ColorInput title="Color" type="blushUpColor" :state="$store.state.skin.blushUpColor"/>
+      <ColorInput title="Color" type="blushUpColor" :colors="$store.state.data.colors.typeTwo" :state="$store.state.skin.blushUpColor"/>
       <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="blushUpOpacity" :state="$store.state.skin.blushUpOpacity"/>
     </div>
   </div>
@@ -56,7 +56,7 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Beard</span>
       <NumberInput title="Style" type="chestHairUpStyle" :state="$store.state.skin.chestHairUpStyle"/>
-      <ColorInput title="Color" type="chestHairUpColor" :state="$store.state.skin.chestHairUpColor"/>
+      <ColorInput title="Color" type="chestHairUpColor" :colors="$store.state.data.colors.typeOne" :state="$store.state.skin.chestHairUpColor"/>
       <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="chestHairUpOpacity" :state="$store.state.skin.chestHairUpOpacity"/>
     </div>
   </div>
@@ -65,7 +65,7 @@ import Slider from '../components/Slider.vue'
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Lipstick</span>
       <NumberInput title="Style" type="lipstickUpStyle" :state="$store.state.skin.lipstickUpStyle"/>
-      <ColorInput title="Color" type="lipstickUpColor" :state="$store.state.skin.lipstickUpColor"/>
+      <ColorInput title="Color" type="lipstickUpColor" :colors="$store.state.data.colors.typeTwo" :state="$store.state.skin.lipstickUpColor"/>
       <Slider class="mb-3" title="Opacity" :min="1" :max="10" :step="1" type="lipstickUpOpacity" :state="$store.state.skin.lipstickUpOpacity"/>
     </div>
   </div>

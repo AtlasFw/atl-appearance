@@ -16,8 +16,8 @@ end
 
 local function loadColors()
 	local colors = {
-		['hair'] = {},
-		['makeUp'] = {}
+		['typeOne'] = {},
+		['typeTwo'] = {}
 	}
 
 	for i=1, GetNumHairColors() do
