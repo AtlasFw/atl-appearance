@@ -8,7 +8,7 @@ export default createStore({
       models: [],
       locales: {}
     },
-    oldSkin: {},
+    old: null,
     skin: {},
     isFreeMode : true,
     config: {
@@ -94,10 +94,9 @@ export default createStore({
       state.data.locales = locales
     },
     setSkin(state, skin) {
-      state.oldSkin = skin
       state.skin = skin
-      console.log(JSON.stringify(state.skin))
-      console.log(JSON.stringify(skin))
+      // Old seems to be synchronized with skin. This needs to be fixed.
+      state.old = skin
     },
     setData(state, data) {
       data.colors ? state.data.colors = data.colors : null

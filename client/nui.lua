@@ -1,5 +1,6 @@
 RegisterNUICallback('skin_change', function(data, cb)
   if not data or not data.skin then return cb({ freeMode = false }) end
+  print(json.encode(data.skin.components.mask))
   SetSkin(PlayerPedId(), data.skin, data.reload)
 
   -- Use new ped because the model was changed, therefore needing a new ped.
@@ -8,7 +9,9 @@ end)
 
 RegisterNUICallback('skin_concluded', function(data, cb)
   if not data.skin then return cb({ skin = false }) end
-  local ped = PlayerPedId()
-  SetSkin(ped, data.skin, freeMode, true)
-  cb({ skin = GetSkin(ped) })
+  SetSkin(PlayerPedId(), data.skin, not IsFreemode(joaat(data.skin.model)))
+
+  -- Use new ped because the model was changed, therefore needing a new ped.
+  cb({ skin = GetSkin(PlayerPedId()) })
+  SetNuiFocus(false, false)
 end)

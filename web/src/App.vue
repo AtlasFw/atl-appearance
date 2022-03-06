@@ -119,9 +119,10 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
-      fetchNui('skin_concluded', { skin: store.state.oldSkin }).then((resp) => {
+      console.log(store.state.old, store.state.skin.model)
+      fetchNui('skin_concluded', { skin: store.state.old }).then((resp) => {
         if (resp.skin) {
-          store.commit('setSkin', resp.skin)
+          // store.commit('setSkin', resp.skin)
           state.collapsed = true
           state.activeSidebar = false
         } else {
@@ -184,7 +185,9 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
     <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
       <div v-for="(item, index) in menu" :index="index">
         <SideButton v-if="$store.state.config[item.key].state && item.key === 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
-        <SideButton v-if="$store.state.config[item.key].state && $store.state.isFreeMode && item.key !== 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'exit'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'save'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-else-if="$store.state.config[item.key].state && $store.state.isFreeMode" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
       </div>
     </div>
     <transition name="slide-fade">

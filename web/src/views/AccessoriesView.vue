@@ -21,7 +21,7 @@ import SmallInput from "../components/SmallInput.vue"
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Bags & Parachute</span>
       <div class="w-full flex space-between">
         <SmallInput title="Drawable" class="mr-1" type="bag" :state="$store.state.skin.components.bag[0]" :index="0"/>
-        <SmallInput title="Texture" class="ml-1" type="bag" :state="$store.state.skin.components.bag[0]" :index="0"/>
+        <SmallInput title="Texture" class="ml-1" type="bag" :state="$store.state.skin.components.bag[1]" :index="1"/>
       </div>
     </div>
   </div>
@@ -30,8 +30,8 @@ import SmallInput from "../components/SmallInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Scarf & Chains</span>
       <div class="w-full flex space-between">
-        <SmallInput title="Drawable" class="mr-1"/>
-        <SmallInput title="Texture" class="ml-1"/>
+        <SmallInput title="Drawable" class="mr-1" type="accessory" :state="$store.state.skin.components.accessory[0]" :index="0"/>
+        <SmallInput title="Texture" class="ml-1" type="accessory" :state="$store.state.skin.components.accessory[1]" :index="1"/>
       </div>
     </div>
   </div>

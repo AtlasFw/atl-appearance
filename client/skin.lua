@@ -329,9 +329,19 @@ function SetSkin(ped, skin, reload)
       Wait(5)
 
       -- Components
-      for i=1, #skin['components'] do
-        SetPedComponentVariation(newPed, (i - 1), skin['components'][i][1], skin['components'][i][2], 0)
-      end
+      local c = skin['components']
+      SetPedComponentVariation(newPed, 0, c['face'][1], c['face'][2], 0)
+      SetPedComponentVariation(newPed, 1, c['mask'][1], c['mask'][2], 0)
+      SetPedComponentVariation(newPed, 2, c['hair'][1], c['hair'][2], 0)
+      SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
+      SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
+      SetPedComponentVariation(newPed, 5, c['bag'][1], c['bag'][2], 0)
+      SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
+      SetPedComponentVariation(newPed, 7, c['accessory'][1], c['accessory'][2], 0)
+      SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
+      SetPedComponentVariation(newPed, 9, c['kevlar'][1], c['kevlar'][2], 0)
+      SetPedComponentVariation(newPed, 10, c['badge'][1], c['badge'][2], 0)
+      SetPedComponentVariation(newPed, 11, c['torso2'][1], c['torso2'][2], 0)
 
       -- Accessories/Props
       SetPedPropIndex(newPed, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
