@@ -142,21 +142,25 @@ const updateSelector = (key) => {
       state.activeKey = null
       state.collapsed = true
       handleSave()
+      fetchNui('skin_camera', { camera: 'default' })
       return
     case 'exit':
       state.activeKey = null
       state.collapsed = true
       handleExit()
+      fetchNui('skin_camera', { camera: 'default' })
       return
     default:
       if (key === state.activeKey) {
         state.activeKey = null
         state.collapsed = true
+        fetchNui('skin_camera', { camera: 'default' })
         return
       }
       if (state.collapsed) {
         state.collapsed = false
       }
+      fetchNui('skin_camera', { camera: key })
       state.activeKey = key
       return null
   }

@@ -30,6 +30,8 @@ local function startAppearance(config)
     colors = data.colors,
     freeMode = IsFreemode(GetEntityModel(PlayerPedId())),
   })
+
+  Cam.Create(PlayerPedId())
 end
 
 RegisterCommand('atl', function()

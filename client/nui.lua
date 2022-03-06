@@ -21,12 +21,17 @@ local components <const> = {
   ['torso2'] = 11
 }
 
+RegisterNUICallback('skin_camera', function(data, cb)
+  if not data or not data.camera then return cb({}) end
+  Cam.MoveTo(data.camera)
+  cb{{}}
+end)
+
 RegisterNUICallback('skin_change', function(data, cb)
   if not data or not data.skin then return cb({ freeMode = false }) end
   SetSkin(PlayerPedId(), data.skin, data.reload)
 
   -- New Ped because the old one is removed by SetSkin
-
   local ped = PlayerPedId()
   local freeMode = IsFreemode(GetEntityModel(ped))
   if data.component  then
@@ -45,4 +50,5 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   -- Use new ped because the model was changed, therefore needing a new ped.
   cb({ skin = GetSkin(PlayerPedId()) })
   SetNuiFocus(false, false)
+  Cam.Destroy()
 end)
