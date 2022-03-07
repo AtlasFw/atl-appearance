@@ -1,3 +1,5 @@
+local TATTOOS, FADES = exports['atl-core']:Tattoos(), exports['atl-core']:Overlays()
+
 local skinCopy = {}
 local nakedClothes = {
   [`mp_m_freemode_01`] = {
@@ -321,6 +323,7 @@ function GetSkin(ped)
 
     -- Hair
     ['hairUpStyle'] = GetPedDrawableVariation(ped, 2),
+    ['hairFade'] = 1,
     ['hairUpColor'] = GetPedHairColor(ped),
     ['hairUpHighlight'] = GetPedHairHighlightColor(ped),
 
@@ -357,13 +360,13 @@ function GetSkin(ped)
     ['beardUpOpacity'] = ov['beard'][6],
 
     -- Tattoos (t_fade is part of the head but also here. Kinda weird but hey, it's Rockstar)
-    ['t_fade'] = '',
-    ['t_other'] = '',
-    ['t_torso'] = '',
-    ['t_armRight'] = '',
-    ['t_armLeft'] = '',
-    ['t_legRight'] = '',
-    ['t_legLeft'] = '',
+    ['t_fade'] = 0,
+    ['t_other'] = 0,
+    ['t_torso'] = 0,
+    ['t_armRight'] = 0,
+    ['t_armLeft'] = 0,
+    ['t_legRight'] = 0,
+    ['t_legLeft'] = 0,
   }
   return skin
 end
