@@ -479,18 +479,15 @@ end
 function SetNaked(bool)
   local ped = PlayerPedId()
   if bool then
-    local clothes = nakedClothes[GetEntityModel(ped)]
+    local c = nakedClothes[GetEntityModel(ped)]
     skinCopy = GetSkin(ped)
 
-    -- Might need refactoring later
-    skinCopy['torso'] = clothes['torso']
-    skinCopy['leg'] = clothes['leg']
-    skinCopy['undershirt'] = clothes['undershirt']
-    skinCopy['torso2'] = clothes['torso2']
-    skinCopy['shoes'] = clothes['shoes']
-    skinCopy['p_glass_drawable'] = clothes['p_glass_drawable']
-    skinCopy['p_glass_texture'] = clothes['p_glass_texture']
-    SetSkin(ped, skinCopy, false)
+    SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
+    SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
+    SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
+    SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
+    SetPedComponentVariation(ped, 11, c['torso2'][1], c['torso2'][2], 0)
+    SetPedPropIndex(ped, 1, c['p_glass_drawable'], c['p_glass_texture'], true)
   else
     if skinCopy then
       SetSkin(ped, skinCopy, false)
