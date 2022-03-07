@@ -1,5 +1,6 @@
 Cam = {
   Active = nil,
+  IsNaked = false,
   Sets = {
     -- [1] = offset, [2] = point
     ['default'] = {},
@@ -28,8 +29,18 @@ end
 
 Cam.MoveTo = function(key)
   if not key then return false end
+  if Cam.IsNaked then
+    Cam.IsNaked = false
+    SetNaked(false)
+  end
+
   if key == 'ped' then
     key = 'default'
+  elseif key == 'tattoos' then
+    if not Cam.IsNaked then
+      Cam.IsNaked = true
+      SetNaked(true)
+    end
   end
   local coords, point = Cam.Sets[key][1], Cam.Sets[key][2]
 end

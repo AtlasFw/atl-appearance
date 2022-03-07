@@ -1,3 +1,13 @@
+local skinCopy = {}
+local nakedClothes = {
+  [`mp_m_freemode_01`] = {
+
+  },
+  [`mp_f_freemode_01`] = {
+
+  },
+}
+
 local function requestModel(modelName)
   if type(modelName) ~= 'string' then return false end
 	if IsModelValid(modelName) and IsModelInCdimage(modelName) then
@@ -334,7 +344,7 @@ function GetSkin(ped)
     ['beardUpColor'] = ov['beard'][4],
     ['beardUpOpacity'] = ov['beard'][6],
 
-    -- Tattoos
+    -- Tattoos (t_fade is part of the head but also here. Kinda weird but hey, it's Rockstar)
     ['t_fade'] = '',
     ['t_other'] = '',
     ['t_torso'] = '',
@@ -451,6 +461,26 @@ function SetSkin(ped, skin, reload)
   end
   error('Did not load appearance in time. Restart the resource')
   return skin
+end
+
+
+function SetNaked(bool)
+  local ped = PlayerPedId()
+  if bool then
+    local clothes = nakedClothes[GetEntityModel(ped)]
+    skinCopy = GetSkin(ped)
+    for k, v in pairs(clothes) do
+      if skinCopy[k] then
+        skinCopy[k] = v
+      end
+    end
+    SetSkin(ped, skinCopy, false)
+  else
+    if skinCopy then
+      SetSkin(ped, skinCopy, false)
+      skinCopy = {}
+    end
+  end
 end
 
 exports('setSkin', setSkin)
