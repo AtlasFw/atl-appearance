@@ -46,5 +46,4 @@ import NumberInput from "../components/NumberInput.vue"
       </div>
     </div>
   </div>
-
 </template>

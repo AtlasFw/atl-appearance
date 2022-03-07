@@ -333,6 +333,15 @@ function GetSkin(ped)
     ['beardUpStyle'] = ov['beard'][2],
     ['beardUpColor'] = ov['beard'][4],
     ['beardUpOpacity'] = ov['beard'][6],
+
+    -- Tattoos
+    ['t_fade'] = '',
+    ['t_other'] = '',
+    ['t_torso'] = '',
+    ['t_armRight'] = '',
+    ['t_armLeft'] = '',
+    ['t_legRight'] = '',
+    ['t_legLeft'] = '',
   }
   return skin
 end
