@@ -1,10 +1,22 @@
 local skinCopy = {}
 local nakedClothes = {
   [`mp_m_freemode_01`] = {
-
+    ['torso'] = {15, 0}, -- Arms
+    ['leg'] = {14, 0},
+    ['undershirt'] = {15, 0},
+    ['torso2'] = {91, 0}, -- Jackets?
+    ['shoes'] = {5, 0},
+    ['p_glass_drawable'] = 0,
+    ['p_glass_texture'] = 0
   },
   [`mp_f_freemode_01`] = {
-
+    ['torso'] = {15, 0}, -- Arms
+    ['leg'] = {16, 0},
+    ['undershirt'] = {34, 0},
+    ['torso2'] = {101, 1}, -- Jackets?
+    ['shoes'] = {5, 0},
+    ['p_glass_drawable'] = 5,
+    ['p_glass_texture'] = 0
   },
 }
 
@@ -58,7 +70,7 @@ local function loadSettings()
       ['face'] = GetComponentSettings(ped, 0),
       ['mask'] = GetComponentSettings(ped, 1),
       ['hair'] = GetComponentSettings(ped, 2),
-      ['torso'] = GetComponentSettings(ped, 3),
+      ['torso'] = GetComponentSettings(ped, 3), -- Arms
       ['leg'] = GetComponentSettings(ped, 4),
       ['bag'] = GetComponentSettings(ped, 5),
       ['shoes'] = GetComponentSettings(ped, 6),
@@ -296,7 +308,7 @@ function GetSkin(ped)
       ['face'] = {GetPedDrawableVariation(ped, 0), GetPedTextureVariation(ped, 0)}, -- Drawable, Texture
       ['mask'] = {GetPedDrawableVariation(ped, 1), GetPedTextureVariation(ped, 1)},
       ['hair'] = {GetPedDrawableVariation(ped, 2), GetPedTextureVariation(ped, 2)},
-      ['torso'] = {GetPedDrawableVariation(ped, 3), GetPedTextureVariation(ped, 3)}, -- TShirt
+      ['torso'] = {GetPedDrawableVariation(ped, 3), GetPedTextureVariation(ped, 3)},  -- Arms
       ['leg'] = {GetPedDrawableVariation(ped, 4), GetPedTextureVariation(ped, 4)},
       ['bag'] = {GetPedDrawableVariation(ped, 5), GetPedTextureVariation(ped, 5)}, -- Also parachute
       ['shoes'] = {GetPedDrawableVariation(ped, 6), GetPedTextureVariation(ped, 6)},
@@ -469,11 +481,15 @@ function SetNaked(bool)
   if bool then
     local clothes = nakedClothes[GetEntityModel(ped)]
     skinCopy = GetSkin(ped)
-    for k, v in pairs(clothes) do
-      if skinCopy[k] then
-        skinCopy[k] = v
-      end
-    end
+
+    -- Might need refactoring later
+    skinCopy['torso'] = clothes['torso']
+    skinCopy['leg'] = clothes['leg']
+    skinCopy['undershirt'] = clothes['undershirt']
+    skinCopy['torso2'] = clothes['torso2']
+    skinCopy['shoes'] = clothes['shoes']
+    skinCopy['p_glass_drawable'] = clothes['p_glass_drawable']
+    skinCopy['p_glass_texture'] = clothes['p_glass_texture']
     SetSkin(ped, skinCopy, false)
   else
     if skinCopy then
