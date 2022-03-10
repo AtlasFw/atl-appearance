@@ -7,11 +7,11 @@ export default createStore({
       colors: {},
       models: [],
       locales: {},
-      settings: {}
+      settings: {},
+      old: null,
+      isFreeMode: true
     },
-    old: null,
     skin: {},
-    isFreeMode : true,
     config: {
       ped: {
         state: true
@@ -97,8 +97,8 @@ export default createStore({
     setSkin(state, { skin, freeMode }) {
       state.skin = skin
       // Old seems to be synchronized with skin. This needs to be fixed.
-      state.old = skin
-      state.isFreeMode = freeMode
+      state.data.old = skin
+      state.data.isFreeMode = freeMode
     },
     setData(state, {config, colors, settings}) {
       colors ? state.data.colors = colors : null
@@ -110,7 +110,7 @@ export default createStore({
       index !== undefined ? state.skin['components'][key][index] = value : state.skin[key] = value
       fetchNui('skin_change', { skin: state.skin, reload: key === 'model', component: index !== undefined, prop: key.startsWith('p_'), key: key }).then((resp) => {
         if (resp?.freeMode !== undefined) {
-          state.isFreeMode = resp.freeMode
+          state.data.isFreeMode = resp.freeMode
         }
         console.log(`[Skin] ${key} changed to ${value}`)
         if (resp?.prop) {

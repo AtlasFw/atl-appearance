@@ -119,8 +119,8 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
-      console.log(store.state.old, store.state.skin.model)
-      fetchNui('skin_concluded', { skin: store.state.old }).then((resp) => {
+      console.log(store.state.data.old, store.state.skin.model)
+      fetchNui('skin_concluded', { skin: store.state.data.old }).then((resp) => {
         if (resp.skin) {
           // store.commit('setSkin', resp.skin)
           state.collapsed = true
@@ -191,7 +191,7 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
         <SideButton v-if="$store.state.config[item.key].state && item.key === 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
         <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'exit'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
         <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'save'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
-        <SideButton v-else-if="$store.state.config[item.key].state && $store.state.isFreeMode" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-else-if="$store.state.config[item.key].state && $store.state.data.isFreeMode" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
       </div>
     </div>
     <transition name="slide-fade">
@@ -199,12 +199,12 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
         <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
           <PedView v-if="state.activeKey === 'ped'"/>
           <InheritanceView v-else-if="state.activeKey === 'inheritance' && $store.state.isFreeMode"/>
-          <HeadView v-else-if="state.activeKey === 'head' && $store.state.isFreeMode"/>
-          <FaceView v-else-if="state.activeKey === 'face' && $store.state.isFreeMode"/>
-          <UpperView v-else-if="state.activeKey === 'upper' && $store.state.isFreeMode"/>
-          <LowerView v-else-if="state.activeKey === 'lower' && $store.state.isFreeMode"/>
-          <AccessoriesView v-else-if="state.activeKey === 'accessories' && $store.state.isFreeMode"/>
-          <TattoosView v-else-if="state.activeKey === 'tattoos' && $store.state.isFreeMode"/>
+          <HeadView v-else-if="state.activeKey === 'head' && $store.state.data.isFreeMode"/>
+          <FaceView v-else-if="state.activeKey === 'face' && $store.state.data.isFreeMode"/>
+          <UpperView v-else-if="state.activeKey === 'upper' && $store.state.data.isFreeMode"/>
+          <LowerView v-else-if="state.activeKey === 'lower' && $store.state.data.isFreeMode"/>
+          <AccessoriesView v-else-if="state.activeKey === 'accessories' && $store.state.data.isFreeMode"/>
+          <TattoosView v-else-if="state.activeKey === 'tattoos' && $store.state.data.isFreeMode"/>
         </NScrollbar>
       </div>
     </transition>
