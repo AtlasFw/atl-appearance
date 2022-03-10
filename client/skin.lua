@@ -360,13 +360,13 @@ function GetSkin(ped)
     ['beardUpOpacity'] = ov['beard'][6],
 
     -- Tattoos
-    ['t_fade'] = 0,
-    ['t_head'] = 0,
-    ['t_torso'] = 0,
-    ['t_armRight'] = 0,
-    ['t_armLeft'] = 0,
-    ['t_legRight'] = 0,
-    ['t_legLeft'] = 0,
+    ['t_fade'] = '',
+    ['t_other'] = '',
+    ['t_torso'] = '',
+    ['t_armRight'] = '',
+    ['t_armLeft'] = '',
+    ['t_legRight'] = '',
+    ['t_legLeft'] = '',
   }
   return skin
 end
@@ -469,9 +469,6 @@ function SetSkin(ped, skin, reload)
       -- Hair
       SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
       SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
-
-      -- Tattoos
-
 
       SetModelAsNoLongerNeeded(skin['model'])
       return true
