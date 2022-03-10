@@ -12,8 +12,8 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Head</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" title="Hair fade"/>
-        <SmallInput class="ml-1" title="Other"/>
+        <SmallInput class="mr-1" title="Hair fade" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_fade"/>
+        <SmallInput class="ml-1" title="Other" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_head"/>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Torso</span>
       <div class="w-full flex space-between">
-        <NumberInput class="mb-2" title="Style"/>
+        <NumberInput class="mb-2" title="Style" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_torso"/>
       </div>
     </div>
   </div>
@@ -31,8 +31,8 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Arm</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" title="Left"/>
-        <SmallInput class="ml-1" title="Right"/>
+        <SmallInput class="mr-1" title="Left" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_armLeft"/>
+        <SmallInput class="ml-1" title="Right" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_armRight"/>
       </div>
     </div>
   </div>
@@ -41,8 +41,8 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Legs</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" title="Left"/>
-        <SmallInput class="ml-1" title="Right"/>
+        <SmallInput class="mr-1" title="Left" :min="0" :max="5" type="t_legLeft" :state="$store.state.skin.t_armLeft"/>
+        <SmallInput class="ml-1" title="Right" :min="0" :max="5" type="t_legRight" :state="$store.state.skin.t_armLeft"/>
       </div>
     </div>
   </div>
