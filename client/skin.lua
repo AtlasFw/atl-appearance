@@ -265,6 +265,9 @@ end
 ---@param ped number
 ---@return table
 function GetSkin(ped)
+  if OldSkin and OldSkin.model then
+    return OldSkin
+  end
   local shapeFather, shapeMother, _, skinFather, skinMother, _, shapeMix, skinMix, _ = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
   local ov = loadOverlays(ped)
 
@@ -306,9 +309,9 @@ function GetSkin(ped)
 
     -- Hair
     ['hairUpStyle'] = GetPedDrawableVariation(ped, 2),
-    ['hairUpFade'] = 1, -- Overlays (OVERLAYS)
-    ['hairUpColor'] = GetPedHairColor(ped),
-    ['hairUpHighlight'] = GetPedHairHighlightColor(ped),
+    ['hairUpFade'] = 0, -- Overlays (OVERLAYS)
+    ['hairUpColor'] = GetPedHairColor(ped) + 1,
+    ['hairUpHighlight'] = GetPedHairHighlightColor(ped) + 1,
 
     -- Head overlays
     ['makeUpStyle'] = ov['makeUp'][2],
@@ -481,6 +484,7 @@ function SetSkin(ped, skin, reload)
       -- Tattoos
       ClearPedDecorations(newPed)
       local t = {
+        ['hairUpFade'] = fades[model][skin['hairUpFade']] or '',
         ['t_head'] = tattoos[model].head[skin['t_head']] or '',
         ['t_torso'] = tattoos[model].torso[skin['t_torso']] or '',
         ['t_armRight'] = tattoos[model].rightArm[skin['t_armRight']] or '',
@@ -496,7 +500,7 @@ function SetSkin(ped, skin, reload)
       AddPedDecorationFromHashes(newPed, t['t_legLeft'][1], t['t_legLeft'][2])
 
       -- Fade
-      AddPedDecorationFromHashes(newPed, fades[model][skin['hairUpFade']][1], fades[model][skin['hairUpFade']][2])
+      AddPedDecorationFromHashes(newPed, t['hairUpFade'][1], t['hairUpFade'][2])
 
       SetModelAsNoLongerNeeded(skin['model'])
       return skin

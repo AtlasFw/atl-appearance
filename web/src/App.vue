@@ -20,8 +20,7 @@ const message = useMessage()
 const state = reactive({
   activeKey: null,
   collapsed: false,
-  activeSidebar: true,
-  old: {}
+  activeSidebar: true
 })
 
 const menu = [
@@ -96,7 +95,6 @@ const handleSave = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Appearance saved!')
-      console.log('Saved', store.state.skin)
       fetchNui('skin_concluded', { skin: store.state.skin }).then((resp) => {
         if (resp.skin) {
           store.commit('setSkin', resp.skin)
@@ -120,9 +118,7 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
-      console.log('Cancelled', store.state.skin)
-      console.log('Old', state.old)
-      fetchNui('skin_concluded', { skin: state.old }).then((resp) => {
+      fetchNui('skin_concluded', {}).then((resp) => {
         if (resp.skin) {
           store.commit('setSkin', resp.skin)
           state.collapsed = true
@@ -173,7 +169,6 @@ const handleMessage = e => {
     case 'skin_start':
       e.data.config !== undefined ? store.commit('setData', { config: e.data.config, colors: e.data.colors, settings: e.data.settings }) : null
       e.data.skin !== undefined ? store.commit('setSkin', { freeMode: e.data.freeMode, skin: e.data.skin }) : null
-      state.old = e.data.skin || {}
       state.activeSidebar = true
       break
   }

@@ -61,11 +61,13 @@ RegisterNUICallback('skin_change', function(data, cb)
 end)
 
 RegisterNUICallback('skin_concluded', function(data, cb)
-  if not data.skin then
-    return cb { skin = false }
+  local skin = OldSkin
+  if data and data.skin then
+    skin = data.skin
+    OldSkin = data.skin
   end
-  SetSkin(PlayerPedId(), data.skin, not IsFreemode(joaat(data.skin.model)))
 
+  SetSkin(PlayerPedId(), skin, not IsFreemode(GetEntityModel(skin.model)))
   Cam.Destroy()
   SetNuiFocus(false, false)
   cb { skin = GetSkin(PlayerPedId()) }
