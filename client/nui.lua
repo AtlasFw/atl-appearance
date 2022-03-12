@@ -38,7 +38,7 @@ RegisterNUICallback('skin_camera', function(data, cb)
   if not data or not data.camera then
     return cb {}
   end
-  Cam.MoveTo(data.camera)
+  Cam.MoveTo(data.camera, data.skin)
   cb { }
 end)
 
@@ -64,7 +64,7 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   if not data.skin then
     return cb { skin = false }
   end
-  SetSkin(PlayerPedId(), data.skin, IsFreemode(joaat(data.skin.model)))
+  SetSkin(PlayerPedId(), data.skin, not IsFreemode(joaat(data.skin.model)))
 
   Cam.Destroy()
   SetNuiFocus(false, false)

@@ -30,13 +30,13 @@ Cam.Create = function(ped)
   return true
 end
 
-Cam.MoveTo = function(key)
+Cam.MoveTo = function(key, data)
   if not key then
     return false
   end
   if Cam.IsNaked then
     Cam.IsNaked = false
-    SetNaked(false)
+    SetNaked(false, data)
   end
 
   if key == 'ped' then

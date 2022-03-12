@@ -96,6 +96,7 @@ const handleSave = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Appearance saved!')
+      console.log('Saved', store.state.skin)
       fetchNui('skin_concluded', { skin: store.state.skin }).then((resp) => {
         if (resp.skin) {
           store.commit('setSkin', resp.skin)
@@ -119,6 +120,8 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
+      console.log('Cancelled', store.state.skin)
+      console.log('Old', state.old)
       fetchNui('skin_concluded', { skin: state.old }).then((resp) => {
         if (resp.skin) {
           store.commit('setSkin', resp.skin)
@@ -141,25 +144,25 @@ const updateSelector = (key) => {
       state.activeKey = null
       state.collapsed = true
       handleSave()
-      fetchNui('skin_camera', { camera: 'default' })
+      fetchNui('skin_camera', { camera: 'default', skin: store.state.skin })
       return
     case 'exit':
       state.activeKey = null
       state.collapsed = true
       handleExit()
-      fetchNui('skin_camera', { camera: 'default' })
+      fetchNui('skin_camera', { camera: 'default', skin: store.state.skin })
       return
     default:
       if (key === state.activeKey) {
         state.activeKey = null
         state.collapsed = true
-        fetchNui('skin_camera', { camera: 'default' })
+        fetchNui('skin_camera', { camera: 'default', skin: store.state.skin })
         return
       }
       if (state.collapsed) {
         state.collapsed = false
       }
-      fetchNui('skin_camera', { camera: key })
+      fetchNui('skin_camera', { camera: key, skin: store.state.skin })
       state.activeKey = key
       return null
   }
@@ -200,7 +203,7 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
       <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
         <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
           <PedView v-if="state.activeKey === 'ped'"/>
-          <InheritanceView v-else-if="state.activeKey === 'inheritance' && $store.state.isFreeMode"/>
+          <InheritanceView v-else-if="state.activeKey === 'inheritance' && $store.state.data.isFreeMode"/>
           <HeadView v-else-if="state.activeKey === 'head' && $store.state.data.isFreeMode"/>
           <FaceView v-else-if="state.activeKey === 'face' && $store.state.data.isFreeMode"/>
           <UpperView v-else-if="state.activeKey === 'upper' && $store.state.data.isFreeMode"/>
