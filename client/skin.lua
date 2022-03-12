@@ -72,11 +72,11 @@ local function loadSettings()
 
     -- Tattoos
     ['t_head'] = { min = 1, max = #tattoos[model]?.head },
-    -- ['t_torso'] = { min = 1, max = #tattoos[model]?.torso },
-    -- ['t_armRight'] = { min = 1, max = #tattoos[model]?.armRight },
-    -- ['t_armLeft'] = { min = 1, max = #tattoos[model]?.armLeft },
-    -- ['t_legRight'] = { min = 1, max = #tattoos[model]?.legRight },
-    -- ['t_legLeft'] = { min = 1, max = #tattoos[model]?.legLeft },
+    ['t_torso'] = { min = 1, max = #tattoos[model]?.torso },
+    ['t_armRight'] = { min = 1, max = #tattoos[model]?.armRight },
+    ['t_armLeft'] = { min = 1, max = #tattoos[model]?.armLeft },
+    ['t_legRight'] = { min = 1, max = #tattoos[model]?.legRight },
+    ['t_legLeft'] = { min = 1, max = #tattoos[model]?.legLeft },
 
     -- Components
     ['components'] = {
@@ -406,11 +406,11 @@ function SetSkin(ped, skin, reload)
 
       local t = {
         ['t_head'] = tattoos[model].head[skin['t_head']],
-        ['t_torso'] = 0,
-        ['t_armRight'] = 0,
-        ['t_armLeft'] = 0,
-        ['t_legRight'] = 0,
-        ['t_legLeft'] = 0,
+        ['t_torso'] = tattoos[model].torso[skin['t_torso']],
+        ['t_armRight'] = tattoos[model].armRight[skin['t_armRight']],
+        ['t_armLeft'] = tattoos[model].armLeft[skin['t_armLeft']],
+        ['t_legRight'] = tattoos[model].legRight[skin['t_legRight']],
+        ['t_legLeft'] = tattoos[model].legleft[skin['t_legLeft']],
       }
 
       -- Components
@@ -489,11 +489,11 @@ function SetSkin(ped, skin, reload)
 
       -- Tattoos
       AddPedDecorationFromHashes(newPed, t['t_head'][1], t['t_head'][2])
-      -- AddPedDecorationFromHashes(newPed, t['t_torso'][1], t['t_torso'][2])
-      -- AddPedDecorationFromHashes(newPed, t['t_armRight'][1], t['t_armRight'][2])
-      -- AddPedDecorationFromHashes(newPed, t['t_armLeft'][1], t['t_armLeft'][2])
-      -- AddPedDecorationFromHashes(newPed, t['t_legRight'][1], t['t_legRight'][2])
-      -- AddPedDecorationFromHashes(newPed, t['t_legLeft'][1], t['t_legLeft'][2])
+      AddPedDecorationFromHashes(newPed, t['t_torso'][1], t['t_torso'][2])
+      AddPedDecorationFromHashes(newPed, t['t_armRight'][1], t['t_armRight'][2])
+      AddPedDecorationFromHashes(newPed, t['t_armLeft'][1], t['t_armLeft'][2])
+      AddPedDecorationFromHashes(newPed, t['t_legRight'][1], t['t_legRight'][2])
+      AddPedDecorationFromHashes(newPed, t['t_legLeft'][1], t['t_legLeft'][2])
 
       -- Hair
       SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)

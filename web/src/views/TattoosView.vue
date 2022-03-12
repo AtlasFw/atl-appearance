@@ -21,7 +21,7 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Torso</span>
       <div class="w-full flex space-between">
-        <NumberInput class="mb-2" title="Style" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_torso"/>
+        <NumberInput class="mb-2" title="Style" type="t_torso" :min="$store.state.data.settings.t_torso.min" :max="$store.state.data.settings.t_torso.max" :state="$store.state.skin.t_torso"/>
       </div>
     </div>
   </div>
@@ -30,8 +30,8 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Arm</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" title="Left" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_armLeft"/>
-        <SmallInput class="ml-1" title="Right" :min="0" :max="5" type="t_fade" :state="$store.state.skin.t_armRight"/>
+        <SmallInput class="mr-1" title="Left" type="t_armLeft" :min="$store.state.data.settings.t_armLeft.min" :max="$store.state.data.settings.t_armLeft.max" :state="$store.state.skin.t_armLeft"/>
+        <SmallInput class="ml-1" title="Right" type="t_armRight" :min="$store.state.data.settings.t_armRight.min" :max="$store.state.data.settings.t_armRight.max" :state="$store.state.skin.t_armRight"/>
       </div>
     </div>
   </div>
@@ -40,8 +40,8 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Legs</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" title="Left" :min="0" :max="5" type="t_legLeft" :state="$store.state.skin.t_armLeft"/>
-        <SmallInput class="ml-1" title="Right" :min="0" :max="5" type="t_legRight" :state="$store.state.skin.t_armLeft"/>
+        <SmallInput class="mr-1" title="Left" type="t_legLeft" :min="$store.state.data.settings.t_legLeft.min" :max="$store.state.data.settings.t_legLeft.max" :state="$store.state.skin.t_legLeft"/>
+        <SmallInput class="ml-1" title="Right" type="t_legRight" :min="$store.state.data.settings.t_legRight.min" :max="$store.state.data.settings.t_legRight.max" :state="$store.state.skin.t_legRight"/>
       </div>
     </div>
   </div>
