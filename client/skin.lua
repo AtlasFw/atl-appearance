@@ -1,4 +1,4 @@
-local TATTOOS, FADES = exports['atl-core']:Tattoos(), exports['atl-core']:Overlays()
+local tattoos, fades = exports['atl-core']:Tattoos(), exports['atl-core']:Overlays()
 
 local skinCopy = {}
 local nakedClothes = {
@@ -40,6 +40,8 @@ end
 
 local function loadSettings()
   local ped = PlayerPedId()
+  local model = GetEntityModel(ped)
+  SetEntityVisible(ped, true)
 
   -- Default: Step - 0.1 | Max - 1.0 | Min - 0.0 === SLIDER
   local settings = {
@@ -59,6 +61,7 @@ local function loadSettings()
 
     -- Hair
     ['hairUpStyle'] = { min = 0, max = GetNumberOfPedDrawableVariations(ped, 2) - 1 }, -- -1?
+    ['hairUpFade'] = { min = 0, max = 1},
 
     -- Accessories/Props
     ['p_hat'] = GetAccessorySettings(ped, 0),
@@ -66,6 +69,14 @@ local function loadSettings()
     ['p_ear'] = GetAccessorySettings(ped, 2),
     ['p_watch'] = GetAccessorySettings(ped, 6),
     ['p_bracelet'] = GetAccessorySettings(ped, 7),
+
+    -- Tattoos
+    ['t_head'] = { min = 1, max = #tattoos[model]?.head },
+    -- ['t_torso'] = { min = 1, max = #tattoos[model]?.torso },
+    -- ['t_armRight'] = { min = 1, max = #tattoos[model]?.armRight },
+    -- ['t_armLeft'] = { min = 1, max = #tattoos[model]?.armLeft },
+    -- ['t_legRight'] = { min = 1, max = #tattoos[model]?.legRight },
+    -- ['t_legLeft'] = { min = 1, max = #tattoos[model]?.legLeft },
 
     -- Components
     ['components'] = {
@@ -323,7 +334,7 @@ function GetSkin(ped)
 
     -- Hair
     ['hairUpStyle'] = GetPedDrawableVariation(ped, 2),
-    ['hairFade'] = 1,
+    ['hairUpFade'] = 1, -- Overlays (OVERLAYS)
     ['hairUpColor'] = GetPedHairColor(ped),
     ['hairUpHighlight'] = GetPedHairHighlightColor(ped),
 
@@ -359,14 +370,13 @@ function GetSkin(ped)
     ['beardUpColor'] = ov['beard'][4],
     ['beardUpOpacity'] = ov['beard'][6],
 
-    -- Tattoos (t_fade is part of the head but also here. Kinda weird but hey, it's Rockstar)
-    ['t_fade'] = 0,
-    ['t_other'] = 0,
-    ['t_torso'] = 0,
-    ['t_armRight'] = 0,
-    ['t_armLeft'] = 0,
-    ['t_legRight'] = 0,
-    ['t_legLeft'] = 0,
+    -- Tattoos
+    ['t_head'] = 1,
+    ['t_torso'] = 1,
+    ['t_armRight'] = 1,
+    ['t_armLeft'] = 1,
+    ['t_legRight'] = 1,
+    ['t_legLeft'] = 1,
   }
   return skin
 end
@@ -379,18 +389,29 @@ end
 function SetSkin(ped, skin, reload)
   if type(ped) == 'number' and type(skin) == 'table' and skin['model'] then
     if requestModel(skin['model']) then
-      if not IsFreemode(joaat(skin['model'])) then
-        SetPlayerModel(PlayerId(), joaat(skin['model']))
+      local model = joaat(skin['model'])
+      if not IsFreemode(model) then
+        SetPlayerModel(PlayerId(), model)
         return
       end
 
       if reload then
-        SetPlayerModel(PlayerId(), joaat(skin['model']))
+        SetPlayerModel(PlayerId(), model)
         SetPedDefaultComponentVariation(PlayerPedId())
         Wait(250)
       end
 
       local newPed = PlayerPedId()
+      ClearPedDecorations(newPed)
+
+      local t = {
+        ['t_head'] = tattoos[model].head[skin['t_head']],
+        ['t_torso'] = 0,
+        ['t_armRight'] = 0,
+        ['t_armLeft'] = 0,
+        ['t_legRight'] = 0,
+        ['t_legLeft'] = 0,
+      }
 
       -- Components
       local c = skin['components']
@@ -442,7 +463,7 @@ function SetSkin(ped, skin, reload)
       SetPedFaceFeature(newPed, 17, skin['chinBoneSize'])
       SetPedFaceFeature(newPed, 18, skin['chinHole'])
       SetPedFaceFeature(newPed, 19, skin['neckThickness'])
-      Wait(5)
+      Wait(15)
 
       -- Head overlays
       SetPedHeadOverlay(newPed, 0, skin['blemishesUpStyle'], skin['blemishesUpOpacity'])
@@ -464,7 +485,15 @@ function SetSkin(ped, skin, reload)
       SetPedHeadOverlayColor(newPed, 5, 2, skin['blushUpColor'], 0)
       SetPedHeadOverlayColor(newPed, 8, 2, skin['lipstickUpColor'], 0)
       SetPedHeadOverlayColor(newPed, 10, 1, skin['chestHairUpColor'], 0)
-      Wait(5)
+      Wait(15)
+
+      -- Tattoos
+      AddPedDecorationFromHashes(newPed, t['t_head'][1], t['t_head'][2])
+      -- AddPedDecorationFromHashes(newPed, t['t_torso'][1], t['t_torso'][2])
+      -- AddPedDecorationFromHashes(newPed, t['t_armRight'][1], t['t_armRight'][2])
+      -- AddPedDecorationFromHashes(newPed, t['t_armLeft'][1], t['t_armLeft'][2])
+      -- AddPedDecorationFromHashes(newPed, t['t_legRight'][1], t['t_legRight'][2])
+      -- AddPedDecorationFromHashes(newPed, t['t_legLeft'][1], t['t_legLeft'][2])
 
       -- Hair
       SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
@@ -485,10 +514,10 @@ function SetNaked(bool)
     local c = nakedClothes[GetEntityModel(ped)]
     skinCopy = GetSkin(ped)
 
-    SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
-    SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
-    SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
-    SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
+    SetPedComponentVariation(ped, 3, c['torso'][1], c['torso'][2], 0)
+    SetPedComponentVariation(ped, 4, c['leg'][1], c['leg'][2], 0)
+    SetPedComponentVariation(ped, 6, c['shoes'][1], c['shoes'][2], 0)
+    SetPedComponentVariation(ped, 8, c['undershirt'][1], c['undershirt'][2], 0)
     SetPedComponentVariation(ped, 11, c['torso2'][1], c['torso2'][2], 0)
     SetPedPropIndex(ped, 1, c['p_glass_drawable'], c['p_glass_texture'], true)
   else

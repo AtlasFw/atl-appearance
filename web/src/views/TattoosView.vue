@@ -12,8 +12,7 @@ import NumberInput from "../components/NumberInput.vue"
     <div class="w-90% flex flex-col justify-between">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Head</span>
       <div class="w-full flex space-between">
-        <SmallInput class="mr-1" title="Hair fade"/>
-        <SmallInput class="ml-1" title="Other"/>
+        <NumberInput class="mb-2" title="Style" type="t_head" :min="$store.state.data.settings.t_head.min" :max="$store.state.data.settings.t_head.max" :state="$store.state.skin.t_head"/>
       </div>
     </div>
   </div>
