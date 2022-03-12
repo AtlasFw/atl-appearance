@@ -8,7 +8,6 @@ export default createStore({
       models: [],
       locales: {},
       settings: {},
-      old: null,
       isFreeMode: true
     },
     skin: {},
@@ -96,8 +95,6 @@ export default createStore({
     },
     setSkin(state, { skin, freeMode }) {
       state.skin = skin
-      // Old seems to be synchronized with skin. This needs to be fixed.
-      state.data.old = skin
       state.data.isFreeMode = freeMode
     },
     setData(state, {config, colors, settings}) {

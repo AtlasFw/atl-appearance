@@ -14,10 +14,16 @@ import { NScrollbar, useDialog, useMessage } from 'naive-ui'
 import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
 import { useStore } from 'vuex';
 
-
 const store = useStore()
 const dialog = useDialog()
 const message = useMessage()
+const state = reactive({
+  activeKey: null,
+  collapsed: false,
+  activeSidebar: true,
+  old: {}
+})
+
 const menu = [
   {
     label: 'Ped Model',
@@ -82,12 +88,6 @@ const menu = [
   },
 ]
 
-const state = reactive({
-  activeKey: null,
-  collapsed: false,
-  activeSidebar: true
-})
-
 const handleSave = () => {
   dialog.warning({
     title: 'Save Appearance',
@@ -119,10 +119,9 @@ const handleExit = () => {
     negativeText: 'Cancel',
     onPositiveClick: () => {
       message.success('Cancelled appearance.')
-      console.log(store.state.data.old, store.state.skin.model)
-      fetchNui('skin_concluded', { skin: store.state.data.old }).then((resp) => {
+      fetchNui('skin_concluded', { skin: state.old }).then((resp) => {
         if (resp.skin) {
-          // store.commit('setSkin', resp.skin)
+          store.commit('setSkin', resp.skin)
           state.collapsed = true
           state.activeSidebar = false
         } else {
@@ -168,19 +167,22 @@ const updateSelector = (key) => {
 
 const handleMessage = e => {
   switch (e.data.action) {
-    case 'start_up':
-      e.data.models !== undefined ? store.commit('setModels', e.data.models) : null
-      e.data.locales !== undefined ? store.commit('setLocales', e.data.locales) : null
-      break
     case 'skin_start':
       e.data.config !== undefined ? store.commit('setData', { config: e.data.config, colors: e.data.colors, settings: e.data.settings }) : null
       e.data.skin !== undefined ? store.commit('setSkin', { freeMode: e.data.freeMode, skin: e.data.skin }) : null
+      state.old = e.data.skin || {}
       state.activeSidebar = true
       break
   }
 }
 
-onMounted(() => window.addEventListener('message', handleMessage))
+onMounted(() => {
+  window.addEventListener('message', handleMessage)
+  fetchNui('app_loaded').then((resp) => {
+    resp.models !== undefined ? store.commit('setModels', resp.models) : null
+    resp.locales !== undefined ? store.commit('setLocales', resp.locales) : null
+  })
+})
 onUnmounted(() => window.removeEventListener('message', handleMessage))
 </script>
 

@@ -3,7 +3,7 @@ local accessories <const> = {
   ['p_glass'] = 1,
   ['p_ear'] = 2,
   ['p_watch'] = 6,
-  ['p_bracelet'] = 7
+  ['p_bracelet'] = 7,
 }
 
 local components <const> = {
@@ -17,38 +17,56 @@ local components <const> = {
   ['accessory'] = 7,
   ['undershirt'] = 8,
   ['kevlar'] = 9,
-  ['badge'] =  10,
-  ['torso2'] = 11
+  ['badge'] = 10,
+  ['torso2'] = 11,
 }
 
+RegisterNUICallback('app_loaded', function(_, cb)
+  local models = exports['atl-core']:Models()
+  local locale = exports['atl-core']:GetLocale()
+  for i = 1, #models do
+    ModelNames[joaat(models[i].value)] = models[i].label
+  end
+
+  cb {
+    models = models,
+    locales = locale 'appearance',
+  }
+end)
+
 RegisterNUICallback('skin_camera', function(data, cb)
-  if not data or not data.camera then return cb({}) end
+  if not data or not data.camera then
+    return cb {}
+  end
   Cam.MoveTo(data.camera)
-  cb{{}}
+  cb { }
 end)
 
 RegisterNUICallback('skin_change', function(data, cb)
-  if not data or not data.skin then return cb({ freeMode = false }) end
+  if not data or not data.skin then
+    return cb { freeMode = false }
+  end
   SetSkin(PlayerPedId(), data.skin, data.reload)
 
   -- New Ped because the old one is removed by SetSkin
   local ped = PlayerPedId()
   local freeMode = IsFreemode(GetEntityModel(ped))
-  if data.component  then
-    cb({ freeMode = freeMode, component = GetComponentSettings(ped, components[data.key]) })
+  if data.component then
+    cb { freeMode = freeMode, component = GetComponentSettings(ped, components[data.key]) }
   elseif data.prop then
-    cb({ freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]) })
+    cb { freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]) }
   else
-    cb({ freeMode = freeMode })
+    cb { freeMode = freeMode }
   end
 end)
 
 RegisterNUICallback('skin_concluded', function(data, cb)
-  if not data.skin then return cb({ skin = false }) end
+  if not data.skin then
+    return cb { skin = false }
+  end
   SetSkin(PlayerPedId(), data.skin, IsFreemode(joaat(data.skin.model)))
 
-  -- Use new ped because the model was changed, therefore needing a new ped.
-  cb({ skin = GetSkin(PlayerPedId()) })
-  SetNuiFocus(false, false)
   Cam.Destroy()
+  SetNuiFocus(false, false)
+  cb { skin = GetSkin(PlayerPedId()) }
 end)

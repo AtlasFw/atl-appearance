@@ -31,7 +31,6 @@ Cam.Create = function(ped)
 end
 
 Cam.MoveTo = function(key)
-  print('Moving to ' .. key)
   if not key then
     return false
   end

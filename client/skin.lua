@@ -1,21 +1,20 @@
 local tattoos, fades = exports['atl-core']:Tattoos(), exports['atl-core']:Overlays()
-
 local skinCopy = {}
 local nakedClothes = {
   [`mp_m_freemode_01`] = {
-    ['torso'] = {15, 0}, -- Arms
+    ['torso'] = {15, 0},
     ['leg'] = {14, 0},
     ['undershirt'] = {15, 0},
-    ['torso2'] = {91, 0}, -- Jackets?
+    ['torso2'] = {91, 0},
     ['shoes'] = {5, 0},
     ['p_glass_drawable'] = 0,
     ['p_glass_texture'] = 0
   },
   [`mp_f_freemode_01`] = {
-    ['torso'] = {15, 0}, -- Arms
+    ['torso'] = {15, 0},
     ['leg'] = {16, 0},
     ['undershirt'] = {34, 0},
-    ['torso2'] = {101, 1}, -- Jackets?
+    ['torso2'] = {101, 1},
     ['shoes'] = {5, 0},
     ['p_glass_drawable'] = 5,
     ['p_glass_texture'] = 0
@@ -61,7 +60,7 @@ local function loadSettings()
 
     -- Hair
     ['hairUpStyle'] = { min = 0, max = GetNumberOfPedDrawableVariations(ped, 2) - 1 }, -- -1?
-    ['hairUpFade'] = { min = 0, max = 1},
+    ['hairUpFade'] = { min = 0, max = fades[model] and #fades[model] or 1},
 
     -- Accessories/Props
     ['p_hat'] = GetAccessorySettings(ped, 0),
@@ -71,12 +70,12 @@ local function loadSettings()
     ['p_bracelet'] = GetAccessorySettings(ped, 7),
 
     -- Tattoos
-    ['t_head'] = { min = 1, max = #tattoos[model]?.head },
-    ['t_torso'] = { min = 1, max = #tattoos[model]?.torso },
-    ['t_armRight'] = { min = 1, max = #tattoos[model]?.armRight },
-    ['t_armLeft'] = { min = 1, max = #tattoos[model]?.armLeft },
-    ['t_legRight'] = { min = 1, max = #tattoos[model]?.legRight },
-    ['t_legLeft'] = { min = 1, max = #tattoos[model]?.legLeft },
+    ['t_head'] = { min = 1, max = tattoos[model] and #tattoos[model]?.head or 1 },
+    ['t_torso'] = { min = 1, max = tattoos[model] and #tattoos[model]?.torso or 1 },
+    ['t_armRight'] = { min = 1, max = tattoos[model] and #tattoos[model]?.rightArm or 1 },
+    ['t_armLeft'] = { min = 1, max = tattoos[model] and #tattoos[model]?.leftArm or 1 },
+    ['t_legRight'] = { min = 1, max = tattoos[model] and #tattoos[model]?.rightLeg or 1 },
+    ['t_legLeft'] = { min = 1, max = tattoos[model] and #tattoos[model]?.leftLeg or 1 },
 
     -- Components
     ['components'] = {
@@ -219,6 +218,13 @@ local function loadConfig(data)
   return config
 end
 
+---Returns if the player has a freemode model
+---@param modelHash number
+---@return boolean
+function IsFreemode(modelHash)
+  return modelHash == `mp_m_freemode_01` or modelHash == `mp_f_freemode_01`
+end
+
 ---Just a getter function to get the config and colors
 ---@param config table
 ---@return table
@@ -252,13 +258,6 @@ function GetComponentSettings(ped, id)
     texture = { min = 0, max = GetNumberOfPedTextureVariations(ped, id, GetPedDrawableVariation(ped, id)) - 1 }
   }
   return settings
-end
-
----Returns if the player has a freemode model
----@param modelHash number
----@return boolean
-function IsFreemode(modelHash)
-  return modelHash == `mp_m_freemode_01` or modelHash == `mp_f_freemode_01`
 end
 
 ---Returns the ped's appearance/skin
@@ -303,34 +302,6 @@ function GetSkin(ped)
     ['chinBoneSize'] = GetPedFaceFeature(ped, 17),
     ['chinHole'] = GetPedFaceFeature(ped, 18),
     ['neckThickness'] = GetPedFaceFeature(ped, 19),
-
-    -- Accessories/Props
-    ['p_hat_drawable'] = GetPedPropIndex(ped, 0),
-    ['p_hat_texture'] = GetPedPropTextureIndex(ped, 0),
-    ['p_glass_drawable'] = GetPedPropIndex(ped, 1),
-    ['p_glass_texture'] = GetPedPropTextureIndex(ped, 1),
-    ['p_ear_drawable'] = GetPedPropIndex(ped, 2),
-    ['p_ear_texture'] = GetPedPropTextureIndex(ped, 2),
-    ['p_watch_drawable'] = GetPedPropIndex(ped, 6),
-    ['p_watch_texture'] = GetPedPropTextureIndex(ped, 6),
-    ['p_bracelet_drawable'] = GetPedPropIndex(ped, 7),
-    ['p_bracelet_texture'] = GetPedPropTextureIndex(ped, 7),
-
-    -- Components
-    ['components'] = {
-      ['face'] = {GetPedDrawableVariation(ped, 0), GetPedTextureVariation(ped, 0)}, -- Drawable, Texture
-      ['mask'] = {GetPedDrawableVariation(ped, 1), GetPedTextureVariation(ped, 1)},
-      ['hair'] = {GetPedDrawableVariation(ped, 2), GetPedTextureVariation(ped, 2)},
-      ['torso'] = {GetPedDrawableVariation(ped, 3), GetPedTextureVariation(ped, 3)},  -- Arms
-      ['leg'] = {GetPedDrawableVariation(ped, 4), GetPedTextureVariation(ped, 4)},
-      ['bag'] = {GetPedDrawableVariation(ped, 5), GetPedTextureVariation(ped, 5)}, -- Also parachute
-      ['shoes'] = {GetPedDrawableVariation(ped, 6), GetPedTextureVariation(ped, 6)},
-      ['accessory'] = {GetPedDrawableVariation(ped, 7), GetPedTextureVariation(ped, 7)},
-      ['undershirt'] = {GetPedDrawableVariation(ped, 8), GetPedTextureVariation(ped, 8)},
-      ['kevlar'] = {GetPedDrawableVariation(ped, 9), GetPedTextureVariation(ped, 9)},
-      ['badge'] = {GetPedDrawableVariation(ped, 10), GetPedTextureVariation(ped, 10)},
-      ['torso2'] = {GetPedDrawableVariation(ped, 11), GetPedTextureVariation(ped, 11)}, -- Jackets?
-    },
 
     -- Hair
     ['hairUpStyle'] = GetPedDrawableVariation(ped, 2),
@@ -377,6 +348,34 @@ function GetSkin(ped)
     ['t_armLeft'] = 1,
     ['t_legRight'] = 1,
     ['t_legLeft'] = 1,
+
+    -- Accessories/Props
+    ['p_hat_drawable'] = GetPedPropIndex(ped, 0),
+    ['p_hat_texture'] = GetPedPropTextureIndex(ped, 0),
+    ['p_glass_drawable'] = GetPedPropIndex(ped, 1),
+    ['p_glass_texture'] = GetPedPropTextureIndex(ped, 1),
+    ['p_ear_drawable'] = GetPedPropIndex(ped, 2),
+    ['p_ear_texture'] = GetPedPropTextureIndex(ped, 2),
+    ['p_watch_drawable'] = GetPedPropIndex(ped, 6),
+    ['p_watch_texture'] = GetPedPropTextureIndex(ped, 6),
+    ['p_bracelet_drawable'] = GetPedPropIndex(ped, 7),
+    ['p_bracelet_texture'] = GetPedPropTextureIndex(ped, 7),
+
+    -- Components
+    ['components'] = {
+      ['face'] = {GetPedDrawableVariation(ped, 0), GetPedTextureVariation(ped, 0)}, -- Drawable, Texture
+      ['mask'] = {GetPedDrawableVariation(ped, 1), GetPedTextureVariation(ped, 1)},
+      ['hair'] = {GetPedDrawableVariation(ped, 2), GetPedTextureVariation(ped, 2)},
+      ['torso'] = {GetPedDrawableVariation(ped, 3), GetPedTextureVariation(ped, 3)},  -- Arms
+      ['leg'] = {GetPedDrawableVariation(ped, 4), GetPedTextureVariation(ped, 4)},
+      ['bag'] = {GetPedDrawableVariation(ped, 5), GetPedTextureVariation(ped, 5)}, -- Also parachute
+      ['shoes'] = {GetPedDrawableVariation(ped, 6), GetPedTextureVariation(ped, 6)},
+      ['accessory'] = {GetPedDrawableVariation(ped, 7), GetPedTextureVariation(ped, 7)},
+      ['undershirt'] = {GetPedDrawableVariation(ped, 8), GetPedTextureVariation(ped, 8)},
+      ['kevlar'] = {GetPedDrawableVariation(ped, 9), GetPedTextureVariation(ped, 9)},
+      ['badge'] = {GetPedDrawableVariation(ped, 10), GetPedTextureVariation(ped, 10)},
+      ['torso2'] = {GetPedDrawableVariation(ped, 11), GetPedTextureVariation(ped, 11)}, -- Jackets?
+    },
   }
   return skin
 end
@@ -395,49 +394,44 @@ function SetSkin(ped, skin, reload)
         return
       end
 
+      local newPed = nil
       if reload then
         SetPlayerModel(PlayerId(), model)
-        SetPedDefaultComponentVariation(PlayerPedId())
+        newPed = PlayerPedId()
+        SetPedDefaultComponentVariation(newPed)
+        ClearPedDecorations(newPed)
         Wait(250)
       end
 
-      local newPed = PlayerPedId()
-      ClearPedDecorations(newPed)
-
-      local t = {
-        ['t_head'] = tattoos[model].head[skin['t_head']],
-        ['t_torso'] = tattoos[model].torso[skin['t_torso']],
-        ['t_armRight'] = tattoos[model].armRight[skin['t_armRight']],
-        ['t_armLeft'] = tattoos[model].armLeft[skin['t_armLeft']],
-        ['t_legRight'] = tattoos[model].legRight[skin['t_legRight']],
-        ['t_legLeft'] = tattoos[model].legleft[skin['t_legLeft']],
-      }
-
-      -- Components
-      local c = skin['components']
-      SetPedComponentVariation(newPed, 0, c['face'][1], c['face'][2], 0)
-      SetPedComponentVariation(newPed, 1, c['mask'][1], c['mask'][2], 0)
-      SetPedComponentVariation(newPed, 2, c['hair'][1], c['hair'][2], 0)
-      SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
-      SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
-      SetPedComponentVariation(newPed, 5, c['bag'][1], c['bag'][2], 0)
-      SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
-      SetPedComponentVariation(newPed, 7, c['accessory'][1], c['accessory'][2], 0)
-      SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
-      SetPedComponentVariation(newPed, 9, c['kevlar'][1], c['kevlar'][2], 0)
-      SetPedComponentVariation(newPed, 10, c['badge'][1], c['badge'][2], 0)
-      SetPedComponentVariation(newPed, 11, c['torso2'][1], c['torso2'][2], 0)
-
-      -- Accessories/Props
-      SetPedPropIndex(newPed, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
-      SetPedPropIndex(newPed, 1, skin['p_glass_drawable'], skin['p_glass_texture'], true)
-      SetPedPropIndex(newPed, 2, skin['p_ear_drawable'], skin['p_ear_texture'], true)
-      SetPedPropIndex(newPed, 6, skin['p_watch_drawable'], skin['p_watch_texture'], true)
-      SetPedPropIndex(newPed, 7, skin['p_bracelet_drawable'], skin['p_bracelet_texture'], true)
-      Wait(5)
+      -- Hair
+      AddPedDecorationFromHashes(newPed, fades[model][skin['hairUpFade']][1], fades[model][skin['hairUpFade']][2])
+      SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
+      SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
 
       -- Eye Color
       SetPedEyeColor(newPed, skin['eyeColor'])
+
+      -- Head overlays
+      SetPedHeadOverlay(newPed, 0, skin['blemishesUpStyle'], skin['blemishesUpOpacity'])
+      SetPedHeadOverlay(newPed, 1, skin['beardUpStyle'], skin['beardUpOpacity'])
+      SetPedHeadOverlay(newPed, 2, skin['eyebrowsUpStyle'], skin['eyebrowsUpOpacity'])
+      SetPedHeadOverlay(newPed, 3, skin['ageingUpStyle'], skin['ageingUpOpacity'])
+      SetPedHeadOverlay(newPed, 4, skin['makeUpStyle'], skin['makeUpOpacity'])
+      SetPedHeadOverlay(newPed, 5, skin['blushUpStyle'], skin['blushUpOpacity'])
+      SetPedHeadOverlay(newPed, 6, skin['complexionUpStyle'], skin['complexionUpOpacity'])
+      SetPedHeadOverlay(newPed, 7, skin['sunDamageUpStyle'], skin['sunDamageUpOpacity'])
+      SetPedHeadOverlay(newPed, 8, skin['lipstickUpStyle'], skin['lipstickUpColor'])
+      SetPedHeadOverlay(newPed, 9, skin['moleAndFrecklesUpStyle'], skin['moleAndFrecklesUpOpacity'])
+      SetPedHeadOverlay(newPed, 10, skin['chestHairUpStyle'], skin['chestHairUpOpacity'])
+      SetPedHeadOverlay(newPed, 11, skin['bodyBlemishesUpStyle'], skin['bodyBlemishesUpOpacity'])
+
+      SetPedHeadOverlayColor(newPed, 1, 1, skin['beardUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 2, 1, skin['eyebrowsUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 4, 2, skin['makeupColor'], 0)
+      SetPedHeadOverlayColor(newPed, 5, 2, skin['blushUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 8, 2, skin['lipstickUpColor'], 0)
+      SetPedHeadOverlayColor(newPed, 10, 1, skin['chestHairUpColor'], 0)
+      Wait(15)
 
       -- Heritage/Head Blend
       SetPedHeadBlendData(newPed, skin['shapeMother'], skin['shapeFather'], 0, skin['skinMother'], skin['skinFather'], 0, skin['shapeMix'], skin['skinMix'], 0, true)
@@ -465,29 +459,38 @@ function SetSkin(ped, skin, reload)
       SetPedFaceFeature(newPed, 19, skin['neckThickness'])
       Wait(15)
 
-      -- Head overlays
-      SetPedHeadOverlay(newPed, 0, skin['blemishesUpStyle'], skin['blemishesUpOpacity'])
-      SetPedHeadOverlay(newPed, 1, skin['beardUpStyle'], skin['beardUpOpacity'])
-      SetPedHeadOverlay(newPed, 2, skin['eyebrowsUpStyle'], skin['eyebrowsUpOpacity'])
-      SetPedHeadOverlay(newPed, 3, skin['ageingUpStyle'], skin['ageingUpOpacity'])
-      SetPedHeadOverlay(newPed, 4, skin['makeUpStyle'], skin['makeUpOpacity'])
-      SetPedHeadOverlay(newPed, 5, skin['blushUpStyle'], skin['blushUpOpacity'])
-      SetPedHeadOverlay(newPed, 6, skin['complexionUpStyle'], skin['complexionUpOpacity'])
-      SetPedHeadOverlay(newPed, 7, skin['sunDamageUpStyle'], skin['sunDamageUpOpacity'])
-      SetPedHeadOverlay(newPed, 8, skin['lipstickUpStyle'], skin['lipstickUpColor'])
-      SetPedHeadOverlay(newPed, 9, skin['moleAndFrecklesUpStyle'], skin['moleAndFrecklesUpOpacity'])
-      SetPedHeadOverlay(newPed, 10, skin['chestHairUpStyle'], skin['chestHairUpOpacity'])
-      SetPedHeadOverlay(newPed, 11, skin['bodyBlemishesUpStyle'], skin['bodyBlemishesUpOpacity'])
+      -- Components
+      local c = skin['components']
+      SetPedComponentVariation(newPed, 0, c['face'][1], c['face'][2], 0)
+      SetPedComponentVariation(newPed, 1, c['mask'][1], c['mask'][2], 0)
+      SetPedComponentVariation(newPed, 2, c['hair'][1], c['hair'][2], 0)
+      SetPedComponentVariation(newPed, 3, c['torso'][1], c['torso'][2], 0)
+      SetPedComponentVariation(newPed, 4, c['leg'][1], c['leg'][2], 0)
+      SetPedComponentVariation(newPed, 5, c['bag'][1], c['bag'][2], 0)
+      SetPedComponentVariation(newPed, 6, c['shoes'][1], c['shoes'][2], 0)
+      SetPedComponentVariation(newPed, 7, c['accessory'][1], c['accessory'][2], 0)
+      SetPedComponentVariation(newPed, 8, c['undershirt'][1], c['undershirt'][2], 0)
+      SetPedComponentVariation(newPed, 9, c['kevlar'][1], c['kevlar'][2], 0)
+      SetPedComponentVariation(newPed, 10, c['badge'][1], c['badge'][2], 0)
+      SetPedComponentVariation(newPed, 11, c['torso2'][1], c['torso2'][2], 0)
 
-      SetPedHeadOverlayColor(newPed, 1, 1, skin['beardUpColor'], 0)
-      SetPedHeadOverlayColor(newPed, 2, 1, skin['eyebrowsUpColor'], 0)
-      SetPedHeadOverlayColor(newPed, 4, 2, skin['makeupColor'], 0)
-      SetPedHeadOverlayColor(newPed, 5, 2, skin['blushUpColor'], 0)
-      SetPedHeadOverlayColor(newPed, 8, 2, skin['lipstickUpColor'], 0)
-      SetPedHeadOverlayColor(newPed, 10, 1, skin['chestHairUpColor'], 0)
+      -- Accessories/Props
+      SetPedPropIndex(newPed, 0, skin['p_hat_drawable'], skin['p_hat_texture'], true)
+      SetPedPropIndex(newPed, 1, skin['p_glass_drawable'], skin['p_glass_texture'], true)
+      SetPedPropIndex(newPed, 2, skin['p_ear_drawable'], skin['p_ear_texture'], true)
+      SetPedPropIndex(newPed, 6, skin['p_watch_drawable'], skin['p_watch_texture'], true)
+      SetPedPropIndex(newPed, 7, skin['p_bracelet_drawable'], skin['p_bracelet_texture'], true)
       Wait(15)
 
       -- Tattoos
+      local t = {
+        ['t_head'] = tattoos[model].head[skin['t_head']],
+        ['t_torso'] = tattoos[model].torso[skin['t_torso']],
+        ['t_armRight'] = tattoos[model].rightArm[skin['t_armRight']],
+        ['t_armLeft'] = tattoos[model].leftArm[skin['t_armLeft']],
+        ['t_legRight'] = tattoos[model].rightLeg[skin['t_legRight']],
+        ['t_legLeft'] = tattoos[model].leftLeg[skin['t_legLeft']],
+      }
       AddPedDecorationFromHashes(newPed, t['t_head'][1], t['t_head'][2])
       AddPedDecorationFromHashes(newPed, t['t_torso'][1], t['t_torso'][2])
       AddPedDecorationFromHashes(newPed, t['t_armRight'][1], t['t_armRight'][2])
@@ -495,22 +498,19 @@ function SetSkin(ped, skin, reload)
       AddPedDecorationFromHashes(newPed, t['t_legRight'][1], t['t_legRight'][2])
       AddPedDecorationFromHashes(newPed, t['t_legLeft'][1], t['t_legLeft'][2])
 
-      -- Hair
-      SetPedComponentVariation(newPed, 2, skin['hairUpStyle'], 0, 0)
-      SetPedHairColor(newPed, skin['hairUpColor'], skin['hairUpHighlight'])
-
       SetModelAsNoLongerNeeded(skin['model'])
-      return true
+      return skin
     end
   end
   error('Did not load appearance in time. Restart the resource')
-  return skin
+  return {}
 end
 
-
-function SetNaked(bool)
+---Sets the appearance of a ped to be naked
+---@param state boolean - True to set naked, false to set other appearance
+function SetNaked(state)
   local ped = PlayerPedId()
-  if bool then
+  if state then
     local c = nakedClothes[GetEntityModel(ped)]
     skinCopy = GetSkin(ped)
 
