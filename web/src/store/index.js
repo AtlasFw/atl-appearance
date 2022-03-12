@@ -112,7 +112,18 @@ export default createStore({
         console.log(`[Skin] ${key} changed to ${value}`)
         if (resp?.prop) {
           state.data.settings[key] = resp.prop
+
+          // Check if key has the word 'drawable' in it
+          if (key.includes('drawable')) {
+            // If so, replace the word 'drawable' with 'texture'
+            const textureKey = key.replace('drawable', 'texture')
+            // And set the texture to the same value
+            state.skin[textureKey] = 0
+          }
         } else if (resp?.component) {
+          if (index !== 1) {
+            state.skin['components'][key][1] = 0
+          }
           state.data.settings['components'][key] = resp.component
         }
       })
