@@ -21,6 +21,11 @@ local components <const> = {
   ['torso2'] = 11,
 }
 
+local rot <const> = {
+  ['left'] = -45.0,
+  ['right'] = 45.0
+}
+
 RegisterNUICallback('app_loaded', function(_, cb)
   local models = exports['atl-core']:Models()
   local locale = exports['atl-core']:GetLocale()
@@ -32,6 +37,13 @@ RegisterNUICallback('app_loaded', function(_, cb)
     models = models,
     locales = locale 'appearance',
   }
+end)
+
+RegisterNUICallback('skin_rotate', function(data, cb)
+  if not data.rotation then cb {} return end
+  local ped = PlayerPedId()
+  SetEntityHeading(ped, GetEntityHeading(ped) + rot[data.rotation])
+  cb {}
 end)
 
 RegisterNUICallback('skin_camera', function(data, cb)
@@ -69,6 +81,7 @@ RegisterNUICallback('skin_concluded', function(data, cb)
 
   SetSkin(PlayerPedId(), skin, not IsFreemode(GetEntityModel(skin.model)))
   Cam.Destroy()
+	FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
   cb { skin = GetSkin(PlayerPedId()) }
 end)

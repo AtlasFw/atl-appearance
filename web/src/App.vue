@@ -165,17 +165,26 @@ const updateSelector = (key) => {
 }
 
 const handleMessage = e => {
-  switch (e.data.action) {
-    case 'skin_start':
-      e.data.config !== undefined ? store.commit('setData', { config: e.data.config, colors: e.data.colors, settings: e.data.settings }) : null
-      e.data.skin !== undefined ? store.commit('setSkin', { freeMode: e.data.freeMode, skin: e.data.skin }) : null
-      state.activeSidebar = true
-      break
+  if (e.data.action === 'skin_start') {
+    e.data.config !== undefined ? store.commit('setData', { config: e.data.config, colors: e.data.colors, settings: e.data.settings }) : null
+    e.data.skin !== undefined ? store.commit('setSkin', { freeMode: e.data.freeMode, skin: e.data.skin }) : null
+    state.activeSidebar = true
+  }
+}
+
+const handlePress = e => {
+  const key = e.key
+  if (key === 'a') {
+    fetchNui('skin_rotate', { rotation : 'left' })
+  }
+  if (key === 'd') {
+    fetchNui('skin_rotate', { rotation : 'right' })
   }
 }
 
 onMounted(() => {
   window.addEventListener('message', handleMessage)
+  window.addEventListener('keyup', handlePress)
   fetchNui('app_loaded').then((resp) => {
     resp.models !== undefined ? store.commit('setModels', resp.models) : null
     resp.locales !== undefined ? store.commit('setLocales', resp.locales) : null
@@ -208,6 +217,10 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
         </NScrollbar>
       </div>
     </transition>
+  </div>
+    <div v-if="state.activeSidebar" class="absolute flex items-center justify-between bottom-5 left-[50%] transform translate-x-[-50%] w-48">
+    <button @click.self="handlePress({key: 'a'})" class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">A</button>
+    <button @click.self="handlePress({key: 'd'})" class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">D</button>
   </div>
 </template>
 
