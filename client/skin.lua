@@ -168,7 +168,7 @@ local function loadConfig(data)
   }
 
   for k, v in pairs(data) do
-    if k == 'exit' or k == 'save' then
+    if k == 'exit' or k == 'save' or k == 'ped' then
       config[k].state = v
     else
       for k2, v2 in pairs(v) do
