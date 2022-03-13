@@ -20,15 +20,4 @@ local function startAppearance(config, cb)
   Cam.Create(PlayerPedId())
 end
 
-RegisterCommand('test', function(source, args, raw)
-  startAppearance({
-    exit = false,
-    ['head'] = {
-      hair = false,
-    },
-  }, function(skin)
-    SetSkin(PlayerPedId(), skin)
-  end)
-end, false)
-
 exports('startAppearance', startAppearance)
