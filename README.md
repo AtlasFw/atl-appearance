@@ -2,9 +2,9 @@
 Atlas Framework Appearance.
 
 ## TO-DO
-- [ ] Fix old appearance being in synced with the new one.
-- [ ] Add tattoos.
-- [ ] Add min/max for items.
+- [X] Fix old appearance being in synced with the new one.
+- [X] Add tattoos.
+- [X] Add min/max for items.
 - [X] Add colors.
 
 ## Acknowledgements
