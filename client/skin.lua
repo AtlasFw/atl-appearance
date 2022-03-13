@@ -94,78 +94,88 @@ end
 local function loadConfig(data)
   local config = {
     ['ped'] = {
-      state = data?.ped or true,
+      state = true,
     },
     ['inheritance'] = {
-      state = data?.inheritance?.state or true,
-      face = data?.inheritance?.face or true,
-      skin = data?.inheritance?.skin or true
+      state = true,
+      face = true,
+      skin = true
     },
     ['face'] = {
-      state = data?.face?.state or true,
-      eyebrows = data?.face?.eyebrows or true,
-      mouth = data?.face?.mouth or true,
-      nose = data?.face?.nose or true,
-      jaw = data?.face?.jaw or true,
-      chin = data?.face?.chin or true,
-      cheeks = data?.face?.cheeks or true,
-      neck = data?.face?.neck or true
+      state = true,
+      eyebrows = true,
+      mouth = true,
+      nose = true,
+      jaw = true,
+      chin = true,
+      cheeks = true,
+      neck = true
     },
     ['head'] = {
-      state = data?.head?.state or true,
-      hair = data?.head?.hair or true,
-      eyebrows = data?.head?.eyebrows or true,
-      eyecolor = data?.head?.eyecolor or true,
-      makeup = data?.head?.makeup or true,
-      blush = data?.head?.blush or true,
-      beard = data?.head?.beard or true,
-      lipstick = data?.head?.lipstick or true,
-      blemishes = data?.head?.blemishes or true,
-      ageing = data?.head?.ageing or true,
-      complexion = data?.head?.complexion or true,
-      sundamage = data?.head?.sundamage or true,
-      moles = data?.head?.moles or true
+      state = true,
+      hair = true,
+      eyebrows = true,
+      eyecolor = true,
+      makeup = true,
+      blush = true,
+      beard = true,
+      lipstick = true,
+      blemishes = true,
+      ageing = true,
+      complexion = true,
+      sundamage = true,
+      moles = true
     },
     ['upper'] = {
-      state = data?.upper?.state or true,
-      chesthair = data?.upper?.chesthair or true,
-      bodyblemishes = data?.upper?.bodyblemishes or true,
-      ears = data?.upper?.ears or true,
-      arms = data?.upper?.arms or true,
-      hats = data?.upper?.hats or true,
-      glasses = data?.upper?.glasses or true,
-      tshirt = data?.upper?.tshirt or true,
-      jackets = data?.upper?.jackets or true,
-      armor = data?.upper?.armor or true,
-      decals = data?.upper?.decals or true
+      state = true,
+      chesthair = true,
+      bodyblemishes = true,
+      ears = true,
+      arms = true,
+      hats = true,
+      glasses = true,
+      tshirt = true,
+      jackets = true,
+      armor = true,
+      decals = true
     },
     ['lower'] = {
-      state = data?.lower?.state or true,
-      legs = data?.lower?.legs or true,
-      shoes = data?.lower?.shoes or true,
+      state = true,
+      legs = true,
+      shoes = true,
     },
     ['accessories'] = {
-      state = data?.accessories?.state or true,
-      mask = data?.accessories?.mask or true,
-      bags = data?.accessories?.bags or true,
-      chains = data?.accessories?.chains or true,
-      watches = data?.accessories?.watches or true,
-      bracelets = data?.accessories?.bracelets or true
+      state = true,
+      mask = true,
+      bags = true,
+      chains = true,
+      watches = true,
+      bracelets = true
     },
     ['tattoos'] = {
-      state = data?.tattoos?.state or true,
-      head = data?.tattoos?.head or true,
-      torso = data?.tattoos?.torso or true,
-      arm = data?.tattoos?.arm or true,
-      legs = data?.tattoos?.legs or true
+      state = true,
+      head = true,
+      torso = true,
+      arm = true,
+      legs = true
     },
     ['exit'] = {
-      state = data?.exit or true
+      state = true
     },
     ['save'] = {
-      state = data?.save or true
+      state = true
     }
   }
+
+  for k, v in pairs(data) do
+    if k == 'exit' or k == 'save' then
+      config[k].state = v
+    else
+      for k2, v2 in pairs(v) do
+        config[k][k2] = v2
+      end
+    end
+  end
   return config
 end
 
