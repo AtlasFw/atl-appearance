@@ -1,5 +1,4 @@
 local tattoos, fades = exports['atl-core']:Tattoos(), exports['atl-core']:Overlays()
-local skinCopy = {}
 local isNaked = false
 local nakedClothes = {
   [`mp_m_freemode_01`] = {
@@ -278,6 +277,7 @@ function GetSkin(ped, ignore)
   if OldSkin and OldSkin.model and not ignore then
     return OldSkin
   end
+
   local shapeFather, shapeMother, _, skinFather, skinMother, _, shapeMix, skinMix, _ = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
   local ov = loadOverlays(ped)
   local eyeColor = GetPedEyeColor(ped)
@@ -291,10 +291,10 @@ function GetSkin(ped, ignore)
     -- Heritage/Head Blend
     ['shapeMother'] = shapeMother,
     ['shapeFather'] = shapeFather,
-    ['shapeMix'] = shapeMix,
+    ['shapeMix'] = tonumber(string.format("%.3f", shapeMix)),
     ['skinMother'] = skinMother,
     ['skinFather'] = skinFather,
-    ['skinMix'] = skinMix,
+    ['skinMix'] = tonumber(string.format("%.3f", skinMix)),
 
     -- Face Features (-1.0 - 1.0)
     ['noseWidth'] = GetPedFaceFeature(ped, 0),
