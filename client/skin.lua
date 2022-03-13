@@ -122,20 +122,30 @@ end
 ---@param ped number
 ---@return table
 local function loadOverlays(ped)
-  return {
-    ['blemishes'] = {GetPedHeadOverlayData(ped, 0)},
-    ['beard'] = {GetPedHeadOverlayData(ped, 1)},
-    ['eyebrows'] = {GetPedHeadOverlayData(ped, 2)},
-    ['ageing'] = {GetPedHeadOverlayData(ped, 3)},
-    ['makeUp'] = {GetPedHeadOverlayData(ped, 4)},
-    ['blush'] = {GetPedHeadOverlayData(ped, 5)},
-    ['complexion'] = {GetPedHeadOverlayData(ped, 6)},
-    ['sunDamage'] = {GetPedHeadOverlayData(ped, 7)},
-    ['lipstick'] = {GetPedHeadOverlayData(ped, 8)},
-    ['moleAndFreckles'] = {GetPedHeadOverlayData(ped, 9)},
-    ['chestHair'] = {GetPedHeadOverlayData(ped, 10)},
-    ['bodyBlemishes'] = {GetPedHeadOverlayData(ped, 11)},
+  local overlays = {
+    ['blemishes'] = {},
+    ['beard'] = {},
+    ['eyebrows'] = {},
+    ['ageing'] = {},
+    ['makeUp'] = {},
+    ['blush'] = {},
+    ['complexion'] = {},
+    ['sunDamage'] = {},
+    ['lipstick'] = {},
+    ['moleAndFreckles'] = {},
+    ['chestHair'] =  {},
+    ['bodyBlemishes'] =  {},
   }
+  local count = 0
+  for name, _ in pairs(overlays) do
+    overlays[name] = {GetPedHeadOverlayData(ped, count)}
+    if overlays[name][2] == 255 then
+      overlays[name][2] = 0
+      overlays[name][6] = 0
+    end
+    count += 1
+  end
+  return overlays
 end
 
 ---Config to be send to the UI
@@ -270,12 +280,13 @@ function GetSkin(ped)
   end
   local shapeFather, shapeMother, _, skinFather, skinMother, _, shapeMix, skinMix, _ = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
   local ov = loadOverlays(ped)
-
+  local eyeColor = GetPedEyeColor(ped)
+  local hairUpColor, hairUpHighlight = GetPedHairColor(ped), GetPedHairHighlightColor(ped)
   local skin = {
     ['model'] = ModelNames[GetEntityModel(ped)],
 
     -- Eye color
-    ['eyeColor'] = GetPedEyeColor(ped),
+    ['eyeColor'] = eyeColor < 30 and eyeColor or 0,
 
     -- Heritage/Head Blend
     ['shapeMother'] = shapeMother,
@@ -310,8 +321,8 @@ function GetSkin(ped)
     -- Hair
     ['hairUpStyle'] = GetPedDrawableVariation(ped, 2),
     ['hairUpFade'] = 0, -- Overlays (OVERLAYS)
-    ['hairUpColor'] = GetPedHairColor(ped) + 1,
-    ['hairUpHighlight'] = GetPedHairHighlightColor(ped) + 1,
+    ['hairUpColor'] = hairUpColor ~= 255 and hairUpColor or 0,
+    ['hairUpHighlight'] = hairUpHighlight ~= 255 and hairUpHighlight or 0,
 
     -- Head overlays
     ['makeUpStyle'] = ov['makeUp'][2],
