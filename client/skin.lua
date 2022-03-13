@@ -274,8 +274,8 @@ end
 ---Returns the ped's appearance/skin
 ---@param ped number
 ---@return table
-function GetSkin(ped)
-  if OldSkin and OldSkin.model then
+function GetSkin(ped, ignore)
+  if OldSkin and OldSkin.model and not ignore then
     return OldSkin
   end
   local shapeFather, shapeMother, _, skinFather, skinMother, _, shapeMix, skinMix, _ = Citizen.InvokeNative(0x2746BD9D88C5C5D0, ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))

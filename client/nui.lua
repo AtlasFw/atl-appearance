@@ -63,12 +63,13 @@ RegisterNUICallback('skin_change', function(data, cb)
   -- New Ped because the old one is removed by SetSkin
   local ped = PlayerPedId()
   local freeMode = IsFreemode(GetEntityModel(ped))
+  local skin = GetSkin(ped, true)
   if data.component then
-    cb { freeMode = freeMode, component = GetComponentSettings(ped, components[data.key]) }
+    cb { freeMode = freeMode, component = GetComponentSettings(ped, components[data.key]), skin = skin }
   elseif data.prop then
-    cb { freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]) }
+    cb { freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]), skin = skin }
   else
-    cb { freeMode = freeMode }
+    cb { freeMode = freeMode, skin = skin }
   end
 end)
 

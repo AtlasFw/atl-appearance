@@ -108,16 +108,13 @@ export default createStore({
       fetchNui('skin_change', { skin: state.skin, reload: key === 'model', component: index !== undefined, prop: key.startsWith('p_'), key: key }).then((resp) => {
         if (resp?.freeMode !== undefined) {
           state.data.isFreeMode = resp.freeMode
+          state.skin = resp.skin
         }
-        console.log(`[Skin] ${key} changed to ${value}`)
+        // console.log(`[Skin] ${key} changed to ${value}`)
         if (resp?.prop) {
           state.data.settings[key] = resp.prop
-
-          // Check if key has the word 'drawable' in it
           if (key.includes('drawable')) {
-            // If so, replace the word 'drawable' with 'texture'
             const textureKey = key.replace('drawable', 'texture')
-            // And set the texture to the same value
             state.skin[textureKey] = 0
           }
         } else if (resp?.component) {
