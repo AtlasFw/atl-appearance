@@ -108,7 +108,9 @@ export default createStore({
       fetchNui('skin_change', { skin: state.skin, reload: key === 'model', component: index !== undefined, prop: key.startsWith('p_'), key: key }).then((resp) => {
         if (resp?.freeMode !== undefined) {
           state.data.isFreeMode = resp.freeMode
-          state.skin = resp.skin
+          if (resp.freeMode && key === 'model') {
+            state.skin = resp.skin
+          }
         }
         // console.log(`[Skin] ${key} changed to ${value}`)
         if (resp?.prop) {
