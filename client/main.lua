@@ -20,8 +20,4 @@ local function startAppearance(config, cb)
 	Cam.Create(PlayerPedId())
 end
 
-RegisterCommand("Test", function()
-	startAppearance({})
-end)
-
 exports("startAppearance", startAppearance)
