@@ -81,9 +81,7 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   if data.skin then
     skin = data.skin
     OldSkin = data.skin
-    Callback(skin)
-  else
-    Callback(nil)
+    Callback(data.skin)
   end
 
   SetSkin(PlayerPedId(), skin, not IsFreemode(GetEntityModel(skin.model)))

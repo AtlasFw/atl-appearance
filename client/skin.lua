@@ -79,9 +79,12 @@ local function loadOverlays(ped)
   local count = 0
   for name, _ in pairs(overlays) do
     overlays[name] = {GetPedHeadOverlayData(ped, count)}
-    if overlays[name][2] == 255 then
+    if overlays[name][2] >= 255 then
       overlays[name][2] = 0
       overlays[name][6] = 0
+    end
+    if overlays[name][4] < 0 then
+      overlays[name][4] = 0
     end
     count += 1
   end
