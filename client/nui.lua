@@ -78,14 +78,18 @@ end)
 
 RegisterNUICallback('skin_concluded', function(data, cb)
   local skin = OldSkin
-  if data and data.skin then
+  if data.skin then
     skin = data.skin
     OldSkin = data.skin
+    Callback(skin)
+  else
+    Callback(nil)
   end
 
   SetSkin(PlayerPedId(), skin, not IsFreemode(GetEntityModel(skin.model)))
   Cam.Destroy()
 	FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
+  Callback = nil
   cb { skin = GetSkin(PlayerPedId()) }
 end)

@@ -19,8 +19,8 @@ const dialog = useDialog()
 const message = useMessage()
 const state = reactive({
   activeKey: null,
-  collapsed: false,
-  activeSidebar: true
+  collapsed: true,
+  activeSidebar: false
 })
 
 const menu = [
