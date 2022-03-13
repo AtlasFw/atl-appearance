@@ -20,13 +20,4 @@ local function startAppearance(config, cb)
   Cam.Create(PlayerPedId())
 end
 
-RegisterCommand('atl', function()
-  startAppearance({}, function(skin)
-    print(skin)
-    if skin then
-      SetSkin(PlayerPedId(), skin, true)
-    end
-  end)
-end)
-
 exports('startAppearance', startAppearance)
