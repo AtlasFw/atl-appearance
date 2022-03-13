@@ -103,16 +103,15 @@ export default createStore({
       config ? state.config = config : null
     },
     skinChange(state, { key, value, index }) {
-      // console.log(key, value, index)
       index !== undefined ? state.skin['components'][key][index] = value : state.skin[key] = value
       fetchNui('skin_change', { skin: state.skin, reload: key === 'model', component: index !== undefined, prop: key.startsWith('p_'), key: key }).then((resp) => {
         if (resp?.freeMode !== undefined) {
           state.data.isFreeMode = resp.freeMode
           if (resp.freeMode && key === 'model') {
             state.skin = resp.skin
+            resp.settings !== undefined ? state.data.settings = resp.settings : null
           }
         }
-        // console.log(`[Skin] ${key} changed to ${value}`)
         if (resp?.prop) {
           state.data.settings[key] = resp.prop
           if (key.includes('drawable')) {

@@ -37,65 +37,6 @@ local function requestModel(modelName)
   return false
 end
 
-local function loadSettings()
-  local ped = PlayerPedId()
-  local model = GetEntityModel(ped)
-  SetEntityVisible(ped, true)
-
-  -- Default: Step - 0.1 | Max - 1.0 | Min - 0.0 === SLIDER
-  local settings = {
-    -- Head overlays
-    ['blemishes'] =  { min = 0, max = GetPedHeadOverlayNum(0) },
-    ['beard'] = { min = 0, max = GetPedHeadOverlayNum(1) },
-    ['eyebrows'] = { min = 0, max = GetPedHeadOverlayNum(2) },
-    ['ageing'] = { min = 0, max = GetPedHeadOverlayNum(3) },
-    ['makeUp'] = { min = 0, max = GetPedHeadOverlayNum(4) },
-    ['blush'] = { min = 0, max = GetPedHeadOverlayNum(5) },
-    ['complexion'] = { min = 0, max = GetPedHeadOverlayNum(6) },
-    ['sunDamage'] = { min = 0, max = GetPedHeadOverlayNum(7) },
-    ['lipstick'] = { min = 0, max = GetPedHeadOverlayNum(8) },
-    ['moleAndFreckles'] = { min = 0, max = GetPedHeadOverlayNum(9) },
-    ['chestHair'] = { min = 0, max = GetPedHeadOverlayNum(10) },
-    ['bodyBlemishes'] = { min = 0, max = GetPedHeadOverlayNum(11) },
-
-    -- Hair
-    ['hairUpStyle'] = { min = 0, max = GetNumberOfPedDrawableVariations(ped, 2) - 1 }, -- -1?
-    ['hairUpFade'] = { min = 0, max = fades[model] and #fades[model] or 1},
-
-    -- Accessories/Props
-    ['p_hat'] = GetAccessorySettings(ped, 0),
-    ['p_glass'] = GetAccessorySettings(ped, 1),
-    ['p_ear'] = GetAccessorySettings(ped, 2),
-    ['p_watch'] = GetAccessorySettings(ped, 6),
-    ['p_bracelet'] = GetAccessorySettings(ped, 7),
-
-    -- Tattoos
-    ['t_head'] = { min = 0, max = tattoos[model] and #tattoos[model]?.head or 0 },
-    ['t_torso'] = { min = 0, max = tattoos[model] and #tattoos[model]?.torso or 0 },
-    ['t_armRight'] = { min = 0, max = tattoos[model] and #tattoos[model]?.rightArm or 0 },
-    ['t_armLeft'] = { min = 0, max = tattoos[model] and #tattoos[model]?.leftArm or 0 },
-    ['t_legRight'] = { min = 0, max = tattoos[model] and #tattoos[model]?.rightLeg or 0 },
-    ['t_legLeft'] = { min = 0, max = tattoos[model] and #tattoos[model]?.leftLeg or 0 },
-
-    -- Components
-    ['components'] = {
-      ['face'] = GetComponentSettings(ped, 0),
-      ['mask'] = GetComponentSettings(ped, 1),
-      ['hair'] = GetComponentSettings(ped, 2),
-      ['torso'] = GetComponentSettings(ped, 3), -- Arms
-      ['leg'] = GetComponentSettings(ped, 4),
-      ['bag'] = GetComponentSettings(ped, 5),
-      ['shoes'] = GetComponentSettings(ped, 6),
-      ['accessory'] = GetComponentSettings(ped, 7),
-      ['undershirt'] = GetComponentSettings(ped, 8),
-      ['kevlar'] = GetComponentSettings(ped, 9),
-      ['badge'] = GetComponentSettings(ped, 10),
-      ['torso2'] = GetComponentSettings(ped, 11)
-    }
-  }
-  return settings
-end
-
 ---Loads all the colors in rgba format.
 ---@return table
 local function loadColors()
@@ -226,6 +167,65 @@ local function loadConfig(data)
     }
   }
   return config
+end
+
+function loadSettings()
+  local ped = PlayerPedId()
+  local model = GetEntityModel(ped)
+  SetEntityVisible(ped, true)
+
+  -- Default: Step - 0.1 | Max - 1.0 | Min - 0.0 === SLIDER
+  local settings = {
+    -- Head overlays
+    ['blemishes'] =  { min = 0, max = GetPedHeadOverlayNum(0) },
+    ['beard'] = { min = 0, max = GetPedHeadOverlayNum(1) },
+    ['eyebrows'] = { min = 0, max = GetPedHeadOverlayNum(2) },
+    ['ageing'] = { min = 0, max = GetPedHeadOverlayNum(3) },
+    ['makeUp'] = { min = 0, max = GetPedHeadOverlayNum(4) },
+    ['blush'] = { min = 0, max = GetPedHeadOverlayNum(5) },
+    ['complexion'] = { min = 0, max = GetPedHeadOverlayNum(6) },
+    ['sunDamage'] = { min = 0, max = GetPedHeadOverlayNum(7) },
+    ['lipstick'] = { min = 0, max = GetPedHeadOverlayNum(8) },
+    ['moleAndFreckles'] = { min = 0, max = GetPedHeadOverlayNum(9) },
+    ['chestHair'] = { min = 0, max = GetPedHeadOverlayNum(10) },
+    ['bodyBlemishes'] = { min = 0, max = GetPedHeadOverlayNum(11) },
+
+    -- Hair
+    ['hairUpStyle'] = { min = 0, max = GetNumberOfPedDrawableVariations(ped, 2) - 1 }, -- -1?
+    ['hairUpFade'] = { min = 0, max = fades[model] and #fades[model] or 1},
+
+    -- Accessories/Props
+    ['p_hat'] = GetAccessorySettings(ped, 0),
+    ['p_glass'] = GetAccessorySettings(ped, 1),
+    ['p_ear'] = GetAccessorySettings(ped, 2),
+    ['p_watch'] = GetAccessorySettings(ped, 6),
+    ['p_bracelet'] = GetAccessorySettings(ped, 7),
+
+    -- Tattoos
+    ['t_head'] = { min = 0, max = tattoos[model] and #tattoos[model]?.head or 0 },
+    ['t_torso'] = { min = 0, max = tattoos[model] and #tattoos[model]?.torso or 0 },
+    ['t_armRight'] = { min = 0, max = tattoos[model] and #tattoos[model]?.rightArm or 0 },
+    ['t_armLeft'] = { min = 0, max = tattoos[model] and #tattoos[model]?.leftArm or 0 },
+    ['t_legRight'] = { min = 0, max = tattoos[model] and #tattoos[model]?.rightLeg or 0 },
+    ['t_legLeft'] = { min = 0, max = tattoos[model] and #tattoos[model]?.leftLeg or 0 },
+
+    -- Components
+    ['components'] = {
+      ['face'] = GetComponentSettings(ped, 0),
+      ['mask'] = GetComponentSettings(ped, 1),
+      ['hair'] = GetComponentSettings(ped, 2),
+      ['torso'] = GetComponentSettings(ped, 3), -- Arms
+      ['leg'] = GetComponentSettings(ped, 4),
+      ['bag'] = GetComponentSettings(ped, 5),
+      ['shoes'] = GetComponentSettings(ped, 6),
+      ['accessory'] = GetComponentSettings(ped, 7),
+      ['undershirt'] = GetComponentSettings(ped, 8),
+      ['kevlar'] = GetComponentSettings(ped, 9),
+      ['badge'] = GetComponentSettings(ped, 10),
+      ['torso2'] = GetComponentSettings(ped, 11)
+    }
+  }
+  return settings
 end
 
 ---Returns if the player has a freemode model

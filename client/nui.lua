@@ -69,7 +69,10 @@ RegisterNUICallback('skin_change', function(data, cb)
   elseif data.prop then
     cb { freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]), skin = skin }
   else
-    cb { freeMode = freeMode, skin = skin }
+    if data.key == 'model' then
+      cb { freeMode = freeMode, skin = skin }
+    end
+    cb { freeMode = freeMode, skin = skin, settings = loadSettings() }
   end
 end)
 
