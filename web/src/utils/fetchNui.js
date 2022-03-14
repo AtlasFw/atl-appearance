@@ -8,7 +8,7 @@ export const fetchNui = async (cbName, data) => {
     };
     const resourceName = window.GetParentResourceName
         ? GetParentResourceName()
-        : "atl-identity";
+        : "atl-appearance";
     const resp = await fetch(`https://${resourceName}/${cbName}`, options);
     return await resp.json();
 };

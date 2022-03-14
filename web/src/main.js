@@ -4,6 +4,7 @@ import store from './store/index.js'
 import { NConfigProvider, NDialogProvider, NMessageProvider, darkTheme } from 'naive-ui'
 import './index.css'
 
+// Override default theme
 const themeOverrides = {
     Select: {
       peers: {

@@ -1,274 +1,130 @@
 import { createStore } from 'vuex'
-import { fetchNui } from '../components/fetchNui.js'
+import { fetchNui } from '../utils/fetchNui.js'
 
 export default createStore({
   state: {
-    copyAppearance: {},
-    appearance: {
-      ped: '',
-      heritage: {
-        shapeMother: 0,
-        shapeFather: 0,
-        shapeThird: 0,
-        shapeMix: 0,
-        skinMother: 0,
-        skinFather: 0,
-        skinThird: 0,
-        skinMix: 0,
-        thirdMix: 0,
-      },
-      faceFeatures: {
-        cheeksBoneWidth: 0.0,
-        chinBoneSize: 0.0,
-        nosePeakHigh: 0.0,
-        eyesOpening: 0.0,
-        chinBoneLenght: 0.0,
-        chinBoneLowering: 0.0,
-        nosePeakLowering: 0.0,
-        jawBoneWidth: 0.0,
-        neckThickness: 0.0,
-        noseBoneHigh: 0.0,
-        eyeBrownHigh: 0.0,
-        nosePeakSize: 0.0,
-        eyeBrownForward: 0.0,
-        jawBoneBackSize: 0.0,
-        lipsThickness: 0.0,
-        cheeksWidth: 0.0,
-        chinHole: 0.0,
-        cheeksBoneHigh: 0.0,
-        noseWidth: 0.0,
-        noseBoneTwist: 0.0
-      },
-      eyeColor: 0,
-      accessories: [
-        {
-          prop_id: 0,
-          texture: -1,
-          drawable: -1
-        },
-        {
-          prop_id: 1,
-          texture: -1,
-          drawable: -1
-        },
-        {
-          prop_id: 2,
-          texture: -1,
-          drawable: -1
-        },
-        {
-          prop_id: 6,
-          texture: -1,
-          drawable: -1
-        },
-        {
-          prop_id: 7,
-          texture: -1,
-          drawable: -1
-        }
-      ],
-      headOverlays: {
-        makeUp: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        eyebrows: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        moleAndFreckles: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        blush: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        chestHair: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        lipstick: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        sunDamage: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        bodyBlemishes: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        complexion: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        ageing: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        blemishes: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        },
-        beard: {
-          style: 0,
-          secondColor: 0,
-          color: 0,
-          opacity: 0
-        }
-      },
-      hair: {
-        style: 0,
-        color: 0,
-        highlight: 0
-      },
-      components: [
-        {
-          component_id: 0,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 1,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 2,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 3,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 4,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 5,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 6,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 7,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 8,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 9,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 10,
-          texture: 0,
-          drawable: 0
-        },
-        {
-          component_id: 11,
-          texture: 0,
-          drawable: 0
-        }
-      ]
+    data: {
+      colors: {},
+      models: [],
+      locales: {},
+      settings: {},
+      isFreeMode: true
     },
-    models: [],
+    skin: {},
     config: {
-      ped: false,
-      inheritance: {
+      ped: {
         state: true
       },
-      face: true,
-      head: true,
-      upper: true,
-      lower: true,
-      accessories: true,
-      tattoos: true,
+      inheritance: {
+        state: true,
+        face: true,
+        skin: true
+      },
+      face: {
+        state: true,
+        eyebrows: true,
+        mouth: true,
+        nose: true,
+        jaw: true,
+        chin: true,
+        cheeks: true,
+        neck: true
+      },
+      head: {
+        state: true,
+        hair: true,
+        eyebrows: true,
+        eyecolor: true,
+        makeup: true,
+        blush: true,
+        beard: true,
+        lipstick: true,
+        blemishes: true,
+        ageing: true,
+        complexion: true,
+        sundamage: true,
+        moles: true
+      },
+      upper: {
+        state: true,
+        chesthair: true,
+        bodyblemishes: true,
+        ears: true,
+        arms: true,
+        hats: true,
+        glasses: true,
+        tshirt: true,
+        jackets: true,
+        armor: true,
+        decals: true
+      },
+      lower: {
+        state: true,
+        legs: true,
+        shoes: true
+      },
+      accessories: {
+        state: true,
+        mask: true,
+        bags: true,
+        chains: true,
+        watches: true,
+        bracelets: true
+      },
+      tattoos: {
+        state: true,
+        head: true,
+        torso: true,
+        arm: true,
+        legs: true
+      },
+      exit: {
+        state: true
+      },
+      save: {
+        state: true
+      }
     }
   },
   mutations: {
     setModels(state, models) {
-      state.models = models
+      state.data.models = models
     },
-    setAppearance(state, appearance) {
-      state.copyAppearance = appearance
-      state.appearance = appearance
-      console.log(JSON.stringify(state.appearance))
-      console.log(JSON.stringify(state.appearance.heritage))
+    setLocales(state, locales) {
+      state.data.locales = locales
     },
-    setHeritage(state, { key, value }) {
-      console.log(key, value)
-      state.appearance.heritage[key] = value
-      fetchNui('appearance_heritage', state.appearance.heritage)
+    setSkin(state, { skin, freeMode }) {
+      state.skin = skin
+      state.data.isFreeMode = freeMode
     },
-    setFace(state, { key, value }) {
-      console.log(key, value)
-      state.appearance.faceFeatures[key] = value
-      fetchNui('appearance_face_feature', state.appearance.faceFeatures)
+    setData(state, {config, colors, settings}) {
+      colors ? state.data.colors = colors : null
+      settings ? state.data.settings = settings : null
+      config ? state.config = config : null
     },
-    setEyeColor(state, { value }) {
-      console.log(value)
-      state.appearance.eyeColor = value
-      fetchNui('appearance_eye_color', state.appearance.eyeColor)
+    skinChange(state, { key, value, index }) {
+      index !== undefined ? state.skin['components'][key][index] = value : state.skin[key] = value
+      fetchNui('skin_change', { skin: state.skin, reload: key === 'model', component: index !== undefined, prop: key.startsWith('p_'), key: key }).then((resp) => {
+        if (resp?.freeMode !== undefined) {
+          state.data.isFreeMode = resp.freeMode
+          if (resp.freeMode && key === 'model') {
+            state.skin = resp.skin
+            resp.settings !== undefined ? state.data.settings = resp.settings : null
+          }
+        }
+        if (resp?.prop) {
+          state.data.settings[key] = resp.prop
+          if (key.includes('drawable')) {
+            const textureKey = key.replace('drawable', 'texture')
+            state.skin[textureKey] = 0
+          }
+        } else if (resp?.component) {
+          if (index !== 1) {
+            state.skin['components'][key][1] = 0
+          }
+          state.data.settings['components'][key] = resp.component
+        }
+      })
     },
-    setAccessory(state, { data, value }) {
-      state.appearance.accessories[data.key][data.type] = value
-      fetchNui('appearance_accessory', state.appearance.accessories[data.key])
-    },
-    setHeadOverlays(state, { key, type, value }) {
-      console.log(key, type, value)
-      state.appearance.headOverlays[key][type] = value
-      fetchNui('appearance_hair', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
-    },
-    setHair(state, { key, value }) {
-      console.log(key, value)
-      state.appearance.hair[key] = value
-      fetchNui('appearance_hair', { hair: state.appearance.hair, overlays: state.appearance.headOverlays })
-    },
-    setComponent(state, { data, value }) {
-      console.log(data.key, data.type, value)
-      state.appearance.components[data.key][data.type] = value
-      fetchNui('appearance_component', state.appearance.components[data.key])
-    },
-  },
-  getters: {
-    appearance: state => state.appearance,
   }
 })

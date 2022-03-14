@@ -1,25 +1,23 @@
-local function loadConfig(resource)
-  if resource == GetCurrentResourceName() then
-    Wait(1500)
-    local models <const> = exports['atl-core']:Models()
-    SendNUIMessage({
-      action = 'set_models',
-      models = models
-    })
-  end
+ModelNames = {}
+OldSkin = {}
+Callback = nil
+
+local function startAppearance(config, cb)
+	SetNuiFocus(true, true)
+	local data = GetData(config)
+	local skin = GetSkin(PlayerPedId())
+	SendNUIMessage({
+		action = "skin_start",
+		skin = skin,
+		config = data.config,
+		settings = data.settings,
+		colors = data.colors,
+		freeMode = IsFreemode(GetEntityModel(PlayerPedId())),
+	})
+	FreezeEntityPosition(PlayerPedId(), true)
+	OldSkin = skin
+	Callback = cb
+	Cam.Create(PlayerPedId())
 end
 
-local function startAppearance()
-  SetNuiFocus(true, true)
-  SendNUIMessage({
-    action = 'appearance_start',
-    appearance = Get.Appearance(PlayerPedId())
-  })
-end
-
-RegisterCommand('atl', function()
-  startAppearance()
-end)
-
-exports('startAppearance', startAppearance)
-AddEventHandler('onResourceStart', loadConfig)
+exports("startAppearance", startAppearance)
