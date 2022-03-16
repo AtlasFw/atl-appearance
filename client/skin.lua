@@ -558,5 +558,7 @@ function SetNaked(state, data)
   end
 end
 
-exports('setSkin', setSkin)
-exports('getSkin', getSkin)
+exports('setSkin', SetSkin)
+exports('getSkin', GetSkin)
+exports('isFreemode', IsFreemode)
+
