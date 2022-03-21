@@ -62,12 +62,12 @@ RegisterNUICallback('skin_change', function(data, cb)
 
   -- New Ped because the old one is removed by SetSkin
   local ped = PlayerPedId()
-  local freeMode = IsFreemode(GetEntityModel(ped))
+  local freeMode = IsFreemode(joaat(data.skin))
   local skin = GetSkin(ped, true)
   if data.component then
-    cb { freeMode = freeMode, component = GetComponentSettings(ped, components[data.key]), skin = skin }
+    cb { component = GetComponentSettings(ped, components[data.key]), skin = skin }
   elseif data.prop then
-    cb { freeMode = freeMode, prop = GetAccessorySettings(ped, accessories[data.key]), skin = skin }
+    cb { prop = GetAccessorySettings(ped, accessories[data.key]), skin = skin }
   else
     if data.key == 'model' then
       cb { freeMode = freeMode, skin = skin }
@@ -85,10 +85,10 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   end
 
   local reload = GetEntityModel(PlayerPedId()) == joaat(skin.model)
-  SetSkin(PlayerPedId(), skin, reload)
-	FreezeEntityPosition(PlayerPedId(), false)
+  FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
   Cam.Destroy()
   Callback = nil
+  SetSkin(PlayerPedId(), skin, reload)
   cb { skin = GetSkin(PlayerPedId()) }
 end)
