@@ -84,10 +84,11 @@ RegisterNUICallback('skin_concluded', function(data, cb)
     Callback(data.skin)
   end
 
-  SetSkin(PlayerPedId(), skin, not IsFreemode(GetEntityModel(skin.model)))
-  Cam.Destroy()
+  local reload = GetEntityModel(PlayerPedId()) == joaat(skin.model)
+  SetSkin(PlayerPedId(), skin, reload)
 	FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
+  Cam.Destroy()
   Callback = nil
   cb { skin = GetSkin(PlayerPedId()) }
 end)

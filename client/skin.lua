@@ -136,7 +136,6 @@ local function loadConfig(data)
       ears = true,
       arms = true,
       hats = true,
-      glasses = true,
       tshirt = true,
       jackets = true,
       armor = true,
@@ -149,6 +148,7 @@ local function loadConfig(data)
     },
     ['accessories'] = {
       state = true,
+      glasses = true,
       mask = true,
       bags = true,
       chains = true,

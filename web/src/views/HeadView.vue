@@ -56,9 +56,9 @@ import Slider from '../components/Slider.vue'
   <div v-if="$store.state.config.head.beard" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Beard</span>
-      <NumberInput title="Style" type="chestHairUpStyle" :min="$store.state.data.settings.beard.min" :max="$store.state.data.settings.beard.max" :state="$store.state.skin.chestHairUpStyle"/>
-      <ColorInput title="Color" type="chestHairUpColor" :colors="$store.state.data.colors.typeOne" :state="$store.state.skin.chestHairUpColor"/>
-      <Slider class="mb-3" title="Opacity" :min="0" type="chestHairUpOpacity" :state="$store.state.skin.chestHairUpOpacity"/>
+      <NumberInput title="Style" type="beardUpStyle" :min="$store.state.data.settings.beard.min" :max="$store.state.data.settings.beard.max" :state="$store.state.skin.beardUpStyle"/>
+      <ColorInput title="Color" type="beardUpColor" :colors="$store.state.data.colors.typeOne" :state="$store.state.skin.beardUpColor"/>
+      <Slider class="mb-3" title="Opacity" :min="0" type="beardUpOpacity" :state="$store.state.skin.beardUpOpacity"/>
     </div>
   </div>
 
