@@ -530,7 +530,7 @@ function SetSkin(ped, skin, reload)
       return skin
     end
   end
-  error('Did not load appearance in time. Restart the resource')
+  error('Wrong argument types. Try restarting the resource.')
   return {}
 end
 
