@@ -3,7 +3,7 @@ import SmallInput from "../components/SmallInput.vue"
 </script>
 
 <template>
-  <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
+  <div class="w-full h-10 cs:h-11 cm:h-12 cl:h-13 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
     <span class="ml-4">Lower Body View</span>
   </div>
   <div v-if="$store.state.config.lower.legs" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
