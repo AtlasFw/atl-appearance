@@ -18,9 +18,9 @@ const store = useStore()
 const dialog = useDialog()
 const message = useMessage()
 const state = reactive({
-  activeKey: 'inheritance',
-  collapsed: false,
-  activeSidebar: true
+  activeKey: null,
+  collapsed: true,
+  activeSidebar: false
 })
 
 const menu = [
