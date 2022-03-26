@@ -11,11 +11,18 @@ version '0.0.1'
 ui_page 'dist/index.html'
 
 files {
-  'dist/**/*'
+  'dist/**/*',
 }
 
 client_scripts {
-  'client/*.lua'
+  '@PolyZone/client.lua',
+  '@PolyZone/CircleZone.lua',
+  '@PolyZone/ComboZone.lua',
+  'client/*.lua',
+}
+
+dependencies {
+  'PolyZone',
 }
 
 provide 'appearance'
