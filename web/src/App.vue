@@ -195,7 +195,7 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
 
 <template>
   <div class="absolute flex justify-start items-center w-full h-full overflow-hidden">
-    <div class="w-10 rounded-md ml-5" v-if="state.activeSidebar">
+    <div class="w-10 cs:w-11 cm:w-12 cl:w-13 rounded-md ml-5" v-if="state.activeSidebar">
       <div v-for="(item, index) in menu" :index="index">
         <SideButton v-if="$store.state.config[item.key].state && item.key === 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
         <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'exit'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
@@ -204,8 +204,8 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
       </div>
     </div>
     <transition name="slide-fade">
-      <div v-if="!state.collapsed" class="ml-5 w-80 min-h-116 rounded-md">
-        <NScrollbar class="min-h-116 max-h-116 overflow-hidden rounded">
+      <div v-if="!state.collapsed" class="flex items-center justify-center ml-5 w-80 cs:w-[24em] cm:w-[25em] cl:w-[26em] min-h-116 cs:min-h-[37em] cm:min-h-[39em] cl:min-h-[41em] rounded-md">
+        <NScrollbar class="max-h-116 cs:max-h-cs cm:max-h-cm cl:max-h-cl overflow-hidden rounded">
           <PedView v-if="state.activeKey === 'ped'"/>
           <InheritanceView v-else-if="state.activeKey === 'inheritance' && $store.state.data.isFreeMode"/>
           <HeadView v-else-if="state.activeKey === 'head' && $store.state.data.isFreeMode"/>

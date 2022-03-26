@@ -52,7 +52,6 @@ export default createStore({
         ears: true,
         arms: true,
         hats: true,
-        glasses: true,
         tshirt: true,
         jackets: true,
         armor: true,
@@ -65,6 +64,7 @@ export default createStore({
       },
       accessories: {
         state: true,
+        glasses: true,
         mask: true,
         bags: true,
         chains: true,
@@ -97,7 +97,7 @@ export default createStore({
       state.skin = skin
       state.data.isFreeMode = freeMode
     },
-    setData(state, {config, colors, settings}) {
+    setData(state, { config, colors, settings }) {
       colors ? state.data.colors = colors : null
       settings ? state.data.settings = settings : null
       config ? state.config = config : null

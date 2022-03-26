@@ -136,7 +136,6 @@ local function loadConfig(data)
       ears = true,
       arms = true,
       hats = true,
-      glasses = true,
       tshirt = true,
       jackets = true,
       armor = true,
@@ -149,6 +148,7 @@ local function loadConfig(data)
     },
     ['accessories'] = {
       state = true,
+      glasses = true,
       mask = true,
       bags = true,
       chains = true,
@@ -530,7 +530,7 @@ function SetSkin(ped, skin, reload)
       return skin
     end
   end
-  error('Did not load appearance in time. Restart the resource')
+  error('Wrong argument types. Try restarting the resource.')
   return {}
 end
 

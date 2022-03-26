@@ -6,7 +6,7 @@ import Slider from '../components/Slider.vue'
 </script>
 
 <template>
-  <div class="w-full h-10 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
+  <div class="w-full h-10 cs:h-11 cm:h-12 cl:h-13 rounded flex items-center bg-slate-800 text-sky-300 font-bold text-md">
     <span class="ml-4">Upper Body View</span>
   </div>
   <div v-if="$store.state.config.upper.chesthair" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
@@ -52,16 +52,6 @@ import Slider from '../components/Slider.vue'
       <div class="w-full flex space-between">
         <SmallInput title="Drawable" class="mr-1" :min="$store.state.data.settings.p_hat.drawable.min" :max="$store.state.data.settings.p_hat.drawable.max" type="p_hat_drawable" :state="$store.state.skin.p_hat_drawable"/>
         <SmallInput title="Texture" class="ml-1" :min="$store.state.data.settings.p_hat.texture.min" :max="$store.state.data.settings.p_hat.texture.max" type="p_hat_texture" :state="$store.state.skin.p_hat_texture"/>
-      </div>
-    </div>
-  </div>
-
-  <div v-if="$store.state.config.upper.glasses" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
-    <div class="w-90% flex flex-col justify-between">
-      <span class="text-sky-200 font-bold text-custom-2 mt-2">Glasses</span>
-      <div class="w-full flex space-between">
-        <SmallInput title="Drawable" class="mr-1" :min="$store.state.data.settings.p_glass.drawable.min" :max="$store.state.data.settings.p_glass.drawable.max" type="p_glass_drawable" :state="$store.state.skin.p_glass_drawable"/>
-        <SmallInput title="Texture" class="ml-1" :min="$store.state.data.settings.p_glass.texture.min" :max="$store.state.data.settings.p_glass.texture.max" type="p_glass_texture" :state="$store.state.skin.p_glass_texture"/>
       </div>
     </div>
   </div>
