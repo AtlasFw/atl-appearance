@@ -1,4 +1,12 @@
-local currentPoint, zones
+RegisterNetEvent('atl-core:client:onCharacterLoaded', function(character)
+  ATL.Character = character
+end)
+
+RegisterNetEvent('atl-core:client:onAccountUpdate', function(accounts)
+  ATL.Character.accounts = accounts
+end)
+
+local currentPoint
 
 function createBlip(shop)
   local blip = AddBlipForCoord(shop.coords.x, shop.coords.y, shop.coords.z)
@@ -17,19 +25,20 @@ end
 function createShops()
   local shops = exports['atl-core']:Shops()
   local circleZones = {}
+
   for i = 1, #shops do
     local shop = shops[i]
 
     createBlip(shop)
     circleZones[#circleZones + 1] = CircleZone:Create(shop.coords, 1.5, {
       name = shop.name,
-      debugPoly = false,
+      debugPoly = true,
       data = shop,
     })
   end
 
-  local combo = ComboZone:Create(circleZones, { name = 'combo', debugPoly = false })
-  combo:onPlayerInOut(function(isPointInside, point, zone)
+  local zones = ComboZone:Create(circleZones, { name = 'shops', debugPoly = true })
+  zones:onPlayerInOut(function(isPointInside, point, zone)
     if isPointInside then
       currentPoint = zone.data
       onPoint()
@@ -39,13 +48,32 @@ function createShops()
   end)
 end
 
+function getNumberOfChanges(skin)
+  return 'changesNumber' --todo
+end
+
 function onPoint()
   CreateThread(function()
     while currentPoint do
       if IsControlJustReleased(0, 38) then
         local shop = currentPoint.data
         exports['atl-appearance']:startAppearance(shop, function(skin)
-          print(skin)
+          if not skin then
+            return
+          end
+
+          local changesNumber = getNumberOfChanges(skin)
+          local price = changesNumber * 100
+
+          if changesNumber < 1 then
+            return
+          end
+
+          if ATL.Character.accounts.cash < price then
+            return
+          end
+
+          --TriggerServerEvent('atl-appearance:server:pay', skin)
         end)
       end
       Wait(10)
@@ -53,8 +81,4 @@ function onPoint()
   end)
 end
 
-AddEventHandler('onResourceStart', function(resourceName)
-  if resourceName == GetCurrentResourceName() then
-    createShops()
-  end
-end)
+createShops()

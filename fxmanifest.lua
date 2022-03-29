@@ -14,6 +14,10 @@ files {
   'dist/**/*',
 }
 
+shared_scripts {
+  '@atl-core/import.lua',
+}
+
 client_scripts {
   '@PolyZone/client.lua',
   '@PolyZone/CircleZone.lua',
