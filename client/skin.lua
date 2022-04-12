@@ -1,5 +1,4 @@
 local tattoos, fades = exports['atl-core']:Tattoos(), exports['atl-core']:Overlays()
-local isNaked = false
 local nakedClothes = {
   [`mp_m_freemode_01`] = {
     ['torso'] = {15, 0},
@@ -25,7 +24,7 @@ local function requestModel(modelName)
   if type(modelName) ~= 'string' then return false end
 	if IsModelValid(modelName) and IsModelInCdimage(modelName) then
 		RequestModel(modelName)
-    local time = GetGameTimer() + 1000
+    local time = GetGameTimer() + 250
     while time > GetGameTimer() do
       if HasModelLoaded(modelName) then
         return true
@@ -539,9 +538,9 @@ end
 function SetNaked(state, data)
   local ped = PlayerPedId()
   if state then
-    if not isNaked then
+    if not Cam.IsNaked then
       local c = nakedClothes[GetEntityModel(ped)]
-      isNaked = true
+      Cam.IsNaked = true
 
       SetPedComponentVariation(ped, 3, c['torso'][1], c['torso'][2], 0)
       SetPedComponentVariation(ped, 4, c['leg'][1], c['leg'][2], 0)
@@ -551,8 +550,8 @@ function SetNaked(state, data)
       SetPedPropIndex(ped, 1, c['p_glass_drawable'], c['p_glass_texture'], true)
     end
   else
-    if isNaked then
-      isNaked = false
+    if Cam.IsNaked then
+      Cam.IsNaked = false
       SetSkin(ped, data, false)
     end
   end
@@ -561,4 +560,3 @@ end
 exports('setSkin', SetSkin)
 exports('getSkin', GetSkin)
 exports('isFreemode', IsFreemode)
-
