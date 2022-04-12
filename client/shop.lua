@@ -8,7 +8,7 @@ end)
 
 local currentPoint
 
-function createBlip(shop)
+local function createBlip(shop)
   local blip = AddBlipForCoord(shop.coords.x, shop.coords.y, shop.coords.z)
 
   SetBlipSprite(blip, shop.blip.sprite)
@@ -22,7 +22,7 @@ function createBlip(shop)
   EndTextCommandSetBlipName(blip)
 end
 
-function createShops()
+local function createShops()
   local shops = exports['atl-core']:Shops()
   local circleZones = {}
 
@@ -37,6 +37,7 @@ function createShops()
     })
   end
 
+  -- Currently in debug mode, so we can see the shop zones
   local zones = ComboZone:Create(circleZones, { name = 'shops', debugPoly = true })
   zones:onPlayerInOut(function(isPointInside, point, zone)
     if isPointInside then
@@ -48,7 +49,7 @@ function createShops()
   end)
 end
 
-function getNumberOfChanges(skin)
+local function getNumberOfChanges(skin)
   return 'changesNumber' --todo
 end
 
@@ -57,8 +58,8 @@ function onPoint()
     while currentPoint do
       if IsControlJustReleased(0, 38) then
         local shop = currentPoint.data
-        exports['atl-appearance']:startAppearance(shop, function(skin)
-          if not skin then
+        exports['atl-appearance']:startAppearance(shop, function(newSkin, skin)
+          if not newSkin then
             return
           end
 
@@ -74,7 +75,7 @@ function onPoint()
           end
 
           --TriggerServerEvent('atl-appearance:server:pay', skin)
-        end)
+        end, false)
       end
       Wait(10)
     end

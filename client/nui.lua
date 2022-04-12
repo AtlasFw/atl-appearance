@@ -21,6 +21,7 @@ local components <const> = {
   ['torso2'] = 11,
 }
 
+-- Ped rotation
 local rot <const> = {
   ['left'] = -45.0,
   ['right'] = 45.0
@@ -81,14 +82,19 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   if data.skin then
     skin = data.skin
     OldSkin = data.skin
-    Callback(data.skin)
+    Callback(true, data.skin)
+  else
+    -- Returns nil if the skin is not changed + the old skin
+    Callback(false, skin)
   end
 
-  local reload = GetEntityModel(PlayerPedId()) == joaat(skin.model)
+  if ReloadSkin then
+    local reload = GetEntityModel(PlayerPedId()) == joaat(skin.model)
+    SetSkin(PlayerPedId(), skin, reload)
+  end
   FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
   Cam.Destroy()
-  Callback = nil
-  SetSkin(PlayerPedId(), skin, reload)
+  Callback, ReloadSkin = nil, false
   cb { skin = GetSkin(PlayerPedId()) }
 end)

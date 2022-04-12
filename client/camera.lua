@@ -2,7 +2,7 @@ Cam = {
 	Active = nil,
 	IsNaked = false,
 	Sets = {
-		-- [1] = offset, [2] = point
+		-- [1] = offset, [2] = pointAt
 		["default"] = {
 			vector3(0.0, 2.2, 0.3),
 			vector3(0.0, 0, -0.05),
@@ -34,8 +34,6 @@ Cam = {
 	},
 }
 
--- Most likely will be changed to interpolating camera for smooth transitions.
--- Plan is to have keys too so that the camera can be moved around.
 Cam.Create = function(ped)
 	if Cam.Active then
 		return false
@@ -76,22 +74,10 @@ Cam.MoveTo = function(key, data)
 		local set = Cam.Sets[key]
 		local coords = GetOffsetFromEntityInWorldCoords(ped, set[1].x, set[1].y, set[1].z)
 		local point = GetOffsetFromEntityInWorldCoords(ped, set[2].x, set[2].y, set[2].z)
+		local tempCam = CreateCameraWithParams( "DEFAULT_SCRIPTED_CAMERA", coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 50.0, false, 0)
 
-		local tempCam = CreateCameraWithParams(
-			"DEFAULT_SCRIPTED_CAMERA",
-			coords.x,
-			coords.y,
-			coords.z,
-			0.0,
-			0.0,
-			0.0,
-			50.0,
-			false,
-			0
-		)
 		PointCamAtCoord(tempCam, point.x, point.y, point.z)
 		SetCamActiveWithInterp(tempCam, Cam.Active, 750, 1, 1)
-
 		CreateThread(function()
 			repeat
 				Wait(100)
