@@ -63,7 +63,7 @@ RegisterNUICallback('skin_change', function(data, cb)
 
   -- New Ped because the old one is removed by SetSkin
   local ped = PlayerPedId()
-  local freeMode = IsFreemode(joaat(data.skin))
+  local freeMode = IsFreemode(joaat(data.skin.model))
   local skin = GetSkin(ped, true)
   if data.component then
     cb { component = GetComponentSettings(ped, components[data.key]), skin = skin }
