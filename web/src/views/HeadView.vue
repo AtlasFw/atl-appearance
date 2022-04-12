@@ -31,7 +31,7 @@ import Slider from '../components/Slider.vue'
   <div v-if="$store.state.config.head.eyecolor" class="w-full bg-slate-800 mt-3 rounded flex flex-col justify-evenly items-center">
     <div class="w-90% flex flex-col justify-between items-start">
       <span class="text-sky-200 font-bold text-custom-2 mt-2">Eye color</span>
-      <Slider class="mb-3" title="Style" :min="0" :max="30" :step="1" type="eyeColor" :state="$store.state.skin.eyeColor"/>
+      <Slider class="mb-3" title="Style" :min="-1" :max="30" :step="1" type="eyeColor" :state="$store.state.skin.eyeColor"/>
     </div>
   </div>
 
