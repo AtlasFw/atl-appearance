@@ -19,6 +19,7 @@ local nakedClothes = {
     ['p_glass_texture'] = 0
   },
 }
+local isNaked = false
 
 local function requestModel(modelName)
   if type(modelName) ~= 'string' then return false end
@@ -542,16 +543,16 @@ end
 function SetNaked(state, data)
   local ped = PlayerPedId()
   if not state then
-    if Cam.IsNaked then
-      Cam.IsNaked = false
+    if isNaked then
+      isNaked = false
       SetSkin(ped, data, false)
       return
     end
   end
 
-  if not Cam.IsNaked then
+  if not isNaked then
     local c = nakedClothes[GetEntityModel(ped)]
-    Cam.IsNaked = true
+    isNaked = true
 
     SetPedComponentVariation(ped, 3, c['torso'][1], c['torso'][2], 0)
     SetPedComponentVariation(ped, 4, c['leg'][1], c['leg'][2], 0)
