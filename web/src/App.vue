@@ -10,8 +10,8 @@ import TattoosView from './views/TattoosView.vue'
 import SideButton from './components/SideButton.vue'
 import { fetchNui } from './utils/fetchNui.js';
 import { reactive, onMounted, onUnmounted } from 'vue'
-import { NScrollbar, useDialog, useMessage } from 'naive-ui'
-import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound } from '@vicons/material'
+import { NScrollbar, NIcon, useDialog, useMessage } from 'naive-ui'
+import { CheckroomRound, FamilyRestroomRound, FaceRetouchingNaturalRound, TagFacesOutlined, AccessibilityNewRound, AirlineSeatLegroomExtraRound, FilterVintageRound, GroupWorkRound, ExitToAppRound, SaveRound, ChevronLeftRound, ChevronRightRound } from '@vicons/material'
 import { useStore } from 'vuex';
 
 const store = useStore()
@@ -174,10 +174,11 @@ const handleMessage = e => {
 
 const handlePress = e => {
   const key = e.key
-  if (key === 'a') {
+  console.log(key)
+  if (key === 'ArrowLeft') {
     fetchNui('skin_rotate', { rotation : 'left' })
   }
-  if (key === 'd') {
+  if (key === 'ArrowRight') {
     fetchNui('skin_rotate', { rotation : 'right' })
   }
 }
@@ -219,8 +220,12 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
     </transition>
   </div>
     <div v-if="state.activeSidebar" class="absolute flex items-center justify-between bottom-5 left-[50%] transform translate-x-[-50%] w-48">
-    <button @click.self="handlePress({key: 'a'})" class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">A</button>
-    <button @click.self="handlePress({key: 'd'})" class="w-9 h-9 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">D</button>
+    <button @click.self="handlePress({key: 'ArrowLeft'})" class="w-9 cs:w-10 cm:w-11 cl:w-12 h-9 cs:h-10 cm:h-11 cl:h-12 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">
+      <NIcon size="3.8vh" :component="ChevronLeftRound"/>
+    </button>
+    <button @click.self="handlePress({key: 'ArrowRight'})" class="w-9 cs:w-10 cm:w-11 cl:w-12 h-9 cs:h-10 cm:h-11 cl:h-12 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">
+      <NIcon size="3.8vh" :component="ChevronRightRound"/>
+    </button>
   </div>
 </template>
 

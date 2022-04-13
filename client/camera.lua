@@ -77,10 +77,10 @@ Cam.MoveTo = function(key, data)
 		local tempCam = CreateCameraWithParams( "DEFAULT_SCRIPTED_CAMERA", coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 50.0, false, 0)
 
 		PointCamAtCoord(tempCam, point.x, point.y, point.z)
-		SetCamActiveWithInterp(tempCam, Cam.Active, 750, 1, 1)
+		SetCamActiveWithInterp(tempCam, Cam.Active, 400, 1, 1)
 		CreateThread(function()
 			repeat
-				Wait(100)
+				Wait(50)
 			until not IsCamInterpolating(Cam.Active) and IsCamActive(tempCam)
 			DestroyCam(Cam.Active, false)
 			Cam.Active = tempCam
