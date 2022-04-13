@@ -25,6 +25,10 @@ client_scripts {
   'client/*.lua',
 }
 
+server_scripts {
+  'server/shop.lua',
+}
+
 dependencies {
   'PolyZone',
 }

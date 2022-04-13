@@ -1,15 +1,7 @@
-RegisterNetEvent('atl-core:client:onCharacterLoaded', function(character)
-  ATL.Character = character
-end)
-
-RegisterNetEvent('atl-core:client:onAccountUpdate', function(accounts)
-  ATL.Character.accounts = accounts
-end)
-
 local currentPoint
 
 local function createBlip(shop)
-  local blip = AddBlipForCoord(shop.coords.x, shop.coords.y, shop.coords.z)
+  local blip = AddBlipForCoord(shop.coords)
 
   SetBlipSprite(blip, shop.blip.sprite)
   SetBlipDisplay(blip, 2)
@@ -22,6 +14,22 @@ local function createBlip(shop)
   EndTextCommandSetBlipName(blip)
 end
 
+local function onPoint()
+  CreateThread(function()
+    while currentPoint do
+      if IsControlJustReleased(0, 38) then
+        exports['atl-appearance']:startAppearance(currentPoint.data, function(changed, skin, oldSkin)
+          if not changed then
+            return
+          end
+          TriggerServerEvent('atl-appearance:server:buySkin', currentPoint, skin, oldSkin)
+        end, false)
+      end
+      Wait(10)
+    end
+  end)
+end
+
 local function createShops()
   local shops = exports['atl-core']:Shops()
   local circleZones = {}
@@ -30,14 +38,13 @@ local function createShops()
     local shop = shops[i]
 
     createBlip(shop)
-    circleZones[#circleZones + 1] = CircleZone:Create(shop.coords, 1.5, {
+    circleZones[#circleZones + 1] = CircleZone:Create(shop.coords, shop.range or 2.5, {
       name = shop.name,
       debugPoly = true,
       data = shop,
     })
   end
 
-  -- Currently in debug mode, so we can see the shop zones
   local zones = ComboZone:Create(circleZones, { name = 'shops', debugPoly = true })
   zones:onPlayerInOut(function(isPointInside, point, zone)
     if isPointInside then
@@ -48,38 +55,8 @@ local function createShops()
     end
   end)
 end
-
-local function getNumberOfChanges(skin)
-  return 'changesNumber' --todo
-end
-
-function onPoint()
-  CreateThread(function()
-    while currentPoint do
-      if IsControlJustReleased(0, 38) then
-        local shop = currentPoint.data
-        exports['atl-appearance']:startAppearance(shop, function(newSkin, skin)
-          if not newSkin then
-            return
-          end
-
-          local changesNumber = getNumberOfChanges(skin)
-          local price = changesNumber * 100
-
-          if changesNumber < 1 then
-            return
-          end
-
-          if ATL.Character.accounts.cash < price then
-            return
-          end
-
-          --TriggerServerEvent('atl-appearance:server:pay', skin)
-        end, false)
-      end
-      Wait(10)
-    end
-  end)
-end
-
 createShops()
+
+RegisterNetEvent('atl-appearance:client:setSkin', function(skin)
+  SetSkin(PlayerPedId(), skin, GetEntityModel(PlayerPedId()) == joaat(skin.model))
+end)
