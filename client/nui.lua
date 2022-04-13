@@ -81,20 +81,20 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   local skin = OldSkin
   if data.skin then
     skin = data.skin
-    OldSkin = data.skin
-    Callback(true, data.skin)
+    Callback(true, data.skin, OldSkin)
   else
     -- Returns nil if the skin is not changed + the old skin
     Callback(false, skin)
   end
   cb { skin = skin }
-
   if ReloadSkin then
-    local reload = GetEntityModel(PlayerPedId()) == joaat(skin.model)
-    SetSkin(PlayerPedId(), skin, reload)
+    SetSkin(PlayerPedId(), skin, GetEntityModel(PlayerPedId()) == joaat(skin.model))
+  else
+    SetSkin(PlayerPedId(), OldSkin, GetEntityModel(PlayerPedId()) == joaat(OldSkin.model))
   end
   FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
   Cam.Destroy()
   Callback, ReloadSkin = nil, false
+  OldSkin = data.skin
 end)
