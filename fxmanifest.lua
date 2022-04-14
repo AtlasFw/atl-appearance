@@ -26,6 +26,7 @@ client_scripts {
 }
 
 server_scripts {
+  'server/skin.lua',
   'server/shop.lua',
 }
 

@@ -531,6 +531,8 @@ function SetSkin(ped, skin, reload)
     AddPedDecorationFromHashes(newPed, t['hairUpFade'][1], t['hairUpFade'][2])
 
     SetModelAsNoLongerNeeded(skin['model'])
+
+    TriggerServerEvent("atl-appearance:server:saveSkin", skin)
     return skin
   end
 
