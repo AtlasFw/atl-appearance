@@ -563,6 +563,10 @@ function SetNaked(state, data)
   end
 end
 
+RegisterNetEvent('atl-appearance:client:setSkin', function(skin)
+  SetSkin(PlayerPedId(), skin, GetEntityModel(PlayerPedId()) == joaat(skin.model))
+end)
+
 exports('setSkin', SetSkin)
 exports('getSkin', GetSkin)
 exports('isFreemode', IsFreemode)

@@ -1,6 +1,10 @@
 local currentPoint
 
 local function createBlip(shop)
+  if not shop.blip or not shop.blip.enabled then
+    return
+  end
+
   local blip = AddBlipForCoord(shop.coords)
 
   SetBlipSprite(blip, shop.blip.sprite)
@@ -40,12 +44,11 @@ local function createShops()
     createBlip(shop)
     circleZones[#circleZones + 1] = CircleZone:Create(shop.coords, shop.range or 2.5, {
       name = shop.name,
-      debugPoly = true,
       data = shop,
     })
   end
 
-  local zones = ComboZone:Create(circleZones, { name = 'shops', debugPoly = true })
+  local zones = ComboZone:Create(circleZones, { name = 'shops' })
   zones:onPlayerInOut(function(isPointInside, point, zone)
     if isPointInside then
       currentPoint = zone.data
@@ -56,7 +59,3 @@ local function createShops()
   end)
 end
 createShops()
-
-RegisterNetEvent('atl-appearance:client:setSkin', function(skin)
-  SetSkin(PlayerPedId(), skin, GetEntityModel(PlayerPedId()) == joaat(skin.model))
-end)
