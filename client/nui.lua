@@ -92,6 +92,7 @@ RegisterNUICallback('skin_concluded', function(data, cb)
   else
     SetSkin(PlayerPedId(), OldSkin, GetEntityModel(PlayerPedId()) == joaat(OldSkin.model))
   end
+  TriggerServerEvent("atl-appearance:server:saveSkin", skin)
   FreezeEntityPosition(PlayerPedId(), false)
   SetNuiFocus(false, false)
   Cam.Destroy()

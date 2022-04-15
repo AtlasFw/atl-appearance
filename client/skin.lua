@@ -532,7 +532,6 @@ function SetSkin(ped, skin, reload)
 
     SetModelAsNoLongerNeeded(skin['model'])
 
-    TriggerServerEvent("atl-appearance:server:saveSkin", skin)
     return skin
   end
 
