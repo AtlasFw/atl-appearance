@@ -5,17 +5,15 @@ local function createBlip(shop)
     return
   end
 
-  local blip = AddBlipForCoord(shop.coords)
-
-  SetBlipSprite(blip, shop.blip.sprite)
-  SetBlipDisplay(blip, 2)
-  SetBlipScale(blip, shop.blip.scale)
-  SetBlipColour(blip, shop.blip.color)
-  SetBlipAsShortRange(blip, true)
-
-  BeginTextCommandSetBlipName 'STRING'
-  AddTextComponentSubstringPlayerName(shop.name)
-  EndTextCommandSetBlipName(blip)
+  ATL.CreateCoordsBlip({
+    label = shop.name,
+    coords = shop.coords,
+    sprite = shop.blip.sprite,
+    display = 2,
+    scale = shop.blip.scale,
+    color = shop.blip.color,
+    shortRange = true,
+  })
 end
 
 local function onPoint()
