@@ -36,7 +36,10 @@ local function buySkin(shop, skin, oldSkin)
     player.removeAccountMoney('cash', price)
     TriggerClientEvent('atl-appearance:client:setSkin', source, skin)
   else
-    print 'Not enough money'
+    player.notify({
+      type = 'error',
+      message = 'You don\'t have enough money.',
+    })
   end
 end
 
