@@ -15,6 +15,8 @@ const change = (key, value) => store.commit('skinChange', { key: key, value: val
       <span class="w-90% text-blue-400 font-semibold">Model</span>
       <span class="text-sky-200 font-medium">{{ $store.state.skin.model }}</span>
     </div>
-    <NSelect class="ml-2 mb-3 place-self-center mr-2.5 w-90%" v-model:value="$store.state.skin.model" @update:value="change('model', $store.state.skin.model)" :consistent-menu-width="false" :options="$store.state.data.models"></NSelect>
+		<div class="ml-2 mb-3 place-self-center mr-2.5 w-90%">
+			<NSelect v-model:value="$store.state.skin.model" @update:value="change('model', $store.state.skin.model)" :consistent-menu-width="false" :options="$store.state.data.models"></NSelect>
+		</div>
   </div>
 </template>

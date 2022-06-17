@@ -28,62 +28,62 @@ const menu = [
     label: 'Ped Model',
     key: 'ped',
     icon: CheckroomRound,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Family Inheritance',
     key: 'inheritance',
     icon: FamilyRestroomRound,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Face Structure',
     key: 'face',
     icon: FaceRetouchingNaturalRound,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Head Structure',
     key: 'head',
     icon: TagFacesOutlined,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Upper Body',
     key: 'upper',
     icon: AccessibilityNewRound,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Lower Body',
     key: 'lower',
     icon: AirlineSeatLegroomExtraRound,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Accessories',
     key: 'accessories',
     icon: GroupWorkRound,
-    type: 'info',
+		type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     label: 'Tattoos',
     key: 'tattoos',
     icon: FilterVintageRound,
-    type: 'info',
+    type: 'text-sky-300 group-hover:text-sky-500',
   },
   {
     status: true,
     label: 'Exit Appearance',
     key: 'exit',
     icon: ExitToAppRound,
-    type: 'error',
+    type: 'text-red-400 group-hover:text-red-500',
   },
   {
     label: 'Save Appearance',
     key: 'save',
     icon: SaveRound,
-    type: 'success',
+    type: 'text-emerald-300 group-hover:text-emerald-500',
   },
 ]
 
@@ -174,7 +174,6 @@ const handleMessage = e => {
 
 const handlePress = e => {
   const key = e.key
-  console.log(key)
   if (key === 'ArrowLeft') {
     fetchNui('skin_rotate', { rotation : 'left' })
   }
@@ -186,10 +185,10 @@ const handlePress = e => {
 onMounted(() => {
   window.addEventListener('message', handleMessage)
   window.addEventListener('keyup', handlePress)
-  fetchNui('app_loaded').then((resp) => {
+/*  fetchNui('app_loaded').then((resp) => {
     resp.models !== undefined ? store.commit('setModels', resp.models) : null
     resp.locales !== undefined ? store.commit('setLocales', resp.locales) : null
-  })
+  })*/
 })
 onUnmounted(() => window.removeEventListener('message', handleMessage))
 </script>
@@ -199,8 +198,8 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
     <div class="w-10 cs:w-11 cm:w-12 cl:w-13 rounded-md ml-5" v-if="state.activeSidebar">
       <div v-for="(item, index) in menu" :index="index">
         <SideButton v-if="$store.state.config[item.key].state && item.key === 'ped'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
-        <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'exit'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
-        <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'save'" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'exit'" option="hover:bg-red-100" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
+        <SideButton v-else-if="$store.state.config[item.key].state && item.key === 'save'" option="hover:bg-emerald-100" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
         <SideButton v-else-if="$store.state.config[item.key].state && $store.state.data.isFreeMode" :label="item.label" :icon="item.icon" :type="item.type" @click="updateSelector(item.key)"/>
       </div>
     </div>
@@ -220,26 +219,23 @@ onUnmounted(() => window.removeEventListener('message', handleMessage))
     </transition>
   </div>
     <div v-if="state.activeSidebar" class="absolute flex items-center justify-between bottom-5 left-[50%] transform translate-x-[-50%] w-48">
-    <button @click.self="handlePress({key: 'ArrowLeft'})" class="w-9 cs:w-10 cm:w-11 cl:w-12 h-9 cs:h-10 cm:h-11 cl:h-12 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">
+    <button @click.self="handlePress({key: 'ArrowLeft'})" class="w-9 cs:w-10 cm:w-11 cl:w-12 h-9 cs:h-10 cm:h-11 cl:h-12 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-sky-300 hover:text-sky-500 hover:bg-sky-100 transition duration-150 cursor-pointer">
       <NIcon size="3.8vh" :component="ChevronLeftRound"/>
     </button>
-    <button @click.self="handlePress({key: 'ArrowRight'})" class="w-9 cs:w-10 cm:w-11 cl:w-12 h-9 cs:h-10 cm:h-11 cl:h-12 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-blue-300 ring-2 ring-blue-300 cursor-pointer">
+    <button @click.self="handlePress({key: 'ArrowRight'})" class="w-9 cs:w-10 cm:w-11 cl:w-12 h-9 cs:h-10 cm:h-11 cl:h-12 flex items-center justify-center bg-slate-800 rounded text-xl font-bold text-sky-300 hover:text-sky-500 hover:bg-sky-100 transition duration-150 cursor-pointer">
       <NIcon size="3.8vh" :component="ChevronRightRound"/>
     </button>
   </div>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap');
+
 .body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 20px;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }

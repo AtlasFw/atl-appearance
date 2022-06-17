@@ -1,12 +1,12 @@
 <template>
-  <NButton class="flex items-center justify-center text-custom w-full h-10 cs:h-11 cm:h-12 cl:h-13 text-center bg-slate-800 rounded mt-2 mb-2" :type="type" secondary :focusable="false">
+  <button class="group flex items-center justify-center text-custom w-full h-10 cs:h-11 cm:h-12 cl:h-13 text-center bg-slate-800 transition duration-150 rounded mt-2 mb-2" :class="option">
     <NTooltip trigger="hover" placement="right" :delay="1" :duration="25">
       <template #trigger>
-        <NIcon :component="icon"/>
+        <NIcon class="group transition duration-150" :class="type" :component="icon"/>
       </template>
       {{ label }}
     </NTooltip>
-  </NButton>
+  </button>
 </template>
 
 <script>
@@ -26,7 +26,12 @@ export default {
     label: {
       type: String,
       required: true
-    }
+    },
+		option: {
+			type: String,
+			required: false,
+			default: 'hover:bg-sky-100'
+		}
   }
 }
 </script>
